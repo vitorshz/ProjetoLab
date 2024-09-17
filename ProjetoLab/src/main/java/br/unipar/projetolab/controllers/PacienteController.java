@@ -1,6 +1,7 @@
 package br.unipar.projetolab.controllers;
 
 import br.unipar.projetolab.models.Paciente;
+import br.unipar.projetolab.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
