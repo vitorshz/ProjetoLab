@@ -5,6 +5,13 @@
     <artifactId>ProjetoLab</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <repositories>
+        <repository>
+            <id>unknown-jars-temp-repo</id>
+            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
@@ -71,17 +78,10 @@
         </dependency>
 
         <dependency>
-            <groupId>raven.popup</groupId>
-            <artifactId>swing-glasspane-popup</artifactId>
-            <version>1.5.0</version>
-            <scope>system</scope>
-            <systemPath>C:\Users\lucia\OneDrive\Documentos\NetBeansProjects\ProjetoLab\ProjetoLab\library/swing-glasspane-popup-1.5.0.jar</systemPath>
-        </dependency>
-
-        <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
-            <version>3.4</version>
+            <version>3.5.1</version>
+            <type>jar</type>
         </dependency>
 
         <dependency>
@@ -89,17 +89,10 @@
             <artifactId>flatlaf-extras</artifactId>
             <version>3.4</version>
         </dependency>
-
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-swing</artifactId>
             <version>11.3</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.dj-raven</groupId>
-            <artifactId>modal-dialog</artifactId>
-            <version>1.2.0</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
@@ -113,6 +106,34 @@
             <version>2.4.0</version>
             <type>jar</type>
         </dependency>
-
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.7.7</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

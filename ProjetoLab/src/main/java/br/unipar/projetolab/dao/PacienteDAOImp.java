@@ -25,7 +25,7 @@ public class PacienteDAOImp implements PacienteDAO{
         transaction.commit();
         entityManager.close();
         
-        System.out.println("Cliente salvo com sucesso!");
+        System.out.println("Paciente salvo com sucesso!");
         return paciente;    
     }
 
@@ -37,7 +37,7 @@ public class PacienteDAOImp implements PacienteDAO{
         transaction.commit();
         entityManager.close();
         
-        System.out.println("Cliente atualizado com sucesso!");
+        System.out.println("Paciente atualizado com sucesso!");
         return paciente;
     }
 
@@ -51,11 +51,11 @@ public class PacienteDAOImp implements PacienteDAO{
             transaction.commit();
             entityManager.close();
 
-            System.out.println("Cliente removido com sucesso!");
+            System.out.println("Paciente removido com sucesso!");
             return true;
         } catch (Exception e) {
             transaction.rollback();
-            System.out.println("Cliente atualizado com sucesso!");
+            System.out.println("Paciente atualizado com sucesso!");
             return false;
         }
     }
@@ -67,7 +67,7 @@ public class PacienteDAOImp implements PacienteDAO{
 
     @Override
     public List<Paciente> findAll() {
-        return entityManager.createQuery("SELECT c FROM Cliente c",
+        return entityManager.createQuery("SELECT p FROM Paciente p",
                 Paciente.class).getResultList();    }
     
 }

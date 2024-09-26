@@ -1,9 +1,9 @@
 package br.unipar.projetolab.models;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pacientes")
 public class Paciente {
 
     @Id
@@ -14,9 +14,9 @@ public class Paciente {
     private String nome;
 
     @Column(name = "data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
-    @Column(unique = true, nullable = false, length = 11)
+    @Column(unique = true, nullable = false, length = 14)
     private String cpf;
 
     private String endereco;
@@ -28,7 +28,7 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, String dataNascimento, String cpf, String endereco, String telefone) {
+    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -36,6 +36,9 @@ public class Paciente {
         this.endereco = endereco;
         this.telefone = telefone;
     }
+    
+    
+   
 
     public Long getId() {
         return id;
@@ -53,13 +56,14 @@ public class Paciente {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
 
     public String getCpf() {
         return cpf;
