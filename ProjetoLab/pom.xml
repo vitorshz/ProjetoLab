@@ -69,5 +69,50 @@
             <version>2.7.12</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>raven.popup</groupId>
+            <artifactId>swing-glasspane-popup</artifactId>
+            <version>1.5.0</version>
+            <scope>system</scope>
+            <systemPath>C:\Users\lucia\OneDrive\Documentos\NetBeansProjects\ProjetoLab\ProjetoLab\library/swing-glasspane-popup-1.5.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swing</artifactId>
+            <version>11.3</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.dj-raven</groupId>
+            <artifactId>modal-dialog</artifactId>
+            <version>1.2.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-fonts-roboto</artifactId>
+            <version>2.137</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.dlsc.gemsfx</groupId>
+            <artifactId>gemsfx</artifactId>
+            <version>2.4.0</version>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
 </project>

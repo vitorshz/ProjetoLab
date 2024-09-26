@@ -1,34 +1,21 @@
-package br.unipar.projetolab.models;
+package br.unipar.projetolab.DTO;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "pacientes")
-public class Paciente {
+public class PacienteDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "data_nascimento")
     private String dataNascimento;
 
-    @Column(unique = true, nullable = false, length = 11)
     private String cpf;
 
     private String endereco;
 
     private String telefone;
 
-    // Getters e Setters
-    
-    public Paciente() {
-    }
-
-    public Paciente(Long id, String nome, String dataNascimento, String cpf, String endereco, String telefone) {
+    public PacienteDTO(Long id, String nome, String dataNascimento, String cpf, String endereco, String telefone) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -36,6 +23,7 @@ public class Paciente {
         this.endereco = endereco;
         this.telefone = telefone;
     }
+    
 
     public Long getId() {
         return id;
@@ -84,5 +72,7 @@ public class Paciente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    
     
 }
