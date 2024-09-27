@@ -15,38 +15,31 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
-/**
- *
- * @author vinid
- */
+
 public class MedicoFrame extends javax.swing.JFrame {
      private MaskFormatter mfdata,mfcpf,mfcelular,mfCRM;
 
-    /**
-     * Creates new form MedicoFrame
-     */
-private Medico medicoAtual; // Instância do médico atual
+    
+private Medico medicoAtual; 
 
 public MedicoFrame() throws ParseException {
     try {
-        // Inicializando as máscaras para formatação
-        mfdata = new MaskFormatter("##/##/####"); // Data de Nascimento
-        mfcpf = new MaskFormatter("###.###.###-##"); // CPF
-        mfcelular = new MaskFormatter("(##) #####-####"); // Telefone/Celular
+       
+        mfdata = new MaskFormatter("##/##/####");
+        mfcpf = new MaskFormatter("###.###.###-##"); 
+        mfcelular = new MaskFormatter("(##) #####-####"); 
 
  
-        mfCRM = new MaskFormatter("######/##"); // Exemplo de formato para CRM
+        mfCRM = new MaskFormatter("######/##"); 
 
     } catch (Exception e) {
         System.out.println("Erro ao criar a máscara: " + e.getMessage());
     }
 
-    initComponents(); // Chama o método para inicializar os componentes da interface gráfica
+    initComponents();
 }
 
 @SuppressWarnings("unchecked")
-// Outros métodos da classe...
-
 
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,6 +55,7 @@ public MedicoFrame() throws ParseException {
         fecharBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         estadoBox = new javax.swing.JComboBox<>();
         CRMField = new javax.swing.JTextField();
@@ -143,21 +137,27 @@ public MedicoFrame() throws ParseException {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setText("Cadastro de Medico");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/image_26.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addContainerGap(606, Short.MAX_VALUE))
+                .addContainerGap(643, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel2)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -396,7 +396,7 @@ public MedicoFrame() throws ParseException {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -414,27 +414,28 @@ public MedicoFrame() throws ParseException {
     private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
         habilitarCampos();
         limparCampos();
-        medicoAtual = null;  // Define null para indicar que um novo paciente será criado
-        cpfField.setEditable(true);  // CPF pode ser editado apenas para novos cadastros
+        medicoAtual = null;  
+        cpfField.setEditable(true);  
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-      
+       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+       pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
        try {
-    // Captura os dados do formulário
+    
     String nome = nomeField.getText();
-    String conselhoCrm = CRMField.getText();  // Conselho CRM
-    String especialidade = especialiddeField.getText(); // Especialidade
-    String tipo = (String) tipoBox.getSelectedItem(); // Tipo (Dr/Dra)
+    String conselhoCrm = CRMField.getText();  
+    String especialidade = especialiddeField.getText(); 
+    String tipo = (String) tipoBox.getSelectedItem();
     String cpf = cpfField.getText();
-    String endereco = enderecoField.getText();  // Endereço
+    String endereco = enderecoField.getText();  
     String celular = telefoneField.getText();
     String observacoes = OBSField.getText();
 
-    // Formatar a data de nascimento de String para LocalDate
+    
     String dataNascimentoStr = dataNascField.getText();
     LocalDate dataNascimento;
     try {
@@ -445,13 +446,13 @@ public MedicoFrame() throws ParseException {
         return;
     }
 
-    // Verifica se os campos obrigatórios estão preenchidos
+   
     if (nome.isEmpty() || conselhoCrm.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
         return;
     }
 
-    // Cria uma nova instância de Medico ou usa o médico atual para edição
+    
     Medico medico = medicoAtual != null ? medicoAtual : new Medico();
     medico.setNome(nome);
     medico.setConselhoCrm(conselhoCrm);
@@ -464,7 +465,7 @@ public MedicoFrame() throws ParseException {
     medico.setObservacoes(observacoes);
     medico.setDataNascimento(dataNascimento);
 
-    // Salva o médico no banco de dados
+   
     MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
     if (medicoAtual != null) {
         medicoDAO.update(medico);
@@ -472,10 +473,10 @@ public MedicoFrame() throws ParseException {
         medicoDAO.save(medico);
     }
 
-    // Exibe mensagem de sucesso
+    
     JOptionPane.showMessageDialog(this, "Médico salvo com sucesso!");
 
-    // Limpa os campos após o cadastro e desabilita-os
+    
     limparCampos();
     desabilitarCampos();
 
@@ -577,6 +578,7 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JComboBox<String> estadoBox;
     private javax.swing.JButton excluirBtn;
     private javax.swing.JButton fecharBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -600,11 +602,11 @@ public MedicoFrame() throws ParseException {
     nomeField.setText("");
     cpfField.setText("");
     dataNascField.setText("");
-    enderecoField.setText(""); // Endereço
+    enderecoField.setText(""); 
     telefoneField.setText("");
-    CRMField.setText(""); // CRM
-    especialiddeField.setText(""); // Especialidade
-    tipoBox.setSelectedItem(null); // Tipo
+    CRMField.setText(""); 
+    especialiddeField.setText(""); 
+    tipoBox.setSelectedItem(null); 
 }
 
 private void desabilitarCampos() {
@@ -616,7 +618,7 @@ private void desabilitarCampos() {
     CRMField.setEditable(false);
     especialiddeField.setEditable(false);
     tipoBox.setEnabled(false);
-    codigoField.setEditable(false); // O campo de código sempre será não editável
+    codigoField.setEditable(false); 
 }
 
 public void carregarMedico(Medico medico) {
@@ -625,7 +627,7 @@ public void carregarMedico(Medico medico) {
     nomeField.setText(medico.getNome());
     cpfField.setText(medico.getCpf());
 
-    // Formatar e setar a data de nascimento
+    
     LocalDate dataNascimento = medico.getDataNascimento();
     if (dataNascimento != null) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -637,20 +639,20 @@ public void carregarMedico(Medico medico) {
     CRMField.setText(medico.getConselhoCrm());
     especialiddeField.setText(medico.getEspecialidade());
     
-    // Setar o tipo nos respectivos JComboBox
+    
     tipoBox.setSelectedItem(medico.getTipo());
 
     habilitarCamposParaEdicao();
 }
 
-// Método para receber o médico selecionado
+
 public void receberMedico(Medico medico) {
     if (medico != null) {
-        carregarMedico(medico); // Preenche os campos com o médico selecionado
+        carregarMedico(medico);
     }
 }
 
-// Método para habilitar campos
+
 private void habilitarCampos() {
     nomeField.setEditable(true);
     cpfField.setEditable(true);
@@ -660,10 +662,10 @@ private void habilitarCampos() {
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
-    codigoField.setEditable(false); // O campo de código continua não editável
+    codigoField.setEditable(false); 
 }
 
-// Método para habilitar apenas os campos que podem ser editados
+
 private void habilitarCamposParaEdicao() {
     nomeField.setEditable(true);
     enderecoField.setEditable(true);
@@ -672,25 +674,25 @@ private void habilitarCamposParaEdicao() {
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
 
-    // CPF e Data de Nascimento continuam desabilitados para edição
+   
     cpfField.setEditable(false);
     dataNascField.setEditable(false);
 }
 
-// Método que recebe o médico selecionado para inativação
+
 public void receberMedicoParaInativar(Medico medico) {
     if (medico != null) {
-        // Exibe um diálogo de confirmação
+        
         int confirmacao = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja inativar o médico: " + medico.getNome() + "?",
                 "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
 
         if (confirmacao == JOptionPane.YES_OPTION) {
-            // Se confirmado, inativa o médico
+            
             try {
                 MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
-                medico.setAtivo(false); // Marca o médico como inativo
-                medicoDAO.update(medico); // Atualiza o médico no banco
+                medico.setAtivo(false); 
+                medicoDAO.update(medico); 
                 JOptionPane.showMessageDialog(this, "Médico inativado com sucesso!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao inativar o médico: " + ex.getMessage());

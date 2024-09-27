@@ -80,7 +80,6 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         }
 
         selecionarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        selecionarBtn.setForeground(new java.awt.Color(0, 0, 0));
         selecionarBtn.setText("Selecionar");
         selecionarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +88,6 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         });
 
         cancelarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        cancelarBtn.setForeground(new java.awt.Color(0, 0, 0));
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,7 +109,6 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         });
 
         pesquisaPacienteBtn.setBackground(new java.awt.Color(243, 255, 229));
-        pesquisaPacienteBtn.setForeground(new java.awt.Color(0, 0, 0));
         pesquisaPacienteBtn.setText("Pesquisar");
         pesquisaPacienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
