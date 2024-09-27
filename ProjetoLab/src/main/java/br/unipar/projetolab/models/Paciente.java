@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.unipar.projetolab.models;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pacientes")
 public class Paciente {
 
     @Id
@@ -18,27 +14,39 @@ public class Paciente {
     private String nome;
 
     @Column(name = "data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
-    @Column(unique = true, nullable = false, length = 11)
+    @Column(unique = true, nullable = false, length = 14)
     private String cpf;
 
     private String endereco;
 
     private String telefone;
+    
+    @Column(nullable = false)
+    private boolean ativo = true;  // Novo campo, por padrão todos pacientes são ativos
 
-    // Getters e Setters
+    @Column(length = 10)
+    private String sexo;  // Masculino ou Feminino
+
+    @Column(length = 2)
+    private String tipoSangue;  // A, B, AB, O
+
+    private String fatorRh; 
     
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, String dataNascimento, String cpf, String endereco, String telefone) {
+    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone, String sexo, String tipoSangue, String fatorRh) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.sexo = sexo;
+        this.tipoSangue = tipoSangue;
+        this.fatorRh = fatorRh;
     }
 
     public Long getId() {
@@ -57,14 +65,22 @@ public class Paciente {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
     public String getCpf() {
         return cpf;
     }
@@ -88,5 +104,31 @@ public class Paciente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getTipoSangue() {
+        return tipoSangue;
+    }
+
+    public void setTipoSangue(String tipoSangue) {
+        this.tipoSangue = tipoSangue;
+    }
+
+    public String getFatorRh() {
+        return fatorRh;
+    }
+
+    public void setFatorRh(String fatorRh) {
+        this.fatorRh = fatorRh;
+    }
     
+    
+
 }
