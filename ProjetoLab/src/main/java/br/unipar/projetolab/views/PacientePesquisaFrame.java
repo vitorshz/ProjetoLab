@@ -5,6 +5,7 @@ import br.unipar.projetolab.dao.PacienteDAOImp;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.tablemodels.PacienteTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.text.ParseException;
 import java.util.List;
@@ -21,6 +22,7 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
 
     // Construtor que recebe a instância do PacienteFrame e o modo (exclusão ou edição)
     public PacientePesquisaFrame(PacienteFrame pacienteFrame, boolean modoExclusao) {
+        FlatLightLaf.setup();
         this.pacienteFrame = pacienteFrame;
         this.modoExclusao = modoExclusao;  // Define se estamos em modo de exclusão
         initComponents();
@@ -77,6 +79,8 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        selecionarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        selecionarBtn.setForeground(new java.awt.Color(0, 0, 0));
         selecionarBtn.setText("Selecionar");
         selecionarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +88,8 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
             }
         });
 
+        cancelarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        cancelarBtn.setForeground(new java.awt.Color(0, 0, 0));
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +110,8 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
             }
         });
 
+        pesquisaPacienteBtn.setBackground(new java.awt.Color(243, 255, 229));
+        pesquisaPacienteBtn.setForeground(new java.awt.Color(0, 0, 0));
         pesquisaPacienteBtn.setText("Pesquisar");
         pesquisaPacienteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,22 +135,20 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(pesquisaPacienteBtn)))
-                                .addGap(0, 44, Short.MAX_VALUE))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cancelarBtn)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selecionarBtn)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(selecionarBtn)
+                            .addComponent(pesquisaPacienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
