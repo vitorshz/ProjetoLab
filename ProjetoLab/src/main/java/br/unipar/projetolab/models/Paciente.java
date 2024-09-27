@@ -26,20 +26,28 @@ public class Paciente {
     @Column(nullable = false)
     private boolean ativo = true;  // Novo campo, por padrão todos pacientes são ativos
 
+    @Column(length = 10)
+    private String sexo;  // Masculino ou Feminino
+
+    @Column(length = 2)
+    private String tipoSangue;  // A, B, AB, O
+
+    private String fatorRh; 
     
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone) {
+    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone, String sexo, String tipoSangue, String fatorRh) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.sexo = sexo;
+        this.tipoSangue = tipoSangue;
+        this.fatorRh = fatorRh;
     }
-
-    
 
     public Long getId() {
         return id;
@@ -95,6 +103,30 @@ public class Paciente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getTipoSangue() {
+        return tipoSangue;
+    }
+
+    public void setTipoSangue(String tipoSangue) {
+        this.tipoSangue = tipoSangue;
+    }
+
+    public String getFatorRh() {
+        return fatorRh;
+    }
+
+    public void setFatorRh(String fatorRh) {
+        this.fatorRh = fatorRh;
     }
     
     

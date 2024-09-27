@@ -100,7 +100,7 @@ public class PacienteFrame extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Sexo:");
 
-        sexoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sexoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Feminino" }));
         sexoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sexoBoxActionPerformed(evt);
@@ -110,7 +110,7 @@ public class PacienteFrame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Sangue:");
 
-        sangueBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sangueBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "O" }));
         sangueBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sangueBoxActionPerformed(evt);
@@ -120,7 +120,7 @@ public class PacienteFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Fator RH:");
 
-        fatorRHBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fatorRHBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Positivo", "Negativo" }));
         fatorRHBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fatorRHBoxActionPerformed(evt);
@@ -290,15 +290,17 @@ public class PacienteFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel7)
                     .addComponent(sexoBox)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)
-                        .addComponent(dataNascField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dataNascField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)))
                     .addComponent(sangueBox)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel10)
-                        .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(telefoneField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10)))
                     .addComponent(fatorRHBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -360,8 +362,14 @@ public class PacienteFrame extends javax.swing.JFrame {
         try {
             // Captura os dados do formulário
             String nome = nomeField.getText();
-            String endereco = enderecoField.getText();
+            String cpf = cpfField.getText();
+            String endereco = enderecoField.getText();  // Endereço
             String telefone = telefoneField.getText();
+
+            // Capturar as seleções dos JComboBox
+            String sexo = (String) sexoBox.getSelectedItem();
+            String tipoSangue = (String) sangueBox.getSelectedItem();
+            String fatorRh = (String) fatorRHBox.getSelectedItem();
 
             // Formatar a data de nascimento de String para LocalDate
             String dataNascimentoStr = dataNascField.getText();
@@ -375,43 +383,39 @@ public class PacienteFrame extends javax.swing.JFrame {
             }
 
             // Verifica se os campos obrigatórios estão preenchidos
-            if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
+            if (nome.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
                 return;
             }
 
-            // Verifica se estamos criando um novo paciente ou atualizando um existente
+            // Cria uma nova instância de Paciente ou usa o paciente atual para edição
+            Paciente paciente = pacienteAtual != null ? pacienteAtual : new Paciente();
+            paciente.setNome(nome);
+            paciente.setCpf(cpf);
+            paciente.setDataNascimento(dataNascimento);
+            paciente.setEndereco(endereco);
+            paciente.setTelefone(telefone);
+            paciente.setSexo(sexo);
+            paciente.setTipoSangue(tipoSangue);
+            paciente.setFatorRh(fatorRh);
+
+            // Salva o paciente no banco de dados
             PacienteDAO pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
-            if (pacienteAtual == null) {
-                // Criando um novo paciente
-                Paciente novoPaciente = new Paciente();
-                novoPaciente.setNome(nome);
-                novoPaciente.setCpf(cpfField.getText());  // CPF já inserido e validado
-                novoPaciente.setDataNascimento(dataNascimento);
-                novoPaciente.setEndereco(endereco);
-                novoPaciente.setTelefone(telefone);
-
-                // Persistir no banco de dados
-                pacienteDAO.save(novoPaciente);
-                JOptionPane.showMessageDialog(this, "Paciente cadastrado com sucesso!");
+            if (pacienteAtual != null) {
+                pacienteDAO.update(paciente);
             } else {
-                // Atualizando o paciente existente
-                pacienteAtual.setNome(nome);
-                pacienteAtual.setEndereco(endereco);
-                pacienteAtual.setTelefone(telefone);
-                pacienteAtual.setDataNascimento(dataNascimento);  // Atualizar o campo de data de nascimento, se necessário
-
-                // Atualizar no banco de dados
-                pacienteDAO.update(pacienteAtual);
-                JOptionPane.showMessageDialog(this, "Paciente atualizado com sucesso!");
+                pacienteDAO.save(paciente);
             }
 
-            // Limpar e desabilitar campos após salvar ou atualizar
+            // Exibe mensagem de sucesso
+            JOptionPane.showMessageDialog(this, "Paciente salvo com sucesso!");
+
+            // Limpa os campos após o cadastro e desabilita-os
             limparCampos();
             desabilitarCampos();
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar/atualizar paciente: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao salvar paciente: " + ex.getMessage());
         }
 
     }//GEN-LAST:event_salvarBtnActionPerformed
@@ -521,19 +525,22 @@ public class PacienteFrame extends javax.swing.JFrame {
         nomeField.setText(paciente.getNome());
         cpfField.setText(paciente.getCpf());
 
-        // Converter LocalDate para String no formato dd/MM/yyyy
+        // Formatar e setar a data de nascimento
         LocalDate dataNascimento = paciente.getDataNascimento();
         if (dataNascimento != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String dataFormatada = dataNascimento.format(formatter);
-            dataNascField.setText(dataFormatada);
+            dataNascField.setText(dataNascimento.format(formatter));
         }
 
         enderecoField.setText(paciente.getEndereco());
         telefoneField.setText(paciente.getTelefone());
 
+        // Setar os valores do sexo, sangue e fator RH nos respectivos JComboBox
+        sexoBox.setSelectedItem(paciente.getSexo());
+        sangueBox.setSelectedItem(paciente.getTipoSangue());
+        fatorRHBox.setSelectedItem(paciente.getFatorRh());
+
         habilitarCamposParaEdicao();
-        desabilitarEdicao();
     }
 
     
