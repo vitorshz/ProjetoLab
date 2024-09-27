@@ -86,6 +86,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Login");
 
         usuariotxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -98,10 +99,12 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Senha");
 
         entrar.setBackground(new java.awt.Color(204, 204, 204));
         entrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        entrar.setForeground(new java.awt.Color(0, 0, 0));
         entrar.setText("Entrar");
         entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +114,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         BtnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         BtnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnCancelar.setForeground(new java.awt.Color(0, 0, 0));
         BtnCancelar.setText("Cancelar");
         BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,14 +206,20 @@ public class LoginFrame extends javax.swing.JFrame {
     // Aqui você chamaria um método para buscar o operador no banco de dados
     Operador operador = buscarOperador(usuario, senha);
     
-    if (operador != null) {
-        // Login bem-sucedido
-        JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        // Aqui você pode abrir a próxima tela ou fazer outra ação
-    } else {
-        // Falha no login
-        JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
-    }
+        if (operador != null) {
+            // Login bem-sucedido
+            JOptionPane.showMessageDialog(this, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+            // Fecha o LoginFrame
+            dispose();
+
+            // Abre a tela principal (Main)
+            Main mainFrame = new Main();
+            mainFrame.setVisible(true);
+        } else {
+            // Falha no login
+            JOptionPane.showMessageDialog(this, "Usuário ou senha inválidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_entrarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed

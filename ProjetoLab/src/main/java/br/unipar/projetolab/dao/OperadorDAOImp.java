@@ -65,4 +65,5 @@ public class OperadorDAOImp implements OperadorDAO {
     public List<Operador> findAll() {
         return entityManager.createQuery("SELECT o FROM Operador o", Operador.class).getResultList();
     }
+    
 }

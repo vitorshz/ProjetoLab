@@ -100,10 +100,13 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="tipoBox" min="-2" pref="96" max="-2" attributes="0"/>
                               <Component id="dataNascField" min="-2" pref="166" max="-2" attributes="0"/>
-                              <Component id="cpfField" alignment="0" pref="347" max="32767" attributes="0"/>
-                              <Component id="enderecoField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cpfField" alignment="0" pref="417" max="32767" attributes="0"/>
                               <Component id="telefoneField" min="-2" pref="159" max="-2" attributes="0"/>
-                              <Component id="OBSField" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="enderecoField" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="OBSField" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -205,8 +208,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="OBSField" min="-2" pref="81" max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <Component id="OBSField" min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="37" max="32767" attributes="0"/>
                       </Group>
@@ -415,7 +418,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Espeecialidade:"/>
+            <Property name="text" type="java.lang.String" value="Especialidade:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
@@ -429,9 +432,11 @@
         <Component class="javax.swing.JComboBox" name="tipoBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="solicitante"/>
-                <StringItem index="1" value=" "/>
+              <StringArray count="4">
+                <StringItem index="0" value="Solicitante"/>
+                <StringItem index="1" value="Realizante"/>
+                <StringItem index="2" value="SolicitanteRealizante"/>
+                <StringItem index="3" value="Preferencial"/>
               </StringArray>
             </Property>
           </Properties>
@@ -517,19 +522,8 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Oserva&#xe7;&#xe3;o:"/>
+            <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="OBSField">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OBSFieldActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(mfcelular)"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="nomeField">
           <Properties>
@@ -546,6 +540,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="especialiddeFieldActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="OBSField">
         </Component>
       </SubComponents>
     </Container>

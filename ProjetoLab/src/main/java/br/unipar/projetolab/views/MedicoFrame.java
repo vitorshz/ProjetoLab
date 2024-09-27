@@ -6,6 +6,7 @@ import br.unipar.projetolab.dao.MedicoDAOImp;
 import br.unipar.projetolab.models.Medico;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.utils.EntityManagerUtil;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,9 +73,9 @@ public MedicoFrame() throws ParseException {
         jLabel5 = new javax.swing.JLabel();
         dataNascField = new javax.swing.JFormattedTextField(mfdata);
         jLabel12 = new javax.swing.JLabel();
-        OBSField = new javax.swing.JFormattedTextField(mfcelular);
         nomeField = new javax.swing.JTextField();
         especialiddeField = new javax.swing.JTextField();
+        OBSField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,12 +182,12 @@ public MedicoFrame() throws ParseException {
         jLabel14.setText("Nome:");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel15.setText("Espeecialidade:");
+        jLabel15.setText("Especialidade:");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Tipo:");
 
-        tipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "solicitante", " " }));
+        tipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solicitante", "Realizante", "SolicitanteRealizante", "Preferencial" }));
         tipoBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoBoxActionPerformed(evt);
@@ -229,14 +230,7 @@ public MedicoFrame() throws ParseException {
         });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("Oservação:");
-
-        OBSField.setEditable(false);
-        OBSField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OBSFieldActionPerformed(evt);
-            }
-        });
+        jLabel12.setText("Observação:");
 
         nomeField.setEditable(false);
         nomeField.addActionListener(new java.awt.event.ActionListener() {
@@ -296,9 +290,11 @@ public MedicoFrame() throws ParseException {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dataNascField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cpfField, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-                            .addComponent(enderecoField)
+                            .addComponent(cpfField, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
                             .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(enderecoField)
+                                .addGap(208, 208, 208))
                             .addComponent(OBSField))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -377,8 +373,8 @@ public MedicoFrame() throws ParseException {
                             .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(OBSField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel12)
+                            .addComponent(OBSField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(37, Short.MAX_VALUE))))
         );
 
@@ -407,7 +403,8 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-       
+       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+       pesquisaFrame.setVisible(true);
         
     }//GEN-LAST:event_excluirBtnActionPerformed
 
@@ -419,7 +416,7 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, false);
        pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
@@ -515,10 +512,6 @@ public MedicoFrame() throws ParseException {
         // TODO add your handling code here:
     }//GEN-LAST:event_dataNascFieldActionPerformed
 
-    private void OBSFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OBSFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OBSFieldActionPerformed
-
     private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeFieldActionPerformed
@@ -531,31 +524,8 @@ public MedicoFrame() throws ParseException {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MedicoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MedicoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MedicoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MedicoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+        FlatLightLaf.setup();
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -571,7 +541,7 @@ public MedicoFrame() throws ParseException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CRMField;
-    private javax.swing.JFormattedTextField OBSField;
+    private javax.swing.JTextField OBSField;
     private javax.swing.JTextField codigoField;
     private javax.swing.JFormattedTextField cpfField;
     private javax.swing.JFormattedTextField dataNascField;
@@ -622,6 +592,8 @@ private void desabilitarCampos() {
     especialiddeField.setEditable(false);
     tipoBox.setEnabled(false);
     codigoField.setEditable(false); 
+    OBSField.setEditable(false);
+
 }
 
 public void carregarMedico(Medico medico) {
@@ -665,7 +637,9 @@ private void habilitarCampos() {
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
-    codigoField.setEditable(false); 
+    codigoField.setEditable(false);
+    OBSField.setEditable(true);
+
 }
 
 
@@ -676,6 +650,7 @@ private void habilitarCamposParaEdicao() {
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
+    OBSField.setEditable(true);
 
    
     cpfField.setEditable(false);
