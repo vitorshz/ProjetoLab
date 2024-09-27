@@ -169,6 +169,10 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Insira o nome do paciente aqui"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField1FocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField1FocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="pesquisaPacienteBtn">
       <Properties>

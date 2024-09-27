@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
-
 public class PacienteFrame extends javax.swing.JFrame {
     
     private MaskFormatter mfdata,mfcpf,mfcelular;
@@ -511,7 +510,7 @@ public class PacienteFrame extends javax.swing.JFrame {
         nomeField.setEditable(false);
         cpfField.setEditable(false);
         dataNascField.setEditable(false);
-        enderecoField.setEditable(false);  // Campo de endereço (ajuste o nome conforme necessário)
+        enderecoField.setEditable(false);
         telefoneField.setEditable(false);
         sexoBox.setEnabled(false);
         sangueBox.setEnabled(false);
@@ -557,7 +556,7 @@ public class PacienteFrame extends javax.swing.JFrame {
         nomeField.setEditable(true);
         cpfField.setEditable(true);
         dataNascField.setEditable(true);
-        enderecoField.setEditable(true);  // Campo de endereço (ajuste o nome conforme necessário)
+        enderecoField.setEditable(true); 
         telefoneField.setEditable(true);
         sexoBox.setEnabled(true);
         sangueBox.setEnabled(true);
@@ -575,12 +574,6 @@ public class PacienteFrame extends javax.swing.JFrame {
         fatorRHBox.setEnabled(true);
 
         // CPF e Data de Nascimento continuam desabilitados para edição
-        cpfField.setEditable(false);
-        dataNascField.setEditable(false);
-    }
-    
-    // Método para desabilitar edição de CPF e Data de Nascimento durante a edição de um paciente existente
-    private void desabilitarEdicao() {
         cpfField.setEditable(false);
         dataNascField.setEditable(false);
     }

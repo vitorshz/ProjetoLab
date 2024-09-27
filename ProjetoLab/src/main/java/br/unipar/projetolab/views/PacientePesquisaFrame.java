@@ -5,6 +5,7 @@ import br.unipar.projetolab.dao.PacienteDAOImp;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.tablemodels.PacienteTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
+import java.awt.Color;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
@@ -94,6 +95,14 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         jLabel1.setText("Nome:");
 
         jTextField1.setText("Insira o nome do paciente aqui");
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
 
         pesquisaPacienteBtn.setText("Pesquisar");
         pesquisaPacienteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +213,20 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
             jTable1.setModel(tableModel);
         }
     }//GEN-LAST:event_pesquisaPacienteBtnActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        if(jTextField1.getText().equals("Insira o nome do paciente aqui")){
+            jTextField1.setText("");
+            jTextField1.setForeground(Color.lightGray);
+        }
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        if (jTextField1.getText().equals("")) {
+            jTextField1.setText("Insira o nome do paciente aqui");
+            jTextField1.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_jTextField1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
