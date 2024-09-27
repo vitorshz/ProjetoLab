@@ -2,6 +2,7 @@ package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.ConvenioDAO;
 import br.unipar.projetolab.dao.ConvenioDAOImp;
+import br.unipar.projetolab.enums.TipoPessoa;
 import br.unipar.projetolab.models.Convenio;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -53,7 +54,6 @@ public class ConvenioFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         cnpjField = new javax.swing.JFormattedTextField(mfcnpj);
-        fantasiaField = new javax.swing.JFormattedTextField(mfcelular);
         jLabel12 = new javax.swing.JLabel();
         telefoneField = new javax.swing.JFormattedTextField(mfcelular);
         jLabel13 = new javax.swing.JLabel();
@@ -62,6 +62,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         cepfield = new javax.swing.JFormattedTextField(mfcep);
         jLabel15 = new javax.swing.JLabel();
+        fantasiaField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -107,7 +108,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Pessoa:");
 
-        tipoPessoaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jurídica", "Física" }));
+        tipoPessoaComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Juridica", "Fisica" }));
         tipoPessoaComboBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tipoPessoaComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,13 +213,6 @@ public class ConvenioFrame extends javax.swing.JFrame {
 
         cnpjField.setEditable(false);
 
-        fantasiaField.setEditable(false);
-        fantasiaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fantasiaFieldActionPerformed(evt);
-            }
-        });
-
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Telefone:");
@@ -263,6 +257,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("CEP:");
 
+        fantasiaField.setEditable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -270,8 +266,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,11 +279,11 @@ public class ConvenioFrame extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cepfield))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(observacoesField))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(6, 6, 6)
                         .addComponent(cnpjField, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,15 +291,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(enderecoField))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(razaoSocialField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fantasiaField))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(6, 6, 6)
                         .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,8 +302,16 @@ public class ConvenioFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tipoPessoaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(266, Short.MAX_VALUE))
+                        .addComponent(tipoPessoaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(razaoSocialField, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fantasiaField)))
+                .addContainerGap(272, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(fecharBtn)
@@ -345,15 +341,20 @@ public class ConvenioFrame extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(jLabel6))
                     .addComponent(tipoPessoaComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fantasiaField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(razaoSocialField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(4, 4, 4))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(razaoSocialField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fantasiaField, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
@@ -412,7 +413,6 @@ public class ConvenioFrame extends javax.swing.JFrame {
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
         try {
-            // Captura os dados do formulário
             String nome = nomeField.getText();
             String razaoSocial = razaoSocialField.getText();
             String cnpj = cnpjField.getText();
@@ -421,8 +421,10 @@ public class ConvenioFrame extends javax.swing.JFrame {
             String endereco = enderecoField.getText();
             String observacoes = observacoesField.getText();
             String cep = cepfield.getText();
+            String fantasia = fantasiaField.getText();
+            TipoPessoa tipoPessoa = TipoPessoa.valueOf(tipoPessoaComboBox.getSelectedItem().toString().toUpperCase());
 
-            // Verifica se os campos obrigatórios estão preenchidos
+
             if (nome.isEmpty() || cnpj.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
                 return;
@@ -430,7 +432,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
 
             // Verifica se estamos editando um convênio existente ou criando um novo
             if (convenioAtual == null) {
-                convenioAtual = new Convenio();  // Cria um novo convênio
+                convenioAtual = new Convenio(); 
             }
 
             // Atualiza os dados do convênio
@@ -442,17 +444,18 @@ public class ConvenioFrame extends javax.swing.JFrame {
             convenioAtual.setEndereco(endereco);
             convenioAtual.setObservacoes(observacoes);
             convenioAtual.setCep(cep);
-            convenioAtual.setAtivo(true);  // Sempre ativo após salvar
+            convenioAtual.setFantasia(fantasia);
+            convenioAtual.setTipoPessoa(tipoPessoa); 
+            convenioAtual.setAtivo(true); 
 
             // Salva no banco de dados
             ConvenioDAOImp convenioDAO = new ConvenioDAOImp(EntityManagerUtil.getManager());
             convenioDAO.save(convenioAtual);
 
-            // Exibe mensagem de sucesso
             JOptionPane.showMessageDialog(this, "Convênio salvo com sucesso!");
 
-            limparCampos();  // Limpa os campos após o salvamento
-            desabilitarCampos();  // Desabilita os campos após salvar
+            limparCampos();
+            desabilitarCampos();
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao salvar convênio: " + ex.getMessage());
@@ -465,8 +468,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
-        habilitarCampos();  // Habilita os campos para cadastro
-        limparCampos();  // Limpa os campos para um novo cadastro
+        habilitarCampos();
+        limparCampos();
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
@@ -477,10 +480,6 @@ public class ConvenioFrame extends javax.swing.JFrame {
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
         this.dispose();
     }//GEN-LAST:event_fecharBtnActionPerformed
-
-    private void fantasiaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fantasiaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fantasiaFieldActionPerformed
 
     private void telefoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneFieldActionPerformed
         // TODO add your handling code here:
@@ -542,7 +541,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
     private javax.swing.JButton editBtn;
     private javax.swing.JTextField enderecoField;
     private javax.swing.JButton excluirBtn;
-    private javax.swing.JFormattedTextField fantasiaField;
+    private javax.swing.JTextField fantasiaField;
     private javax.swing.JButton fecharBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -577,6 +576,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
         cepfield.setEditable(true);
         enderecoField.setEditable(true);
         observacoesField.setEditable(true);
+        fantasiaField.setEditable(true);
+
     }
 
     private void desabilitarCampos() {
@@ -588,6 +589,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
         cepfield.setEditable(false);
         enderecoField.setEditable(false);
         observacoesField.setEditable(false);
+        fantasiaField.setEditable(false);
+
     }
 
     private void limparCampos() {
@@ -600,6 +603,8 @@ public class ConvenioFrame extends javax.swing.JFrame {
         cepfield.setText("");
         enderecoField.setText("");
         observacoesField.setText("");
+        fantasiaField.setText("");
+
     }
     void carregarConvenio(Convenio convenio) {
         codigoField.setText(convenio.getId().toString());
@@ -611,6 +616,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
         cepfield.setText(convenio.getCep());
         enderecoField.setText(convenio.getEndereco());
         observacoesField.setText(convenio.getObservacoes());
+        fantasiaField.setText(convenio.getFantasia());
     }
 
 }

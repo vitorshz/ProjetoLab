@@ -1,3 +1,4 @@
+
 package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.ConvenioDAO;
@@ -9,14 +10,13 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-
-public class ConvenioPesquisaFrame extends javax.swing.JFrame {
+public class ConvenioPesquisaPanelk extends javax.swing.JFrame {
     
     private ConvenioTableModel tableModel;
     private ConvenioFrame convenioFrame;
     private boolean modoInativacao;  // Se verdadeiro, estamos no modo de inativação
     
-    public ConvenioPesquisaFrame(ConvenioFrame convenioFrame, boolean modoInativacao) {
+    public ConvenioPesquisaPanelk(ConvenioFrame convenioFrame, boolean modoInativacao) {
         this.convenioFrame = convenioFrame;
         this.modoInativacao = modoInativacao;
         initComponents();
@@ -24,67 +24,19 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
     }
 
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
-        pesquisaPacienteBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        selecionarBtn = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        cancelarBtn = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         conveniosTable = new javax.swing.JTable();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/convenio-icon.png"))); // NOI18N
-
-        pesquisaPacienteBtn.setBackground(new java.awt.Color(243, 255, 229));
-        pesquisaPacienteBtn.setForeground(new java.awt.Color(0, 0, 0));
-        pesquisaPacienteBtn.setText("Pesquisar");
-        pesquisaPacienteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisaPacienteBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Nome:");
-
-        selecionarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        selecionarBtn.setForeground(new java.awt.Color(0, 0, 0));
-        selecionarBtn.setText("Selecionar");
-        selecionarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selecionarBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Pesquisar Convenio");
-
-        cancelarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        cancelarBtn.setForeground(new java.awt.Color(0, 0, 0));
-        cancelarBtn.setText("Cancelar");
-        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarBtnActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setText("Insira o nome do convenio aqui");
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
+        selecionarBtn = new javax.swing.JButton();
+        cancelarBtn = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        pesquisaPacienteBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         conveniosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,6 +60,51 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
         conveniosTable.setColumnSelectionAllowed(true);
         conveniosTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(conveniosTable);
+
+        selecionarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        selecionarBtn.setForeground(new java.awt.Color(0, 0, 0));
+        selecionarBtn.setText("Selecionar");
+        selecionarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selecionarBtnActionPerformed(evt);
+            }
+        });
+
+        cancelarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        cancelarBtn.setForeground(new java.awt.Color(0, 0, 0));
+        cancelarBtn.setText("Cancelar");
+        cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarBtnActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("Insira o nome do convenio aqui");
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Nome:");
+
+        pesquisaPacienteBtn.setBackground(new java.awt.Color(243, 255, 229));
+        pesquisaPacienteBtn.setForeground(new java.awt.Color(0, 0, 0));
+        pesquisaPacienteBtn.setText("Pesquisar");
+        pesquisaPacienteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisaPacienteBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setText("Pesquisar Convenio");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/convenio-icon.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,13 +153,7 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
                     .addComponent(cancelarBtn))
                 .addGap(12, 12, 12))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pesquisaPacienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacienteBtnActionPerformed
-
-    }//GEN-LAST:event_pesquisaPacienteBtnActionPerformed
 
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
         int selectedRow = conveniosTable.getSelectedRow();
@@ -200,6 +191,10 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
             jTextField1.setForeground(Color.gray);
         }
     }//GEN-LAST:event_jTextField1FocusLost
+
+    private void pesquisaPacienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacienteBtnActionPerformed
+
+    }//GEN-LAST:event_pesquisaPacienteBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

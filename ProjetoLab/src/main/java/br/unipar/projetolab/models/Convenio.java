@@ -1,5 +1,6 @@
 package br.unipar.projetolab.models;
 
+import br.unipar.projetolab.enums.TipoPessoa;
 import javax.persistence.*;
 
 @Entity
@@ -15,16 +16,16 @@ public class Convenio {
     @Column(nullable = false, length = 100)
     private String razaoSocial;
 
-    @Column(nullable = false, length = 18)
-    private String cnpj;
-
-    @Column(length = 20)
-    private String cei;
-
-    @Column(length = 15)
+    @Column(name = "telefone", length = 20)
     private String telefone;
 
-    @Column(length = 9)
+    @Column(name = "cnpj", length = 20) 
+    private String cnpj;
+
+    @Column(name = "cei", length = 20)
+    private String cei;
+
+    @Column(name = "cep", length = 10)
     private String cep;
 
     @Column(length = 255)
@@ -35,23 +36,33 @@ public class Convenio {
 
     @Column(nullable = false)
     private boolean ativo = true;
-
+    
+    @Column(nullable = true, length = 100) 
+    private String fantasia;
+    
+    @Enumerated(EnumType.STRING) 
+    @Column(nullable = false)
+    private TipoPessoa tipoPessoa;
+    
     // Getters e Setters
 
     public Convenio() {
     }
 
-    public Convenio(Long id, String nome, String razaoSocial, String cnpj, String cei, String telefone, String cep, String endereco, String observacoes) {
+    public Convenio(Long id, String nome, String razaoSocial, String telefone, String cnpj, String cei, String cep, String endereco, String observacoes, String fantasia, TipoPessoa tipoPessoa) {
         this.id = id;
         this.nome = nome;
         this.razaoSocial = razaoSocial;
+        this.telefone = telefone;
         this.cnpj = cnpj;
         this.cei = cei;
-        this.telefone = telefone;
         this.cep = cep;
         this.endereco = endereco;
         this.observacoes = observacoes;
+        this.fantasia = fantasia;
+        this.tipoPessoa = tipoPessoa;
     }
+
 
     public Long getId() {
         return id;
@@ -131,6 +142,22 @@ public class Convenio {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getFantasia() {
+        return fantasia;
+    }
+
+    public void setFantasia(String fantasia) {
+        this.fantasia = fantasia;
+    }
+
+    public TipoPessoa getTipoPessoa() {
+        return tipoPessoa;
+    }
+
+    public void setTipoPessoa(TipoPessoa tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
     
 }
