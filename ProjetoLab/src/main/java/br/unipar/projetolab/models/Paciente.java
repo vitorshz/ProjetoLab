@@ -22,8 +22,10 @@ public class Paciente {
     private String endereco;
 
     private String telefone;
+    
+    @Column(nullable = false)
+    private boolean ativo = true;  // Novo campo, por padrão todos pacientes são ativos
 
-    // Getters e Setters
     
     public Paciente() {
     }
@@ -36,9 +38,8 @@ public class Paciente {
         this.endereco = endereco;
         this.telefone = telefone;
     }
+
     
-    
-   
 
     public Long getId() {
         return id;
@@ -64,7 +65,14 @@ public class Paciente {
         this.dataNascimento = dataNascimento;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
 
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
     public String getCpf() {
         return cpf;
     }
@@ -89,4 +97,6 @@ public class Paciente {
         this.telefone = telefone;
     }
     
+    
+
 }

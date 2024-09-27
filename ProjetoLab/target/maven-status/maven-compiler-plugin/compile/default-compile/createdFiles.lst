@@ -1,9 +1,10 @@
 br\unipar\projetolab\models\Operador_.class
 br\unipar\projetolab\views\Main$1.class
+br\unipar\projetolab\views\PacientePesquisaFrame$3.class
 br\unipar\projetolab\views\PacienteFrame$11.class
 br\unipar\projetolab\views\PacienteFrame$5.class
-br\unipar\projetolab\tablemodels\PacienteTableModel$3.class
 br\unipar\projetolab\views\PacienteFrame$8.class
+br\unipar\projetolab\views\PacientePesquisaFrame$1.class
 br\unipar\projetolab\tablemodels\PacienteTableModel.class
 br\unipar\projetolab\views\PacienteFrame$12.class
 br\unipar\projetolab\views\PacienteFrame$3.class
@@ -11,14 +12,16 @@ br\unipar\projetolab\models\Paciente_.class
 br\unipar\projetolab\views\PacienteFrame$14.class
 br\unipar\projetolab\dao\PacienteDAO.class
 br\unipar\projetolab\dao\PacienteDAOImp.class
+br\unipar\projetolab\views\PacientePesquisaFrame.class
 br\unipar\projetolab\models\Operador.class
-br\unipar\projetolab\tablemodels\PacienteTableModel$1.class
+br\unipar\projetolab\views\PacientePesquisaFrame$4.class
 br\unipar\projetolab\views\Main.class
 br\unipar\projetolab\views\PacienteFrame$10.class
 br\unipar\projetolab\views\PacienteFrame$4.class
 br\unipar\projetolab\views\PacienteFrame$6.class
 br\unipar\projetolab\utils\EntityManagerUtil.class
 br\unipar\projetolab\views\PacienteFrame$9.class
+br\unipar\projetolab\views\PacientePesquisaFrame$2.class
 br\unipar\projetolab\DTO\PacienteDTO.class
 br\unipar\projetolab\views\PacienteFrame$1.class
 br\unipar\projetolab\views\PacienteFrame$13.class
@@ -27,4 +30,3 @@ br\unipar\projetolab\views\PacienteFrame$2.class
 br\unipar\projetolab\ProjetoLab.class
 br\unipar\projetolab\models\Paciente.class
 br\unipar\projetolab\views\PacienteFrame$7.class
-br\unipar\projetolab\tablemodels\PacienteTableModel$2.class

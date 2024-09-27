@@ -20,43 +20,58 @@ public class PacienteDAOImp implements PacienteDAO{
     @Override
     public Paciente save(Paciente paciente) {
         EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(paciente);
-        transaction.commit();
-        entityManager.close();
-        
-        System.out.println("Paciente salvo com sucesso!");
-        return paciente;    
+        try {
+            transaction.begin();
+            if (paciente.getId() == null) {
+                // Novo paciente, usa persist()
+                entityManager.persist(paciente);
+            } else {
+                // Paciente existente, usa merge() para atualizar
+                entityManager.merge(paciente);
+            }
+            transaction.commit();
+            System.out.println("Paciente salvo/atualizado com sucesso!");
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e; // Relança a exceção para tratamento na camada superior
+        } finally {
+            entityManager.close(); // Fecha o EntityManager
+        }
+        return paciente;
     }
 
     @Override
     public Paciente update(Paciente paciente) {
         EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-        entityManager.merge(paciente);
-        transaction.commit();
-        entityManager.close();
-        
-        System.out.println("Paciente atualizado com sucesso!");
+        try {
+            transaction.begin();
+            paciente = entityManager.merge(paciente);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         return paciente;
     }
 
     @Override
     public Boolean delete(Paciente paciente) {
         EntityTransaction transaction = entityManager.getTransaction();
-
         try {
             transaction.begin();
-            entityManager.remove(paciente);
-            transaction.commit();
-            entityManager.close();
-
-            System.out.println("Paciente removido com sucesso!");
-            return true;
+            Paciente pacienteToDelete = entityManager.find(Paciente.class, paciente.getId());
+            if (pacienteToDelete != null) {
+                entityManager.remove(pacienteToDelete); 
+                transaction.commit();
+                System.out.println("Paciente removido com sucesso!");
+                return true;
+            } else {
+                System.out.println("Paciente não encontrado.");
+                return false;
+            }
         } catch (Exception e) {
             transaction.rollback();
-            System.out.println("Paciente atualizado com sucesso!");
-            return false;
+            throw e;
         }
     }
 
@@ -70,4 +85,16 @@ public class PacienteDAOImp implements PacienteDAO{
         return entityManager.createQuery("SELECT p FROM Paciente p",
                 Paciente.class).getResultList();    }
     
+    
+    public List<Paciente> findAllAtivos() {
+        return entityManager.createQuery("SELECT p FROM Paciente p WHERE p.ativo = true", Paciente.class)
+                .getResultList();
+    }
+    
+    public List<Paciente> findByName(String nome) {
+        return entityManager.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nome AND p.ativo = true", Paciente.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
+
 }
