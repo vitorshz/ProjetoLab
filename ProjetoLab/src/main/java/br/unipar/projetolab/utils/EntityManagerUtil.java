@@ -7,6 +7,10 @@ import javax.persistence.Persistence;
 public class EntityManagerUtil {
     
     private static EntityManagerFactory emf;
+
+    public static EntityManager getEntityManager() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private EntityManagerUtil() {
         // Construtor privado para evitar instanciamento
