@@ -135,5 +135,10 @@
             <version>3.7.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE210</version>
+        </dependency>
     </dependencies>
 </project>
