@@ -1,1 +1,6 @@
 /ProjetoLab/nbproject/
+# Ignorar arquivos compilados Java
+*.class
+
+# Ignorar a pasta target (utilizada por Maven ou outras ferramentas de build)
+/target
