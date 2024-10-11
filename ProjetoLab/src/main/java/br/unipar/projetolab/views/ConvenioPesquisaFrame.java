@@ -39,7 +39,7 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         conveniosTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/convenio-icon.png"))); // NOI18N
 

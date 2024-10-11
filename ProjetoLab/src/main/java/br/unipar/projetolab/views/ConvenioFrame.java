@@ -6,7 +6,10 @@ import br.unipar.projetolab.enums.TipoPessoa;
 import br.unipar.projetolab.models.Convenio;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 
 
@@ -423,8 +426,12 @@ public class ConvenioFrame extends javax.swing.JFrame {
             TipoPessoa tipoPessoa = TipoPessoa.valueOf(tipoPessoaComboBox.getSelectedItem().toString().toUpperCase());
 
 
-            if (nome.isEmpty() || cnpj.isEmpty()) {
+            if (nome.isEmpty() || cnpj.isEmpty()) {                
+                Border border = BorderFactory.createLineBorder(Color.RED,1);
+                nomeField.setBorder(border);
+              
                 JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
+                
                 return;
             }
 
