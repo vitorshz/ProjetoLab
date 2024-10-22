@@ -31,8 +31,9 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
 
-         initComponents();
+        initComponents();
         setupDropdowns();
+        setExtendedState(MAXIMIZED_BOTH);
         // Timer para fechar a tela inicial após um certo tempo (exemplo: 1 hora)
         Timer timer = new Timer(3600000, new ActionListener() {
             @Override
@@ -108,7 +109,7 @@ public class Main extends javax.swing.JFrame {
         btnRelatorios.setBackground(new java.awt.Color(51, 51, 51));
         btnRelatorios.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         btnRelatorios.setForeground(new java.awt.Color(255, 255, 255));
-        btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-cadastro-32px.png"))); // NOI18N
+        btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-relatorio-32px.png"))); // NOI18N
         btnRelatorios.setText("Relatórios");
         btnRelatorios.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         btnRelatorios.setIconTextGap(12);
@@ -202,7 +203,7 @@ public class Main extends javax.swing.JFrame {
         btnResultados.setBackground(new java.awt.Color(51, 51, 51));
         btnResultados.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         btnResultados.setForeground(new java.awt.Color(255, 255, 255));
-        btnResultados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-cadastro-32px.png"))); // NOI18N
+        btnResultados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-resultado-exame-de-sangue-32px.png"))); // NOI18N
         btnResultados.setText("Resultados");
         btnResultados.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         btnResultados.setIconTextGap(12);
@@ -280,7 +281,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(resultadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 348, Short.MAX_VALUE))
         );
 
         jMenu3.setText("Cadastros");
@@ -337,7 +338,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(135, 135, 135))
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -411,6 +412,24 @@ public class Main extends javax.swing.JFrame {
         // Inicialmente esconder os painéis que contêm os botões de cada seção
         cadastroPanel.setVisible(false);
         resultadoPanel.setVisible(false);
+
+        // Configura as setas iniciais para os botões de "Cadastros" e "Resultados"
+        updateArrowIcons();
+    }
+
+    // Atualiza as setas de cada botão conforme o estado expandido ou recolhido
+    private void updateArrowIcons() {
+        if (isCadastroExpanded) {
+            btnCadastros.setText("Cadastros    ↓");
+        } else {
+            btnCadastros.setText("Cadastros    →");
+        }
+
+        if (isResultadoExpanded) {
+            btnResultados.setText("Resultados    ↓");
+        } else {
+            btnResultados.setText("Resultados    →");
+        }
     }
 
     // Alternar dropdown de "Cadastros"
@@ -420,6 +439,7 @@ public class Main extends javax.swing.JFrame {
         } else {
             expandCadastroDropdown();
         }
+        updateArrowIcons(); // Atualiza a seta após a mudança
     }
 
     // Expandir dropdown de "Cadastros"
@@ -468,6 +488,7 @@ public class Main extends javax.swing.JFrame {
         } else {
             expandResultadoDropdown();
         }
+        updateArrowIcons(); // Atualiza a seta após a mudança
     }
 
     // Expandir dropdown de "Resultados"
@@ -514,6 +535,7 @@ public class Main extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //mudar de main() para login() depois
                 new Main().setVisible(true);
             }
         });

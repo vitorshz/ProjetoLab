@@ -7,8 +7,11 @@ import br.unipar.projetolab.models.Convenio;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 
@@ -86,6 +89,11 @@ public class ConvenioFrame extends javax.swing.JFrame {
         });
 
         nomeField.setEditable(false);
+        nomeField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nomeFieldFocusGained(evt);
+            }
+        });
         nomeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomeFieldActionPerformed(evt);
@@ -211,7 +219,7 @@ public class ConvenioFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18))
+                .addGap(24, 24, 24))
         );
 
         cnpjField.setEditable(false);
@@ -426,12 +434,14 @@ public class ConvenioFrame extends javax.swing.JFrame {
             TipoPessoa tipoPessoa = TipoPessoa.valueOf(tipoPessoaComboBox.getSelectedItem().toString().toUpperCase());
 
 
-            if (nome.isEmpty() || cnpj.isEmpty()) {                
+            if (nome.isEmpty() || cnpj.isEmpty()) {
+                
                 Border border = BorderFactory.createLineBorder(Color.RED,1);
                 nomeField.setBorder(border);
-              
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
                 
+                
+               
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");                
                 return;
             }
 
@@ -501,6 +511,11 @@ public class ConvenioFrame extends javax.swing.JFrame {
     private void cepfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cepfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cepfieldActionPerformed
+
+    private void nomeFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomeFieldFocusGained
+        Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY,1);
+        nomeField.setBorder(border);
+    }//GEN-LAST:event_nomeFieldFocusGained
 
     /**
      * @param args the command line arguments
