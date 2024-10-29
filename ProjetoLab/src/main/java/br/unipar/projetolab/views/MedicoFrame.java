@@ -47,92 +47,47 @@ public MedicoFrame() throws ParseException {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        codigoField = new javax.swing.JTextField();
-        salvarBtn = new javax.swing.JButton();
-        editBtn = new javax.swing.JButton();
-        novoBtn = new javax.swing.JButton();
-        excluirBtn = new javax.swing.JButton();
-        fecharBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        estadoBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        codigoField = new javax.swing.JTextField();
         CRMField = new javax.swing.JTextField();
+        estadoBox = new javax.swing.JComboBox<>();
+        nomeField = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        especialiddeField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         tipoBox = new javax.swing.JComboBox<>();
-        jLabel10 = new javax.swing.JLabel();
-        telefoneField = new javax.swing.JFormattedTextField(mfcelular);
-        jLabel9 = new javax.swing.JLabel();
-        cpfField = new javax.swing.JFormattedTextField(mfcpf);
-        jLabel11 = new javax.swing.JLabel();
-        enderecoField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         dataNascField = new javax.swing.JFormattedTextField(mfdata);
-        jLabel12 = new javax.swing.JLabel();
-        nomeField = new javax.swing.JTextField();
-        especialiddeField = new javax.swing.JTextField();
+        cpfField = new javax.swing.JFormattedTextField(mfcpf);
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        enderecoField = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        EmailField = new javax.swing.JFormattedTextField(mfcelular);
         OBSField = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        telefoneField = new javax.swing.JFormattedTextField(mfcelular);
+        jLabel18 = new javax.swing.JLabel();
+        telefoneField2 = new javax.swing.JFormattedTextField(mfcelular);
+        telefoneField3 = new javax.swing.JFormattedTextField(mfcelular);
+        fecharBtn = new javax.swing.JButton();
+        excluirBtn = new javax.swing.JButton();
+        novoBtn = new javax.swing.JButton();
+        editBtn = new javax.swing.JButton();
+        salvarBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(228, 228, 228));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Código");
-
-        codigoField.setEditable(false);
-        codigoField.setBackground(new java.awt.Color(153, 153, 153));
-        codigoField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoFieldActionPerformed(evt);
-            }
-        });
-
-        salvarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        salvarBtn.setText("Salvar");
-        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarBtnActionPerformed(evt);
-            }
-        });
-
-        editBtn.setBackground(new java.awt.Color(243, 255, 229));
-        editBtn.setText("Editar");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
-
-        novoBtn.setBackground(new java.awt.Color(243, 255, 229));
-        novoBtn.setText("Novo");
-        novoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoBtnActionPerformed(evt);
-            }
-        });
-
-        excluirBtn.setBackground(new java.awt.Color(243, 255, 229));
-        excluirBtn.setText("Excluir");
-        excluirBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirBtnActionPerformed(evt);
-            }
-        });
-
-        fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
-        fecharBtn.setText("Fechar");
-        fecharBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecharBtnActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(228, 228, 228));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -145,31 +100,44 @@ public MedicoFrame() throws ParseException {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addContainerGap(643, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(459, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setText("CRM:");
+        jPanel3.setBackground(new java.awt.Color(228, 228, 228));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Dados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        estadoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        estadoBox.addActionListener(new java.awt.event.ActionListener() {
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setText("CRM*:");
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Código*:");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 70, -1));
+
+        codigoField.setEditable(false);
+        codigoField.setBackground(new java.awt.Color(153, 153, 153));
+        codigoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estadoBoxActionPerformed(evt);
+                codigoFieldActionPerformed(evt);
             }
         });
+        jPanel3.add(codigoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 100, -1));
 
         CRMField.setEditable(false);
         CRMField.addActionListener(new java.awt.event.ActionListener() {
@@ -177,40 +145,55 @@ public MedicoFrame() throws ParseException {
                 CRMFieldActionPerformed(evt);
             }
         });
+        jPanel3.add(CRMField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
+
+        estadoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        estadoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadoBoxActionPerformed(evt);
+            }
+        });
+        jPanel3.add(estadoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, -1, -1));
+
+        nomeField.setEditable(false);
+        jPanel3.add(nomeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 510, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel14.setText("Nome:");
+        jLabel14.setText("Nome*:");
+        jLabel14.setToolTipText("");
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 50, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Especialidade:");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+
+        especialiddeField.setEditable(false);
+        jPanel3.add(especialiddeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 510, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Tipo:");
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         tipoBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solicitante", "Realizante", "SolicitanteRealizante", "Preferencial" }));
-        tipoBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoBoxActionPerformed(evt);
-            }
-        });
+        jPanel3.add(tipoBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Telefone:");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Data Nasc.");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        telefoneField.setEditable(false);
-        telefoneField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefoneFieldActionPerformed(evt);
-            }
-        });
+        dataNascField.setEditable(false);
+        jPanel3.add(dataNascField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 120, -1));
+
+        cpfField.setEditable(false);
+        jPanel3.add(cpfField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 120, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("CPF:");
-
-        cpfField.setEditable(false);
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Endereço:");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, -1, -1));
 
         enderecoField.setEditable(false);
         enderecoField.addActionListener(new java.awt.event.ActionListener() {
@@ -218,31 +201,99 @@ public MedicoFrame() throws ParseException {
                 enderecoFieldActionPerformed(evt);
             }
         });
+        jPanel3.add(enderecoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 510, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Data Nasc.");
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Email:");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
 
-        dataNascField.setEditable(false);
-        dataNascField.addActionListener(new java.awt.event.ActionListener() {
+        EmailField.setEditable(false);
+        EmailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataNascFieldActionPerformed(evt);
+                EmailFieldActionPerformed(evt);
             }
         });
+        jPanel3.add(EmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 180, -1));
+        jPanel3.add(OBSField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 530, 60));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Observação:");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, 30));
 
-        nomeField.setEditable(false);
-        nomeField.addActionListener(new java.awt.event.ActionListener() {
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setText("Telefone:");
+        jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+        telefoneField.setEditable(false);
+        telefoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeFieldActionPerformed(evt);
+                telefoneFieldActionPerformed(evt);
+            }
+        });
+        jPanel3.add(telefoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 120, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("Celular:");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
+
+        telefoneField2.setEditable(false);
+        telefoneField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telefoneField2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(telefoneField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
+
+        telefoneField3.setEditable(false);
+        telefoneField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telefoneField3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(telefoneField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
+
+        fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
+        fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
+        fecharBtn.setText("Fechar");
+        fecharBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecharBtnActionPerformed(evt);
             }
         });
 
-        especialiddeField.setEditable(false);
-        especialiddeField.addActionListener(new java.awt.event.ActionListener() {
+        excluirBtn.setBackground(new java.awt.Color(243, 255, 229));
+        excluirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir 1.png"))); // NOI18N
+        excluirBtn.setText("Excluir");
+        excluirBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                especialiddeFieldActionPerformed(evt);
+                excluirBtnActionPerformed(evt);
+            }
+        });
+
+        novoBtn.setBackground(new java.awt.Color(243, 255, 229));
+        novoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-documento.png"))); // NOI18N
+        novoBtn.setText("Novo");
+        novoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoBtnActionPerformed(evt);
+            }
+        });
+
+        editBtn.setBackground(new java.awt.Color(243, 255, 229));
+        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
+        editBtn.setText("Editar");
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+
+        salvarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disquete.png"))); // NOI18N
+        salvarBtn.setText("Salvar");
+        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarBtnActionPerformed(evt);
             }
         });
 
@@ -250,132 +301,38 @@ public MedicoFrame() throws ParseException {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(fecharBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(excluirBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(novoBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(salvarBtn))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(184, 184, 184))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(170, 170, 170))))
-                                .addGap(18, 18, 18)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tipoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dataNascField, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cpfField, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
-                            .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(enderecoField)
-                                .addGap(208, 208, 208))
-                            .addComponent(OBSField))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(especialiddeField))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(CRMField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(estadoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(nomeField))))
-                        .addContainerGap())))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 21, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(fecharBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(excluirBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(novoBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvarBtn)
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(estadoBox)
-                    .addComponent(CRMField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(especialiddeField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(tipoBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(dataNascField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(salvarBtn)
-                            .addComponent(editBtn)
-                            .addComponent(novoBtn)
-                            .addComponent(excluirBtn)
-                            .addComponent(fecharBtn))
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cpfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(enderecoField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(telefoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(OBSField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(37, Short.MAX_VALUE))))
+                    .addComponent(salvarBtn)
+                    .addComponent(editBtn)
+                    .addComponent(novoBtn)
+                    .addComponent(excluirBtn)
+                    .addComponent(fecharBtn))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -389,136 +346,124 @@ public MedicoFrame() throws ParseException {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_fecharBtnActionPerformed
-
-    private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
-       pesquisaFrame.setVisible(true);
-        
-    }//GEN-LAST:event_excluirBtnActionPerformed
-
-    private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
-        habilitarCampos();
-        limparCampos();
-        medicoAtual = null;  
-        cpfField.setEditable(true);  
-    }//GEN-LAST:event_novoBtnActionPerformed
-
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-       MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, false);
-       pesquisaFrame.setVisible(true);
-    }//GEN-LAST:event_editBtnActionPerformed
-
-    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
-       try {
-    
-    String nome = nomeField.getText();
-    String conselhoCrm = CRMField.getText();  
-    String especialidade = especialiddeField.getText(); 
-    String tipo = (String) tipoBox.getSelectedItem();
-    String cpf = cpfField.getText();
-    String endereco = enderecoField.getText();  
-    String celular = telefoneField.getText();
-    String observacoes = OBSField.getText();
-
-    
-    String dataNascimentoStr = dataNascField.getText();
-    LocalDate dataNascimento;
-    try {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-    } catch (DateTimeParseException e) {
-        JOptionPane.showMessageDialog(this, "Data de nascimento inválida. Por favor, insira no formato dd/MM/yyyy.");
-        return;
-    }
-
-   
-    if (nome.isEmpty() || conselhoCrm.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
-        return;
-    }
-
-    
-    Medico medico = medicoAtual != null ? medicoAtual : new Medico();
-    medico.setNome(nome);
-    medico.setConselhoCrm(conselhoCrm);
-    medico.setEspecialidade(especialidade);
-    medico.setTipo(tipo);
-    medico.setCpf(cpf);
-    medico.setEndereco(endereco);
-    medico.setCelular(celular);
-   
-    medico.setObservacoes(observacoes);
-    medico.setDataNascimento(dataNascimento);
-
-   
-    MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
-    if (medicoAtual != null) {
-        medicoDAO.update(medico);
-    } else {
-        medicoDAO.save(medico);
-    }
-
-    
-    JOptionPane.showMessageDialog(this, "Médico salvo com sucesso!");
-
-    
-    limparCampos();
-    desabilitarCampos();
-
-} catch (Exception ex) {
-    JOptionPane.showMessageDialog(this, "Erro ao salvar médico: " + ex.getMessage());
-}
-
-          
-    }//GEN-LAST:event_salvarBtnActionPerformed
-
     private void codigoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_codigoFieldActionPerformed
-
-    private void estadoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_estadoBoxActionPerformed
 
     private void CRMFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CRMFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CRMFieldActionPerformed
 
-    private void tipoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoBoxActionPerformed
+    private void estadoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tipoBoxActionPerformed
-
-    private void telefoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneFieldActionPerformed
+    }//GEN-LAST:event_estadoBoxActionPerformed
 
     private void enderecoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_enderecoFieldActionPerformed
 
-    private void dataNascFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataNascFieldActionPerformed
+    private void EmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dataNascFieldActionPerformed
+    }//GEN-LAST:event_EmailFieldActionPerformed
 
-    private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
+    private void telefoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomeFieldActionPerformed
+    }//GEN-LAST:event_telefoneFieldActionPerformed
 
-    private void especialiddeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_especialiddeFieldActionPerformed
+    private void telefoneField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_especialiddeFieldActionPerformed
+    }//GEN-LAST:event_telefoneField2ActionPerformed
+
+    private void telefoneField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telefoneField3ActionPerformed
+
+    private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_fecharBtnActionPerformed
+
+    private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+        pesquisaFrame.setVisible(true);
+
+    }//GEN-LAST:event_excluirBtnActionPerformed
+
+    private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
+        habilitarCampos();
+        limparCampos();
+        medicoAtual = null;
+        cpfField.setEditable(true);
+    }//GEN-LAST:event_novoBtnActionPerformed
+
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, false);
+        pesquisaFrame.setVisible(true);
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
+        try {
+
+            String nome = nomeField.getText();
+            String conselhoCrm = CRMField.getText();
+            String especialidade = especialiddeField.getText();
+            String tipo = (String) tipoBox.getSelectedItem();
+            String cpf = cpfField.getText();
+            String endereco = enderecoField.getText();
+            String celular = telefoneField.getText();
+            String observacoes = OBSField.getText();
+
+            String dataNascimentoStr = dataNascField.getText();
+            LocalDate dataNascimento;
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(this, "Data de nascimento inválida. Por favor, insira no formato dd/MM/yyyy.");
+                return;
+            }
+
+            if (nome.isEmpty() || conselhoCrm.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
+                return;
+            }
+
+            Medico medico = medicoAtual != null ? medicoAtual : new Medico();
+            medico.setNome(nome);
+            medico.setConselhoCrm(conselhoCrm);
+            medico.setEspecialidade(especialidade);
+            medico.setTipo(tipo);
+            medico.setCpf(cpf);
+            medico.setEndereco(endereco);
+            medico.setCelular(celular);
+
+            medico.setObservacoes(observacoes);
+            medico.setDataNascimento(dataNascimento);
+
+            MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+            if (medicoAtual != null) {
+                medicoDAO.update(medico);
+            } else {
+                medicoDAO.save(medico);
+            }
+
+            JOptionPane.showMessageDialog(this, "Médico salvo com sucesso!");
+
+            limparCampos();
+            desabilitarCampos();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar médico: " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_salvarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -541,6 +486,7 @@ public MedicoFrame() throws ParseException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CRMField;
+    private javax.swing.JFormattedTextField EmailField;
     private javax.swing.JTextField OBSField;
     private javax.swing.JTextField codigoField;
     private javax.swing.JFormattedTextField cpfField;
@@ -559,16 +505,21 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField nomeField;
     private javax.swing.JButton novoBtn;
     private javax.swing.JButton salvarBtn;
     private javax.swing.JFormattedTextField telefoneField;
+    private javax.swing.JFormattedTextField telefoneField2;
+    private javax.swing.JFormattedTextField telefoneField3;
     private javax.swing.JComboBox<String> tipoBox;
     // End of variables declaration//GEN-END:variables
       private void limparCampos() {
@@ -576,7 +527,7 @@ public MedicoFrame() throws ParseException {
     cpfField.setText("");
     dataNascField.setText("");
     enderecoField.setText(""); 
-    telefoneField.setText("");
+    EmailField.setText("");
     CRMField.setText(""); 
     especialiddeField.setText(""); 
     tipoBox.setSelectedItem(null); 
@@ -587,7 +538,7 @@ private void desabilitarCampos() {
     cpfField.setEditable(false);
     dataNascField.setEditable(false);
     enderecoField.setEditable(false);
-    telefoneField.setEditable(false);
+    EmailField.setEditable(false);
     CRMField.setEditable(false);
     especialiddeField.setEditable(false);
     tipoBox.setEnabled(false);
@@ -610,7 +561,7 @@ public void carregarMedico(Medico medico) {
     }
 
     enderecoField.setText(medico.getEndereco());
-    telefoneField.setText(medico.getCelular());
+    EmailField.setText(medico.getCelular());
     CRMField.setText(medico.getConselhoCrm());
     especialiddeField.setText(medico.getEspecialidade());
     
@@ -633,7 +584,7 @@ private void habilitarCampos() {
     cpfField.setEditable(true);
     dataNascField.setEditable(true);
     enderecoField.setEditable(true); 
-    telefoneField.setEditable(true);
+    EmailField.setEditable(true);
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
@@ -646,7 +597,7 @@ private void habilitarCampos() {
 private void habilitarCamposParaEdicao() {
     nomeField.setEditable(true);
     enderecoField.setEditable(true);
-    telefoneField.setEditable(true);
+    EmailField.setEditable(true);
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
