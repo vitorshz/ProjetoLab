@@ -3,4 +3,4 @@
 *.class
 
 # Ignorar a pasta target (utilizada por Maven ou outras ferramentas de build)
-/target
+./ProjetoLab/target
