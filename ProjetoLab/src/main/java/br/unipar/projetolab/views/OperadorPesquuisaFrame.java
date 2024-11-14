@@ -159,22 +159,22 @@ public class OperadorPesquuisaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow != -1) {
-            Operador pacienteSelecionado = tableModel.getPacienteAt(selectedRow);
-
-            // Verifica se estamos em modo de exclusão ou edição
-            if (modoExclusao) {
-                OperadorFrame.receberPacienteParaInativar(pacienteSelecionado);
-            } else {
-                OperadorFrame.receberPaciente(pacienteSelecionado);
-            }
-
-            // Fecha a tela de pesquisa
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um paciente.");
-        }
+//        int selectedRow = jTable1.getSelectedRow();
+//        if (selectedRow != -1) {
+//            Operador pacienteSelecionado = tableModel.getPacienteAt(selectedRow);
+//
+//            // Verifica se estamos em modo de exclusão ou edição
+//            if (modoExclusao) {
+//                OperadorFrame.receberPacienteParaInativar(pacienteSelecionado);
+//            } else {
+//                OperadorFrame.receberPaciente(pacienteSelecionado);
+//            }
+//
+//            // Fecha a tela de pesquisa
+//            this.dispose();
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Selecione um paciente.");
+//        }
 
     }//GEN-LAST:event_selecionarBtnActionPerformed
 
@@ -197,24 +197,24 @@ public class OperadorPesquuisaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void pesquisaPacienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacienteBtnActionPerformed
-        String nome = jTextField1.getText();  // Obtém o texto inserido no campo de pesquisa
-
-        if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira um nome para a pesquisa.");
-            return;
-        }
-
-        // Realiza a busca no banco de dados
-        OperadorDaoImp pacienteDAO = new OperadorDaoImp(EntityManagerUtil.getManager());
-        List<Operador> pacientesEncontrados = pacienteDAO.findByName(nome);
-
-        if (pacientesEncontrados.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum paciente encontrado com o nome: " + nome);
-        } else {
-            // Atualiza a tabela com os pacientes encontrados
-            tableModel = new OperadorTableModel(pacientesEncontrados);
-            jTable1.setModel(tableModel);
-        }
+//        String nome = jTextField1.getText();  // Obtém o texto inserido no campo de pesquisa
+//
+//        if (nome.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Por favor, insira um nome para a pesquisa.");
+//            return;
+//        }
+//
+//        // Realiza a busca no banco de dados
+//        OperadorDaoImp pacienteDAO = new OperadorDaoImp(EntityManagerUtil.getManager());
+//        List<Operador> pacientesEncontrados = pacienteDAO.findByName(nome);
+//
+//        if (pacientesEncontrados.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "Nenhum paciente encontrado com o nome: " + nome);
+//        } else {
+//            // Atualiza a tabela com os pacientes encontrados
+//            tableModel = new OperadorTableModel(pacientesEncontrados);
+//            jTable1.setModel(tableModel);
+//        }
     }//GEN-LAST:event_pesquisaPacienteBtnActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

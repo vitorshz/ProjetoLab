@@ -1,6 +1,7 @@
 
 package br.unipar.projetolab.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,10 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "exames")
 public class Exame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +34,18 @@ public class Exame {
 
     @Column(length = 50)
     private String amostra;
+    
+    @Column(nullable = false)
+    private boolean ativo = true;
 
+    @OneToMany(mappedBy = "exame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstruturaExame> estruturas = new ArrayList<>();
+
+    // Relacionamento com ResultadoExame: Cada exame possui uma lista de resultados inseridos
+    @OneToMany(mappedBy = "exame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ResultadoExame> resultados;
+    
+    
     public Exame() {
     }
 
@@ -50,14 +60,6 @@ public class Exame {
         this.estruturas = estruturas;
         this.resultados = resultados;
     }
-
-    // Relacionamento com EstruturaExame: Cada exame possui uma lista de estruturas
-    @OneToMany(mappedBy = "exame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EstruturaExame> estruturas;
-
-    // Relacionamento com ResultadoExame: Cada exame possui uma lista de resultados inseridos
-    @OneToMany(mappedBy = "exame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ResultadoExame> resultados;
 
     public Long getId() {
         return id;
@@ -150,4 +152,13 @@ public class Exame {
         resultados.remove(resultado);
         resultado.setExame(null); // Remove a referência ao exame
     }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+    
 }

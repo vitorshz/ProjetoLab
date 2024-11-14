@@ -21,7 +21,7 @@ public class EstruturaExame {
     @JoinColumn(name = "exame_id", nullable = false)
     private Exame exame;
 
-    @Column(nullable = false)
+    @Column(name = "ordem", nullable = false)
     private Integer ordem;
 
     @Column(length = 5)
@@ -53,7 +53,8 @@ public class EstruturaExame {
 
     @Column(name = "valor_padrao", length = 50)
     private String valorPadrao;
-
+    
+    
     // Construtor vazio para JPA
     public EstruturaExame() {
     }
