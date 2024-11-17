@@ -8,11 +8,11 @@ import br.unipar.projetolab.utils.EntityManagerUtil;
 import javax.swing.JOptionPane;
 
 
-public class CadastroExamesFrame extends javax.swing.JFrame implements ExameSelecionadoListener{
+public class ExameFrame extends javax.swing.JFrame implements ExameSelecionadoListener{
     
     private Exame exameAtual;
     
-    public CadastroExamesFrame() {
+    public ExameFrame() {
         initComponents();
         
     }
@@ -303,20 +303,21 @@ public class CadastroExamesFrame extends javax.swing.JFrame implements ExameSele
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroExamesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroExamesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroExamesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroExamesFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExameFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroExamesFrame().setVisible(true);
+                new ExameFrame().setVisible(true);
             }
         });
     }

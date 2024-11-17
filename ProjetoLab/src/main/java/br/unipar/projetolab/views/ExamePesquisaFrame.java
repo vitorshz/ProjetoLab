@@ -1,5 +1,6 @@
 package br.unipar.projetolab.views;
 
+import br.unipar.projetolab.dao.ExameDAO;
 import br.unipar.projetolab.dao.ExameDAOImp;
 import br.unipar.projetolab.interfaces.ExameSelecionadoListener;
 import br.unipar.projetolab.models.Exame;
@@ -185,7 +186,7 @@ public class ExamePesquisaFrame extends javax.swing.JFrame {
         if (selectedRow != -1) {
             Exame exameSelecionado = tableModel.getExameAt(selectedRow);
             if (modoExclusao) {
-                listener.receberExame(exameSelecionado); // Passa o exame para o listener
+                inativarExame(exameSelecionado); // Passa o exame para o listener
             } else {
                 listener.receberExame(exameSelecionado); // Passa o exame para o listener
             }
@@ -219,6 +220,21 @@ public class ExamePesquisaFrame extends javax.swing.JFrame {
         List<Exame> exames = exameDAO.findAllAtivos();
         tableModel = new ExameTableModel(exames);
         examesTable.setModel(tableModel);
+    }
+    private void inativarExame(Exame exameSelecionado) {
+        // Confirmar antes de inativar
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja inativar este Exame?",
+                "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            exameSelecionado.setAtivo(false);  // Inativa o convênio
+
+            ExameDAO exameDAO = new ExameDAOImp(EntityManagerUtil.getManager());
+            exameDAO.save(exameSelecionado);  // Atualiza o status no banco
+
+            JOptionPane.showMessageDialog(this, "Exame inativado com sucesso.");
+        }
     }
     
 
