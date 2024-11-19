@@ -3,6 +3,7 @@ package br.unipar.projetolab.views;
 import br.unipar.projetolab.dao.ConvenioDAO;
 import br.unipar.projetolab.dao.ConvenioDAOImp;
 import br.unipar.projetolab.enums.TipoPessoa;
+import br.unipar.projetolab.interfaces.ConvenioListener;
 import br.unipar.projetolab.models.Convenio;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -16,7 +17,7 @@ import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 
 
-public class ConvenioFrame extends javax.swing.JFrame {
+public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListener{
 
     private MaskFormatter mfcei, mfcnpj, mfcelular,mfcep;
     private Convenio convenioAtual;
@@ -626,7 +627,14 @@ public class ConvenioFrame extends javax.swing.JFrame {
         fantasiaField.setText("");
 
     }
-    void carregarConvenio(Convenio convenio) {
+    @Override
+    public void onConvenioSelecionado(Convenio convenio) {
+        this.convenioAtual = convenio;
+        carregarConvenio(convenio);
+        habilitarCampos();
+    }
+
+    private void carregarConvenio(Convenio convenio) {
         codigoField.setText(convenio.getId().toString());
         nomeField.setText(convenio.getNome());
         razaoSocialField.setText(convenio.getRazaoSocial());

@@ -2,6 +2,7 @@ package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.ConvenioDAO;
 import br.unipar.projetolab.dao.ConvenioDAOImp;
+import br.unipar.projetolab.interfaces.ConvenioListener;
 import br.unipar.projetolab.models.Convenio;
 import br.unipar.projetolab.tablemodels.ConvenioTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
@@ -13,16 +14,15 @@ import javax.swing.JOptionPane;
 public class ConvenioPesquisaFrame extends javax.swing.JFrame {
     
     private ConvenioTableModel tableModel;
-    private ConvenioFrame convenioFrame;
-    private boolean modoInativacao;  // Se verdadeiro, estamos no modo de inativação
+    private ConvenioListener convenioListener; // Listener para comunicação
+    private boolean modoInativacao;
     
-    public ConvenioPesquisaFrame(ConvenioFrame convenioFrame, boolean modoInativacao) {
-        this.convenioFrame = convenioFrame;
+    public ConvenioPesquisaFrame(ConvenioListener convenioListener, boolean modoInativacao) {
+        this.convenioListener = convenioListener;
         this.modoInativacao = modoInativacao;
         initComponents();
         carregarConvenios();
     }
-
 
 
     @SuppressWarnings("unchecked")
@@ -169,14 +169,14 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
         if (selectedRow != -1) {
             Convenio convenioSelecionado = tableModel.getConvenioAt(selectedRow);
 
-            // Verifica se estamos em modo de inativação ou edição
             if (modoInativacao) {
                 inativarConvenio(convenioSelecionado);
             } else {
-                convenioFrame.carregarConvenio(convenioSelecionado);
+                if (convenioListener != null) {
+                    convenioListener.onConvenioSelecionado(convenioSelecionado);
+                }
             }
 
-            // Fecha a tela de pesquisa
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um convênio.");
@@ -214,26 +214,26 @@ public class ConvenioPesquisaFrame extends javax.swing.JFrame {
     private javax.swing.JButton selecionarBtn;
     // End of variables declaration//GEN-END:variables
 
+    private void carregarConvenios() {
+        ConvenioDAOImp convenioDAO = new ConvenioDAOImp(EntityManagerUtil.getManager());
+        List<Convenio> convenios = convenioDAO.findAll();
+        tableModel = new ConvenioTableModel(convenios);
+        conveniosTable.setModel(tableModel);
+    }
+
     private void inativarConvenio(Convenio convenioSelecionado) {
-        // Confirmar antes de inativar
         int confirm = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja inativar este convênio?",
                 "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            convenioSelecionado.setAtivo(false);  // Inativa o convênio
+            convenioSelecionado.setAtivo(false);
 
             ConvenioDAOImp convenioDAO = new ConvenioDAOImp(EntityManagerUtil.getManager());
-            convenioDAO.save(convenioSelecionado);  // Atualiza o status no banco
+            convenioDAO.save(convenioSelecionado);
 
             JOptionPane.showMessageDialog(this, "Convênio inativado com sucesso.");
+            carregarConvenios();
         }
-    }
-
-    private void carregarConvenios() {
-        ConvenioDAO convenioDAO = new ConvenioDAOImp(EntityManagerUtil.getManager());
-        List<Convenio> convenios = convenioDAO.findAll();
-        tableModel = new ConvenioTableModel(convenios);
-        conveniosTable.setModel(tableModel);
     }
 }
