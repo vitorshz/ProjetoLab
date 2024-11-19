@@ -2,6 +2,7 @@ package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.PacienteDAO;
 import br.unipar.projetolab.dao.PacienteDAOImp;
+import br.unipar.projetolab.interfaces.PacienteSelecionadoListener;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
-public class PacienteFrame extends javax.swing.JFrame {
+public class PacienteFrame extends javax.swing.JFrame implements PacienteSelecionadoListener{
     
     private MaskFormatter mfdata,mfcpf,mfcelular;
     private Paciente pacienteAtual; 
@@ -366,7 +367,7 @@ public class PacienteFrame extends javax.swing.JFrame {
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
         // Abre a tela de pesquisa de pacientes
-        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this, true); // 'true' indica que estamos em modo de exclusão/inativação
+        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this); // 'true' indica que estamos em modo de exclusão/inativação
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_excluirBtnActionPerformed
 
@@ -378,41 +379,37 @@ public class PacienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this,false);
+        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this);
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
         try {
-            // Captura os dados do formulário
             String nome = nomeField.getText();
             String cpf = cpfField.getText();
-            String endereco = enderecoField.getText();  // Endereço
+            String endereco = enderecoField.getText();
             String telefone = telefoneField.getText();
 
-            // Capturar as seleções dos JComboBox
             String sexo = (String) sexoBox.getSelectedItem();
             String tipoSangue = (String) sangueBox.getSelectedItem();
             String fatorRh = (String) fatorRHBox.getSelectedItem();
 
-            // Formatar a data de nascimento de String para LocalDate
             String dataNascimentoStr = dataNascField.getText();
             LocalDate dataNascimento;
+
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
             } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Data de nascimento inválida. Por favor, insira no formato dd/MM/yyyy.");
+                JOptionPane.showMessageDialog(this, "Data de nascimento inválida. Formato: dd/MM/yyyy.");
                 return;
             }
 
-            // Verifica se os campos obrigatórios estão preenchidos
             if (nome.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios.");
                 return;
             }
 
-            // Cria uma nova instância de Paciente ou usa o paciente atual para edição
             Paciente paciente = pacienteAtual != null ? pacienteAtual : new Paciente();
             paciente.setNome(nome);
             paciente.setCpf(cpf);
@@ -423,7 +420,6 @@ public class PacienteFrame extends javax.swing.JFrame {
             paciente.setTipoSangue(tipoSangue);
             paciente.setFatorRh(fatorRh);
 
-            // Salva o paciente no banco de dados
             PacienteDAO pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
             if (pacienteAtual != null) {
                 pacienteDAO.update(paciente);
@@ -431,16 +427,13 @@ public class PacienteFrame extends javax.swing.JFrame {
                 pacienteDAO.save(paciente);
             }
 
-            // Exibe mensagem de sucesso
             JOptionPane.showMessageDialog(this, "Paciente salvo com sucesso!");
-
-            // Limpa os campos após o cadastro e desabilita-os
             limparCampos();
             desabilitarCampos();
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao salvar paciente: " + ex.getMessage());
         }
+    
 
     }//GEN-LAST:event_salvarBtnActionPerformed
 
@@ -569,10 +562,31 @@ public class PacienteFrame extends javax.swing.JFrame {
     }
 
     
-    // Método para receber o paciente selecionado
+    // Recebe o paciente para edição
+    @Override
     public void receberPaciente(Paciente paciente) {
         if (paciente != null) {
-            carregarPaciente(paciente); // Preenche os campos com o paciente selecionado
+            carregarPaciente(paciente); // Preenche os campos com o paciente recebido
+        }
+    }
+
+    // Recebe o paciente para inativação
+    public void receberPacienteParaInativar(Paciente paciente) {
+        if (paciente != null) {
+            int confirmacao = JOptionPane.showConfirmDialog(this,
+                    "Tem certeza que deseja inativar o paciente: " + paciente.getNome() + "?",
+                    "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                try {
+                    PacienteDAO pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
+                    paciente.setAtivo(false); // Marca como inativo
+                    pacienteDAO.update(paciente);
+                    JOptionPane.showMessageDialog(this, "Paciente inativado com sucesso!");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao inativar paciente: " + ex.getMessage());
+                }
+            }
         }
     }
     
@@ -603,26 +617,5 @@ public class PacienteFrame extends javax.swing.JFrame {
         cpfField.setEditable(false);
         dataNascField.setEditable(false);
     }
-    
-    // Método que recebe o paciente selecionado para inativação
-    public void receberPacienteParaInativar(Paciente paciente) {
-        if (paciente != null) {
-            // Exibe um diálogo de confirmação
-            int confirmacao = JOptionPane.showConfirmDialog(this,
-                    "Tem certeza que deseja inativar o paciente: " + paciente.getNome() + "?",
-                    "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
 
-            if (confirmacao == JOptionPane.YES_OPTION) {
-                // Se confirmado, inativa o paciente
-                try {
-                    PacienteDAO pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
-                    paciente.setAtivo(false);  // Marca o paciente como inativo
-                    pacienteDAO.update(paciente);  // Atualiza o paciente no banco
-                    JOptionPane.showMessageDialog(this, "Paciente inativado com sucesso!");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Erro ao inativar o paciente: " + ex.getMessage());
-                }
-            }
-        }
-    }
 }
