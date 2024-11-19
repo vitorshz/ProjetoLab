@@ -2,6 +2,7 @@
 package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.PacienteDAOImp;
+import br.unipar.projetolab.interfaces.PacienteSelecionadoListener;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.tablemodels.PacienteTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
@@ -17,15 +18,14 @@ import javax.swing.JOptionPane;
 public class PacientePesquisaFrame extends javax.swing.JFrame {
 
     private PacienteTableModel tableModel;
-    private PacienteFrame pacienteFrame;
-    private boolean modoExclusao;  // Se verdadeiro, estamos no modo de exclusão
+    private final PacienteSelecionadoListener listener;
+    private boolean modoExclusao;  
 
-    // Construtor que recebe a instância do PacienteFrame e o modo (exclusão ou edição)
-    public PacientePesquisaFrame(PacienteFrame pacienteFrame, boolean modoExclusao) {
-        FlatLightLaf.setup();
-        this.pacienteFrame = pacienteFrame;
-        this.modoExclusao = modoExclusao;  // Define se estamos em modo de exclusão
+    
+    public PacientePesquisaFrame(PacienteSelecionadoListener listener) {
+        this.listener = listener;
         initComponents();
+        setLocationRelativeTo(null); // Centraliza a janela
         carregarDados();
     }
 
@@ -179,20 +179,11 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
             Paciente pacienteSelecionado = tableModel.getPacienteAt(selectedRow);
-
-            // Verifica se estamos em modo de exclusão ou edição
-            if (modoExclusao) {
-                pacienteFrame.receberPacienteParaInativar(pacienteSelecionado);
-            } else {
-                pacienteFrame.receberPaciente(pacienteSelecionado);
-            }
-
-            // Fecha a tela de pesquisa
-            this.dispose();
+            listener.receberPaciente(pacienteSelecionado); // Envia o paciente pelo listener
+            this.dispose(); // Fecha o frame
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um paciente.");
         }
-    
     }//GEN-LAST:event_selecionarBtnActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
@@ -200,21 +191,18 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarBtnActionPerformed
 
     private void pesquisaPacienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacienteBtnActionPerformed
-        String nome = jTextField1.getText();  // Obtém o texto inserido no campo de pesquisa
-
-        if (nome.isEmpty()) {
+        String nome = jTextField1.getText();
+        if (nome.isEmpty() || nome.equals("Insira o nome do paciente aqui")) {
             JOptionPane.showMessageDialog(this, "Por favor, insira um nome para a pesquisa.");
             return;
         }
 
-        // Realiza a busca no banco de dados
         PacienteDAOImp pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
         List<Paciente> pacientesEncontrados = pacienteDAO.findByName(nome);
 
         if (pacientesEncontrados.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nenhum paciente encontrado com o nome: " + nome);
         } else {
-            // Atualiza a tabela com os pacientes encontrados
             tableModel = new PacienteTableModel(pacientesEncontrados);
             jTable1.setModel(tableModel);
         }
@@ -250,7 +238,7 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
 
     private void carregarDados() {
         PacienteDAOImp pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
-        List<Paciente> pacientes = pacienteDAO.findAllAtivos();  // Carrega apenas os pacientes ativos
+        List<Paciente> pacientes = pacienteDAO.findAllAtivos();
         tableModel = new PacienteTableModel(pacientes);
         jTable1.setModel(tableModel);
     }
