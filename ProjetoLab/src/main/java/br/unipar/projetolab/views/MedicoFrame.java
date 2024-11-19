@@ -3,6 +3,7 @@ package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.MedicoDAO;
 import br.unipar.projetolab.dao.MedicoDAOImp;
+import br.unipar.projetolab.interfaces.MedicoListener;
 import br.unipar.projetolab.models.Medico;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.utils.EntityManagerUtil;
@@ -17,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
-public class MedicoFrame extends javax.swing.JFrame {
+public class MedicoFrame extends javax.swing.JFrame implements MedicoListener{
      private MaskFormatter mfdata,mfcpf,mfcelular,mfCRM;
 
     
@@ -547,29 +548,25 @@ private void desabilitarCampos() {
 
 }
 
-public void carregarMedico(Medico medico) {
-    medicoAtual = medico;
-    codigoField.setText(medico.getId().toString());
-    nomeField.setText(medico.getNome());
-    cpfField.setText(medico.getCpf());
+    private void carregarMedico(Medico medico) {
+        medicoAtual = medico;
+        codigoField.setText(medico.getId().toString());
+        nomeField.setText(medico.getNome());
+        cpfField.setText(medico.getCpf());
 
-    
-    LocalDate dataNascimento = medico.getDataNascimento();
-    if (dataNascimento != null) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dataNascField.setText(dataNascimento.format(formatter));
+        LocalDate dataNascimento = medico.getDataNascimento();
+        if (dataNascimento != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascField.setText(dataNascimento.format(formatter));
+        }
+
+        enderecoField.setText(medico.getEndereco());
+        EmailField.setText(medico.getCelular());
+        CRMField.setText(medico.getConselhoCrm());
+        especialiddeField.setText(medico.getEspecialidade());
+        tipoBox.setSelectedItem(medico.getTipo());
+        habilitarCamposParaEdicao();
     }
-
-    enderecoField.setText(medico.getEndereco());
-    EmailField.setText(medico.getCelular());
-    CRMField.setText(medico.getConselhoCrm());
-    especialiddeField.setText(medico.getEspecialidade());
-    
-    
-    tipoBox.setSelectedItem(medico.getTipo());
-
-    habilitarCamposParaEdicao();
-}
 
 
 public void receberMedico(Medico medico) {
@@ -629,6 +626,30 @@ public void receberMedicoParaInativar(Medico medico) {
         }
     }
 }
+
+    @Override
+    public void onMedicoSelecionado(Medico medico) {
+        carregarMedico(medico);
+    }
+
+    @Override
+    public void onMedicoInativar(Medico medico) {
+        int confirmacao = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja inativar o médico: " + medico.getNome() + "?",
+                "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+                medico.setAtivo(false);
+                medicoDAO.update(medico);
+
+                JOptionPane.showMessageDialog(this, "Médico inativado com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao inativar o médico: " + ex.getMessage());
+            }
+        }
+    }
 
 
 

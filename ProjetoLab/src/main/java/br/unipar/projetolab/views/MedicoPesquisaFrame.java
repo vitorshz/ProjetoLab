@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.MedicoDAOImp;
+import br.unipar.projetolab.interfaces.MedicoListener;
 import br.unipar.projetolab.models.Medico;
 import br.unipar.projetolab.tablemodels.MedicoTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
@@ -16,15 +14,15 @@ import javax.swing.JOptionPane;
 
 public class MedicoPesquisaFrame extends javax.swing.JFrame {
 
-     private MedicoTableModel tableModel;
-    private MedicoFrame medicoFrame; 
-    private boolean modoExclusao;  
+    private MedicoTableModel tableModel;
+    private MedicoListener medicoListener; // Listener para comunicação
+    private boolean modoExclusao;
 
     
-    public MedicoPesquisaFrame(MedicoFrame medicoFrame, boolean modoExclusao) {
+    public MedicoPesquisaFrame(MedicoListener medicoListener, boolean modoExclusao) {
         FlatLightLaf.setup();
-        this.medicoFrame = medicoFrame;
-        this.modoExclusao = modoExclusao;  
+        this.medicoListener = medicoListener;
+        this.modoExclusao = modoExclusao;
         initComponents();
         carregarDados();
     }
@@ -169,22 +167,24 @@ public class MedicoPesquisaFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
-       int selectedRow = jTable1.getSelectedRow();
-if (selectedRow != -1) {
-    Medico medicoSelecionado = tableModel.getMedicoAt(selectedRow); 
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow != -1) {
+            Medico medicoSelecionado = tableModel.getMedicoAt(selectedRow);
 
-    if (modoExclusao) {
-        medicoFrame.receberMedicoParaInativar(medicoSelecionado); 
-    } else {
-        medicoFrame.receberMedico(medicoSelecionado); 
-    }
+            if (modoExclusao) {
+                if (medicoListener != null) {
+                    medicoListener.onMedicoInativar(medicoSelecionado);
+                }
+            } else {
+                if (medicoListener != null) {
+                    medicoListener.onMedicoSelecionado(medicoSelecionado);
+                }
+            }
 
-   
-    this.dispose();
-} else {
-    JOptionPane.showMessageDialog(this, "Selecione um médico."); 
-}
-
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um médico.");
+        }
     }//GEN-LAST:event_selecionarBtnActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
@@ -206,24 +206,23 @@ if (selectedRow != -1) {
     }//GEN-LAST:event_jTextField1FocusLost
 
     private void pesquisaPacienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacienteBtnActionPerformed
-        String nome = jTextField1.getText(); 
+        String nome = jTextField1.getText();
 
-if (nome.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Por favor, insira um nome para a pesquisa.");
-    return;
-}
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira um nome para a pesquisa.");
+            return;
+        }
 
-// Realiza a busca no banco de dados
-MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
-List<Medico> medicosEncontrados = medicoDAO.findByName(nome);
+        MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+        List<Medico> medicosEncontrados = medicoDAO.findByName(nome);
 
-if (medicosEncontrados.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Nenhum médico encontrado com o nome: " + nome);
-} else {
-   
-    tableModel = new MedicoTableModel(medicosEncontrados);
-    jTable1.setModel(tableModel);
-}
+        if (medicosEncontrados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum médico encontrado com o nome: " + nome);
+        } else {
+            tableModel = new MedicoTableModel(medicosEncontrados);
+            jTable1.setModel(tableModel);
+        }
+    
     }//GEN-LAST:event_pesquisaPacienteBtnActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -241,11 +240,10 @@ if (medicosEncontrados.isEmpty()) {
     private javax.swing.JButton pesquisaPacienteBtn;
     private javax.swing.JButton selecionarBtn;
     // End of variables declaration//GEN-END:variables
-private void carregarDados() {
-    MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
-    List<Medico> medicos = medicoDAO.findAllAtivos();  // Carrega apenas os médicos ativos
-    tableModel = new MedicoTableModel(medicos);
-    jTable1.setModel(tableModel);
-}
-
+    private void carregarDados() {
+        MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+        List<Medico> medicos = medicoDAO.findAllAtivos(); // Apenas médicos ativos
+        tableModel = new MedicoTableModel(medicos);
+        jTable1.setModel(tableModel);
+    }
 }
