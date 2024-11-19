@@ -19,10 +19,9 @@ public class MedicoPesquisaFrame extends javax.swing.JFrame {
     private boolean modoExclusao;
 
     
-    public MedicoPesquisaFrame(MedicoListener medicoListener, boolean modoExclusao) {
+    public MedicoPesquisaFrame(MedicoListener medicoListener) {
         FlatLightLaf.setup();
         this.medicoListener = medicoListener;
-        this.modoExclusao = modoExclusao;
         initComponents();
         carregarDados();
     }
@@ -246,4 +245,8 @@ public class MedicoPesquisaFrame extends javax.swing.JFrame {
         tableModel = new MedicoTableModel(medicos);
         jTable1.setModel(tableModel);
     }
+    
+    public void setModoExclusao(boolean modoExclusao) {
+        this.modoExclusao = modoExclusao;
+    } 
 }

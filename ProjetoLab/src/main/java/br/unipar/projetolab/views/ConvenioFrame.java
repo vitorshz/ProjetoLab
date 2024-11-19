@@ -479,7 +479,8 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
     }//GEN-LAST:event_salvarBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        ConvenioPesquisaFrame pesquisaFrame = new ConvenioPesquisaFrame(this, false); // Modo edição (false)
+        ConvenioPesquisaFrame pesquisaFrame = new ConvenioPesquisaFrame(this); // Modo edição (false)
+        pesquisaFrame.setModoExclusao(false); // Configura para modo de exclusão
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
@@ -489,7 +490,9 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-        ConvenioPesquisaFrame pesquisaFrame = new ConvenioPesquisaFrame(this, true); // Modo exclusão (true)
+        ConvenioPesquisaFrame pesquisaFrame = new ConvenioPesquisaFrame(this); // Modo exclusão (true)
+        pesquisaFrame.setModoExclusao(true); // Configura para modo de exclusão
+
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_excluirBtnActionPerformed
 

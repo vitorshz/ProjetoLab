@@ -38,5 +38,10 @@ public class ConvenioDAOImp implements ConvenioDAO{
         entityManager.merge(convenio);
         entityManager.getTransaction().commit();
     }
+    public List<Convenio> findByName(String nome) {
+        return entityManager.createQuery("SELECT c FROM Convenio c WHERE c.nome LIKE :nome AND c.ativo = true", Convenio.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
 }
 

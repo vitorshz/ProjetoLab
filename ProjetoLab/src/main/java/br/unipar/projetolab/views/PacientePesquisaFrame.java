@@ -22,9 +22,8 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
     private boolean modoExclusao;  
 
     
-    public PacientePesquisaFrame(PacienteSelecionadoListener listener, boolean modoExclusao) {
+    public PacientePesquisaFrame(PacienteSelecionadoListener listener) {
         this.listener = listener;
-        this.modoExclusao = modoExclusao;
         initComponents();
         setLocationRelativeTo(null); // Centraliza a janela
         carregarDados();
@@ -250,6 +249,9 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
         List<Paciente> pacientes = pacienteDAO.findAllAtivos();
         tableModel = new PacienteTableModel(pacientes);
         jTable1.setModel(tableModel);
+    }
+    public void setModoExclusao(boolean modoExclusao) {
+        this.modoExclusao = modoExclusao;
     }
 
 }

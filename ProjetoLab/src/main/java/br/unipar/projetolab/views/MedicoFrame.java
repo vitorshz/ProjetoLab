@@ -392,7 +392,9 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this);
+        pesquisaFrame.setModoExclusao(true); // Configura para modo de edição
+
         pesquisaFrame.setVisible(true);
 
     }//GEN-LAST:event_excluirBtnActionPerformed
@@ -405,7 +407,9 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, false);
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this);
+        pesquisaFrame.setModoExclusao(false); // Configura para modo de edição
+
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
