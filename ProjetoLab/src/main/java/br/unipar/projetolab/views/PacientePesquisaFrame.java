@@ -178,12 +178,15 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
-            Paciente pacienteSelecionado = tableModel.getPacienteAt(selectedRow);
-            listener.receberPaciente(pacienteSelecionado); // Envia o paciente pelo listener
+            Paciente pacienteSelecionado = tableModel.getPacienteAt(selectedRow); // Obtém o paciente selecionado
+            if (listener != null) {
+                listener.receberPaciente(pacienteSelecionado); // Envia o paciente de volta
+            }
             this.dispose(); // Fecha o frame
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um paciente.");
         }
+    
     }//GEN-LAST:event_selecionarBtnActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed

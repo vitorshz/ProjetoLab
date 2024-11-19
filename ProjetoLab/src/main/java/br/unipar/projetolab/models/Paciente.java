@@ -1,6 +1,7 @@
 package br.unipar.projetolab.models;
 
 import java.time.LocalDate;
+import java.time.Period;
 import javax.persistence.*;
 
 @Entity
@@ -130,5 +131,11 @@ public class Paciente {
     }
     
     
-
+    public int calcularIdade() {
+        if (dataNascimento == null) {
+            return -1; // Retorna -1 para indicar que a data de nascimento não está definida
+        }
+        return Period.between(dataNascimento, LocalDate.now()).getYears();
+    }
+    
 }
