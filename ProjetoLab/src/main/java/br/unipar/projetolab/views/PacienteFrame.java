@@ -366,8 +366,36 @@ public class PacienteFrame extends javax.swing.JFrame implements PacienteSelecio
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-        // Abre a tela de pesquisa de pacientes
-        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this); // 'true' indica que estamos em modo de exclusão/inativação
+        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(new PacienteSelecionadoListener() {
+            @Override
+            public void receberPaciente(Paciente paciente) {
+                // Não utilizado no modo de exclusão
+            }
+
+            @Override
+            public void receberPacienteParaInativar(Paciente paciente) {
+                if (paciente != null) {
+                    // Confirma a exclusão antes de prosseguir
+                    int confirmacao = JOptionPane.showConfirmDialog(
+                            PacienteFrame.this,
+                            "Tem certeza que deseja inativar o paciente: " + paciente.getNome() + "?",
+                            "Confirmar Inativação",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        try {
+                            PacienteDAOImp pacienteDAO = new PacienteDAOImp(EntityManagerUtil.getManager());
+                            paciente.setAtivo(false); // Marca como inativo
+                            pacienteDAO.update(paciente); // Atualiza no banco
+                            JOptionPane.showMessageDialog(PacienteFrame.this, "Paciente inativado com sucesso!");
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(PacienteFrame.this, "Erro ao inativar paciente: " + ex.getMessage());
+                        }
+                    }
+                }
+            }
+        }, true); // Modo exclusão
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_excluirBtnActionPerformed
 
@@ -379,7 +407,17 @@ public class PacienteFrame extends javax.swing.JFrame implements PacienteSelecio
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(this);
+        PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(new PacienteSelecionadoListener() {
+            @Override
+            public void receberPaciente(Paciente paciente) {
+                carregarPaciente(paciente); // Preenche os dados para edição
+            }
+
+            @Override
+            public void receberPacienteParaInativar(Paciente paciente) {
+                // Não utilizado no modo de edição
+            }
+        }, false); // Modo edição
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 

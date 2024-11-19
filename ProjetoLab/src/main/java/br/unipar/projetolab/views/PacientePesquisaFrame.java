@@ -22,8 +22,9 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
     private boolean modoExclusao;  
 
     
-    public PacientePesquisaFrame(PacienteSelecionadoListener listener) {
+    public PacientePesquisaFrame(PacienteSelecionadoListener listener, boolean modoExclusao) {
         this.listener = listener;
+        this.modoExclusao = modoExclusao;
         initComponents();
         setLocationRelativeTo(null); // Centraliza a janela
         carregarDados();
@@ -178,15 +179,20 @@ public class PacientePesquisaFrame extends javax.swing.JFrame {
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) {
-            Paciente pacienteSelecionado = tableModel.getPacienteAt(selectedRow); // Obtém o paciente selecionado
+            Paciente pacienteSelecionado = tableModel.getPacienteAt(selectedRow);
+
             if (listener != null) {
-                listener.receberPaciente(pacienteSelecionado); // Envia o paciente de volta
+                if (modoExclusao) {
+                    listener.receberPacienteParaInativar(pacienteSelecionado); // Notifica para inativação
+                } else {
+                    listener.receberPaciente(pacienteSelecionado); // Notifica para edição
+                }
             }
-            this.dispose(); // Fecha o frame
+
+            this.dispose(); // Fecha o frame após notificar o listener
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um paciente.");
         }
-    
     }//GEN-LAST:event_selecionarBtnActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
