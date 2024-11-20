@@ -3,21 +3,25 @@ package br.unipar.projetolab.views;
 
 import br.unipar.projetolab.dao.MedicoDAO;
 import br.unipar.projetolab.dao.MedicoDAOImp;
+import br.unipar.projetolab.interfaces.MedicoListener;
 import br.unipar.projetolab.models.Medico;
 import br.unipar.projetolab.models.Paciente;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 
 
-public class MedicoFrame extends javax.swing.JFrame {
+public class MedicoFrame extends javax.swing.JFrame implements MedicoListener{
      private MaskFormatter mfdata,mfcpf,mfcelular,mfCRM;
 
     
@@ -391,7 +395,9 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, true);
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this);
+        pesquisaFrame.setModoExclusao(true); // Configura para modo de edição
+
         pesquisaFrame.setVisible(true);
 
     }//GEN-LAST:event_excluirBtnActionPerformed
@@ -404,65 +410,51 @@ public MedicoFrame() throws ParseException {
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this, false);
+        MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(this);
+        pesquisaFrame.setModoExclusao(false); // Configura para modo de edição
+
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
-        try {
-
-            String nome = nomeField.getText();
-            String conselhoCrm = CRMField.getText();
-            String especialidade = especialiddeField.getText();
-            String tipo = (String) tipoBox.getSelectedItem();
-            String cpf = cpfField.getText();
-            String endereco = enderecoField.getText();
-            String celular = telefoneField.getText();
-            String observacoes = OBSField.getText();
-
-            String dataNascimentoStr = dataNascField.getText();
-            LocalDate dataNascimento;
+        if (validarCampos()) {
             try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
-            } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(this, "Data de nascimento inválida. Por favor, insira no formato dd/MM/yyyy.");
-                return;
+                // Recupera os valores dos campos
+                String nome = nomeField.getText().trim();
+                String crm = CRMField.getText().trim();
+                String telefone = telefoneField.getText().trim();
+
+                Medico medico = medicoAtual != null ? medicoAtual : new Medico();
+                medico.setNome(nome);
+                medico.setConselhoCrm(crm);
+                medico.setCelular(telefone);
+
+                // Outros campos opcionais
+                medico.setEspecialidade(especialiddeField.getText().trim());
+                medico.setTipo((String) tipoBox.getSelectedItem());
+                medico.setEndereco(enderecoField.getText().trim());
+                medico.setObservacoes(OBSField.getText().trim());
+
+                if (!dataNascField.getText().trim().isEmpty()) {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    medico.setDataNascimento(LocalDate.parse(dataNascField.getText().trim(), formatter));
+                }
+
+                MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+                if (medicoAtual != null) {
+                    medicoDAO.update(medico);
+                    JOptionPane.showMessageDialog(this, "Médico atualizado com sucesso!");
+                } else {
+                    medicoDAO.save(medico);
+                    JOptionPane.showMessageDialog(this, "Médico salvo com sucesso!");
+                }
+
+                limparCampos();
+                desabilitarCampos();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao salvar médico: " + ex.getMessage());
             }
-
-            if (nome.isEmpty() || conselhoCrm.isEmpty() || cpf.isEmpty() || dataNascimentoStr.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");
-                return;
-            }
-
-            Medico medico = medicoAtual != null ? medicoAtual : new Medico();
-            medico.setNome(nome);
-            medico.setConselhoCrm(conselhoCrm);
-            medico.setEspecialidade(especialidade);
-            medico.setTipo(tipo);
-            medico.setCpf(cpf);
-            medico.setEndereco(endereco);
-            medico.setCelular(celular);
-
-            medico.setObservacoes(observacoes);
-            medico.setDataNascimento(dataNascimento);
-
-            MedicoDAO medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
-            if (medicoAtual != null) {
-                medicoDAO.update(medico);
-            } else {
-                medicoDAO.save(medico);
-            }
-
-            JOptionPane.showMessageDialog(this, "Médico salvo com sucesso!");
-
-            limparCampos();
-            desabilitarCampos();
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar médico: " + ex.getMessage());
         }
-
     }//GEN-LAST:event_salvarBtnActionPerformed
 
     /**
@@ -523,14 +515,15 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JComboBox<String> tipoBox;
     // End of variables declaration//GEN-END:variables
       private void limparCampos() {
-    nomeField.setText("");
-    cpfField.setText("");
-    dataNascField.setText("");
-    enderecoField.setText(""); 
-    EmailField.setText("");
-    CRMField.setText(""); 
-    especialiddeField.setText(""); 
-    tipoBox.setSelectedItem(null); 
+          nomeField.setText("");
+          CRMField.setText("");
+          telefoneField.setText("");
+          especialiddeField.setText("");
+          tipoBox.setSelectedItem(null);
+          enderecoField.setText("");
+          OBSField.setText("");
+          dataNascField.setText("");
+          resetarBordas();
 }
 
 private void desabilitarCampos() {
@@ -547,29 +540,25 @@ private void desabilitarCampos() {
 
 }
 
-public void carregarMedico(Medico medico) {
-    medicoAtual = medico;
-    codigoField.setText(medico.getId().toString());
-    nomeField.setText(medico.getNome());
-    cpfField.setText(medico.getCpf());
+    private void carregarMedico(Medico medico) {
+        medicoAtual = medico;
+        codigoField.setText(medico.getId().toString());
+        nomeField.setText(medico.getNome());
+        cpfField.setText(medico.getCpf());
 
-    
-    LocalDate dataNascimento = medico.getDataNascimento();
-    if (dataNascimento != null) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        dataNascField.setText(dataNascimento.format(formatter));
+        LocalDate dataNascimento = medico.getDataNascimento();
+        if (dataNascimento != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            dataNascField.setText(dataNascimento.format(formatter));
+        }
+
+        enderecoField.setText(medico.getEndereco());
+        EmailField.setText(medico.getCelular());
+        CRMField.setText(medico.getConselhoCrm());
+        especialiddeField.setText(medico.getEspecialidade());
+        tipoBox.setSelectedItem(medico.getTipo());
+        habilitarCamposParaEdicao();
     }
-
-    enderecoField.setText(medico.getEndereco());
-    EmailField.setText(medico.getCelular());
-    CRMField.setText(medico.getConselhoCrm());
-    especialiddeField.setText(medico.getEspecialidade());
-    
-    
-    tipoBox.setSelectedItem(medico.getTipo());
-
-    habilitarCamposParaEdicao();
-}
 
 
 public void receberMedico(Medico medico) {
@@ -583,14 +572,13 @@ private void habilitarCampos() {
     nomeField.setEditable(true);
     cpfField.setEditable(true);
     dataNascField.setEditable(true);
-    enderecoField.setEditable(true); 
+    enderecoField.setEditable(true);
     EmailField.setEditable(true);
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
     codigoField.setEditable(false);
     OBSField.setEditable(true);
-
 }
 
 
@@ -630,6 +618,72 @@ public void receberMedicoParaInativar(Medico medico) {
     }
 }
 
+    @Override
+    public void onMedicoSelecionado(Medico medico) {
+        carregarMedico(medico);
+    }
 
+    @Override
+    public void onMedicoInativar(Medico medico) {
+        int confirmacao = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja inativar o médico: " + medico.getNome() + "?",
+                "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                MedicoDAOImp medicoDAO = new MedicoDAOImp(EntityManagerUtil.getManager());
+                medico.setAtivo(false);
+                medicoDAO.update(medico);
+
+                JOptionPane.showMessageDialog(this, "Médico inativado com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao inativar o médico: " + ex.getMessage());
+            }
+        }
+    }
+
+    private boolean validarCampos() {
+        Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
+        Border defaultBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
+        boolean isValid = true;
+
+        // Valida o campo Nome
+        if (nomeField.getText().trim().isEmpty()) {
+            nomeField.setBorder(errorBorder);
+            isValid = false;
+        } else {
+            nomeField.setBorder(defaultBorder);
+        }
+
+        // Valida o campo CRM
+        if (CRMField.getText().trim().isEmpty()) {
+            CRMField.setBorder(errorBorder);
+            isValid = false;
+        } else {
+            CRMField.setBorder(defaultBorder);
+        }
+
+        // Valida o campo Telefone
+        if (telefoneField.getText().trim().isEmpty()) {
+            telefoneField.setBorder(errorBorder);
+            isValid = false;
+        } else {
+            telefoneField.setBorder(defaultBorder);
+        }
+
+        // Exibe mensagem se houver erro
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios.", "Campos Inválidos", JOptionPane.WARNING_MESSAGE);
+        }
+
+        return isValid;
+    }
+    
+    private void resetarBordas() {
+        Border defaultBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
+        nomeField.setBorder(defaultBorder);
+        CRMField.setBorder(defaultBorder);
+        telefoneField.setBorder(defaultBorder);
+    }
 
 }

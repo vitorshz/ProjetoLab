@@ -1,6 +1,7 @@
 
 package br.unipar.projetolab.views;
 
+import br.unipar.projetolab.models.RequisicaoModel;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -21,6 +22,7 @@ public class Main extends javax.swing.JFrame {
     private PacienteFrame pacienteFrame;
     private MedicoFrame medicoFrame;
     private ConvenioFrame convenioFrame;
+    private RequisicaoCadPanel requisicaopanel;
     
     private boolean isCadastroExpanded = false;
     private boolean isResultadoExpanded = false;
@@ -46,6 +48,8 @@ public class Main extends javax.swing.JFrame {
         });
         timer.setRepeats(false); // Executa apenas uma vez
         timer.start(); // Inicia o timer
+        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -54,8 +58,6 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        telaSubtsPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         sideBar = new javax.swing.JPanel();
         btnRelatorios = new javax.swing.JButton();
         cadastroPanel = new javax.swing.JPanel();
@@ -69,6 +71,7 @@ public class Main extends javax.swing.JFrame {
         btnImpressaoExames1 = new javax.swing.JButton();
         btnInclusaoExames1 = new javax.swing.JButton();
         btnExames = new javax.swing.JButton();
+        telaSubtsPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         pacientemenuitem = new javax.swing.JMenuItem();
@@ -79,31 +82,6 @@ public class Main extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        telaSubtsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        telaSubtsPanel.setForeground(new java.awt.Color(0, 0, 0));
-        telaSubtsPanel.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Bem Vindo!");
-
-        javax.swing.GroupLayout telaSubtsPanelLayout = new javax.swing.GroupLayout(telaSubtsPanel);
-        telaSubtsPanel.setLayout(telaSubtsPanelLayout);
-        telaSubtsPanelLayout.setHorizontalGroup(
-            telaSubtsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaSubtsPanelLayout.createSequentialGroup()
-                .addContainerGap(488, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(488, 488, 488))
-        );
-        telaSubtsPanelLayout.setVerticalGroup(
-            telaSubtsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(telaSubtsPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1)
-                .addContainerGap(665, Short.MAX_VALUE))
-        );
 
         sideBar.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -294,10 +272,12 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnResultados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(resultadoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(btnRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(170, 170, 170))
         );
+
+        telaSubtsPanel.setLayout(new java.awt.BorderLayout());
 
         jMenu3.setText("Cadastros");
 
@@ -343,15 +323,17 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(sideBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(sideBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -405,7 +387,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiaActionPerformed
-        // TODO add your handling code here:
+
+        // Inicializar o RequisicaoModel
+        RequisicaoModel requisicaoModel = new RequisicaoModel();
+
+        // Inicializar o painel inicial
+        RequisicaoCadPanel requisicaoCadPanel = new RequisicaoCadPanel(telaSubtsPanel, requisicaoModel);
+
+        // Adicionar o painel inicial à tela principal
+        telaSubtsPanel.add(requisicaoCadPanel, java.awt.BorderLayout.CENTER);
+
+        // Atualizar a interface
+        telaSubtsPanel.revalidate();
+        telaSubtsPanel.repaint();
+
     }//GEN-LAST:event_btnGuiaActionPerformed
 
     private void btnImpressaoExames1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpressaoExames1ActionPerformed
@@ -571,7 +566,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnResultados;
     private javax.swing.JPanel cadastroPanel;
     private javax.swing.JMenuItem conveniomenuitem;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

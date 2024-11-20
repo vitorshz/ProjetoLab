@@ -184,15 +184,15 @@ public class ExamePesquisaFrame extends javax.swing.JFrame {
     private void selecionarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarBtnActionPerformed
         int selectedRow = examesTable.getSelectedRow();
         if (selectedRow != -1) {
-            Exame exameSelecionado = tableModel.getExameAt(selectedRow);
+            Exame exameSelecionado = tableModel.getExameAt(selectedRow); // Obtém o exame selecionado do modelo
             if (modoExclusao) {
-                inativarExame(exameSelecionado); // Passa o exame para o listener
-            } else {
-                listener.receberExame(exameSelecionado); // Passa o exame para o listener
+                inativarExame(exameSelecionado); // Inativa o exame se estiver no modo de exclusão
+            } else if (listener != null) {
+                listener.receberExame(exameSelecionado); // Passa o exame selecionado para o listener
             }
             dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um exame.");
+            JOptionPane.showMessageDialog(this, "Selecione um exame antes de continuar.", "Atenção", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_selecionarBtnActionPerformed
 

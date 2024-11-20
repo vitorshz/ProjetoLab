@@ -1,6 +1,7 @@
 package br.unipar.projetolab.tablemodels;
 
 import br.unipar.projetolab.models.Exame;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -9,9 +10,11 @@ public class ExameTableModel extends AbstractTableModel {
     private final List<Exame> exames;
     private final String[] colunas = {"ID", "Abreviação", "Nome", "Preço Padrão", "Tipo de Material"};
 
+
     public ExameTableModel(List<Exame> exames) {
-        this.exames = exames;
+        this.exames = new ArrayList<>(exames); // Garante que a lista é mutável
     }
+    
 
     @Override
     public int getRowCount() {
