@@ -549,7 +549,8 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
 
     private void mostrarDetalhesExame(GuiaExame guiaExame) {
         panelExame.removeAll(); // Limpa o painel antes de adicionar novos detalhes
-
+        
+        
         Exame exame = guiaExame.getExame();
 
         // Painel com informações detalhadas do exame
@@ -609,15 +610,17 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         List<CampoResultadoExame> resultadosSalvos = new ArrayList<>();
         try {
             resultadosSalvos = em.createQuery(
-                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.exame.id = :exameId",
+                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.exame.id = :exameId AND c.resultadoExame.guia.id = :guiaId",
                     CampoResultadoExame.class)
                     .setParameter("exameId", exame.getId())
+                    .setParameter("guiaId", guiaExame.getGuia().getId())
                     .getResultList();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
             em.close();
         }
+
 
         int yOffset = 0; // Posição inicial para os campos
         for (EstruturaExame estrutura : exame.getEstruturas()) {
@@ -766,7 +769,7 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         try {
             em.getTransaction().begin();
 
-            // Verifica ou cria ResultadoExame por exame e guia
+            // Verifica ou cria ResultadoExame para o par guia + exame
             ResultadoExame resultadoExame = em.createQuery(
                     "SELECT r FROM ResultadoExame r WHERE r.exame.id = :exameId AND r.guia.id = :guiaId",
                     ResultadoExame.class)
@@ -774,15 +777,15 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
                     .setParameter("guiaId", guiaExame.getGuia().getId())
                     .getResultStream()
                     .findFirst()
-                    .orElse(new ResultadoExame());
+                    .orElseGet(() -> {
+                        ResultadoExame novoResultado = new ResultadoExame();
+                        novoResultado.setExame(guiaExame.getExame());
+                        novoResultado.setGuia(guiaExame.getGuia());
+                        em.persist(novoResultado);
+                        return novoResultado;
+                    });
 
-            if (resultadoExame.getId() == null) {
-                resultadoExame.setExame(guiaExame.getExame());
-                resultadoExame.setGuia(guiaExame.getGuia()); // Relaciona ao guia
-                em.persist(resultadoExame);
-            }
-
-            // Salvar os campos de resultado
+            // Itera pelos campos e salva ou atualiza os resultados
             for (Component comp : camposResultadoPanel.getComponents()) {
                 if (comp instanceof JTextField) {
                     JTextField textField = (JTextField) comp;
@@ -830,6 +833,10 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
             em.close();
         }
     }
+
+
+
+
 
     
 // Método auxiliar para buscar o valor já salvo para um campo
