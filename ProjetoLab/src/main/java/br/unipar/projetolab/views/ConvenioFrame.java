@@ -71,7 +71,7 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
         jLabel15 = new javax.swing.JLabel();
         fantasiaField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
