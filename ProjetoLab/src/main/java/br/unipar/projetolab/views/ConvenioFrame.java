@@ -26,7 +26,7 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
         
         try {
             mfcei = new MaskFormatter(" ##.#######.##-##");
-            mfcnpj = new MaskFormatter("###.###.###/####-##");
+            mfcnpj = new MaskFormatter("##.###.###/####-##");
             mfcelular = new MaskFormatter("(##) #####-####");
             mfcep = new MaskFormatter("######-###");
         } catch (Exception e) {
@@ -423,48 +423,61 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
         try {
-            String nome = nomeField.getText();
-            String razaoSocial = razaoSocialField.getText();
-            String cnpj = cnpjField.getText();
-            String cei = ceiField.getText();
-            String telefone = telefoneField.getText();
-            String endereco = enderecoField.getText();
-            String observacoes = observacoesField.getText();
-            String cep = cepfield.getText();
-            String fantasia = fantasiaField.getText();
-            TipoPessoa tipoPessoa = TipoPessoa.valueOf(tipoPessoaComboBox.getSelectedItem().toString().toUpperCase());
+            String nome = nomeField.getText().trim();
+            String cnpj = cnpjField.getText().trim();
+            String telefone = telefoneField.getText().trim();
 
+            boolean isValid = true;
+            Border defaultBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1);
+            Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
 
-            if (nome.isEmpty() || cnpj.isEmpty()) {
-                
-                Border border = BorderFactory.createLineBorder(Color.RED,1);
-                nomeField.setBorder(border);
-                
-                
-               
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos obrigatórios.");                
+            // Validação do campo Nome
+            if (nome.isEmpty() || nome.length() < 3) {
+                nomeField.setBorder(errorBorder);
+                isValid = false;
+            } else {
+                nomeField.setBorder(defaultBorder);
+            }
+
+            // Validação do campo CNPJ
+            if (cnpj.isEmpty() || !cnpj.matches("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}")) {
+                cnpjField.setBorder(errorBorder);
+                isValid = false;
+            } else {
+                cnpjField.setBorder(defaultBorder);
+            }
+
+            // Validação do campo Telefone
+            if (telefone.isEmpty() || !telefone.matches("\\(\\d{2}\\) \\d{5}-\\d{4}")) {
+                telefoneField.setBorder(errorBorder);
+                isValid = false;
+            } else {
+                telefoneField.setBorder(defaultBorder);
+            }
+
+            // Se algum campo for inválido, exibe mensagem e retorna
+            if (!isValid) {
+                JOptionPane.showMessageDialog(this, "Por favor, corrija os campos destacados em vermelho.");
                 return;
             }
 
-            // Verifica se estamos editando um convênio existente ou criando um novo
+            // Continua com a lógica de salvar...
             if (convenioAtual == null) {
-                convenioAtual = new Convenio(); 
+                convenioAtual = new Convenio();
             }
 
-            // Atualiza os dados do convênio
             convenioAtual.setNome(nome);
-            convenioAtual.setRazaoSocial(razaoSocial);
             convenioAtual.setCnpj(cnpj);
-            convenioAtual.setCei(cei);
             convenioAtual.setTelefone(telefone);
-            convenioAtual.setEndereco(endereco);
-            convenioAtual.setObservacoes(observacoes);
-            convenioAtual.setCep(cep);
-            convenioAtual.setFantasia(fantasia);
-            convenioAtual.setTipoPessoa(tipoPessoa); 
-            convenioAtual.setAtivo(true); 
+            convenioAtual.setRazaoSocial(razaoSocialField.getText());
+            convenioAtual.setEndereco(enderecoField.getText());
+            convenioAtual.setObservacoes(observacoesField.getText());
+            convenioAtual.setCep(cepfield.getText());
+            convenioAtual.setFantasia(fantasiaField.getText());
+            convenioAtual.setCei(ceiField.getText());
+            convenioAtual.setTipoPessoa(TipoPessoa.valueOf(tipoPessoaComboBox.getSelectedItem().toString().toUpperCase()));
+            convenioAtual.setAtivo(true);
 
-            // Salva no banco de dados
             ConvenioDAOImp convenioDAO = new ConvenioDAOImp(EntityManagerUtil.getManager());
             convenioDAO.save(convenioAtual);
 
@@ -472,7 +485,6 @@ public class ConvenioFrame extends javax.swing.JFrame implements ConvenioListene
 
             limparCampos();
             desabilitarCampos();
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao salvar convênio: " + ex.getMessage());
         }

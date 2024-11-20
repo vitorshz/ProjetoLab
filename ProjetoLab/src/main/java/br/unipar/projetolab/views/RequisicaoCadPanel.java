@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 
 public class RequisicaoCadPanel extends javax.swing.JPanel {
@@ -27,12 +28,20 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private Convenio convenioSelecionado; // Convênio selecionado
     private javax.swing.JPanel telaPrincipal;
     private RequisicaoModel requisicaoModel;
+    private MaskFormatter  mfcelular;
     
     public RequisicaoCadPanel(javax.swing.JPanel telaPrincipal, RequisicaoModel requisicaoModel) {
         initComponents();
         this.telaPrincipal = telaPrincipal;
         this.requisicaoModel = requisicaoModel;
         carregarDados();
+        
+        try {
+            MaskFormatter mfcelular = new MaskFormatter("(##) #####-####");
+
+        } catch (Exception e) {
+            System.out.println("Erro ao criar a mascara");
+        }
     }
 
     
@@ -84,6 +93,9 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         medicoCRM = new javax.swing.JTextField();
         medicoCodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        telefoneField = new javax.swing.JFormattedTextField(mfcelular);
         fecharBtn = new javax.swing.JButton();
         Anteriobtn = new javax.swing.JButton();
         ProxiBtn = new javax.swing.JButton();
@@ -233,7 +245,7 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         jPanel3.add(MatriFild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 110, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel21.setText("Convênio:");
+        jLabel21.setText("Convênio*:");
         jLabel21.setToolTipText("");
         jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 70, -1));
 
@@ -254,6 +266,11 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 70, -1));
 
         datafild.setEditable(false);
+        datafild.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datafildActionPerformed(evt);
+            }
+        });
         jPanel3.add(datafild, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 120, -1));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -318,8 +335,19 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         });
         jPanel3.add(medicoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 90, -1));
 
-        jLabel5.setText("Médico:");
+        jLabel5.setText("Médico*:");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel27.setText("Sexo:");
+        jLabel27.setToolTipText("");
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 50, -1));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel28.setText("Telefone:");
+        jLabel28.setToolTipText("");
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 60, -1));
+        jPanel3.add(telefoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(624, 60, 170, -1));
 
         fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
         fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
@@ -405,7 +433,9 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_excluirBtnActionPerformed
 
     private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
-
+        guiaAtual = new Guia();
+        examesDaGuia = new ArrayList<>();
+        habilitarCamposParaNovo();
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
@@ -543,6 +573,7 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
                 NasciFild.setText(paciente.getDataNascimento().toString());
                 idadeFild.setText(String.valueOf(paciente.calcularIdade()));
                 Sexofild.setText(paciente.getSexo());
+                telefoneField.setText(paciente.getTelefone());
             }
 
             @Override
@@ -571,6 +602,10 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private void medicoCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_medicoCodigoActionPerformed
+
+    private void datafildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafildActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_datafildActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -608,6 +643,8 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -621,6 +658,7 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private javax.swing.JButton pesquisaMédicobtn;
     private javax.swing.JButton pesquisaPacientebtn1;
     private javax.swing.JButton salvarBtn;
+    private javax.swing.JFormattedTextField telefoneField;
     // End of variables declaration//GEN-END:variables
 
     private void configurarCampos() {
@@ -667,12 +705,6 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         medicoCodigo.setEditable(false);
     }
 
-    private void habilitarCampos() {
-        faturafild.setEditable(true);
-        ProcedimenFild.setEditable(true);
-        SituFild1.setEditable(true);
-    }
-
     private void carregarDados() {
         if (requisicaoModel.getPacienteSelecionado() != null) {
             PacinomeGFild.setText(requisicaoModel.getPacienteSelecionado().getNome());
@@ -700,7 +732,50 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         faturafild.setText(requisicaoModel.getFaturamento());
     }
 
+    private boolean validarCampos() {
+        boolean isValid = true;
+        StringBuilder erros = new StringBuilder("Corrija os seguintes erros:\n");
 
+        if (pacienteSelecionado == null) {
+            erros.append("- Selecione um paciente.\n");
+            isValid = false;
+        }
 
+        if (medicoSelecionado == null) {
+            erros.append("- Selecione um médico.\n");
+            isValid = false;
+        }
+
+        if (convenioSelecionado == null) {
+            erros.append("- Selecione um convênio.\n");
+            isValid = false;
+        }
+
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this, erros.toString(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return isValid;
+    }
+    private void habilitarCamposParaEdicao() {
+        faturafild.setEditable(true);
+        ProcedimenFild.setEditable(true);
+        SituFild1.setEditable(true);
+
+        pesquisaPacientebtn1.setEnabled(false);
+        pesquisaMédicobtn.setEnabled(false);
+        pesquisaConveniobtn1.setEnabled(false);
+    }
+
+    private void habilitarCamposParaNovo() {
+        limparCampos();
+        faturafild.setEditable(true);
+        ProcedimenFild.setEditable(true);
+        SituFild1.setEditable(true);
+
+        pesquisaPacientebtn1.setEnabled(true);
+        pesquisaMédicobtn.setEnabled(true);
+        pesquisaConveniobtn1.setEnabled(true);
+    }
 
 }

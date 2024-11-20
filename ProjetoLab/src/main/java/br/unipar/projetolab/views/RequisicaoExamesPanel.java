@@ -43,10 +43,10 @@ public class RequisicaoExamesPanel extends javax.swing.JPanel {
         NoexFild = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        MaterialBOX = new javax.swing.JComboBox<>();
         OKbTN = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        MaterialBOX = new javax.swing.JTextField();
         fecharBtn = new javax.swing.JButton();
         excluirBtn = new javax.swing.JButton();
         novoBtn = new javax.swing.JButton();
@@ -138,17 +138,14 @@ public class RequisicaoExamesPanel extends javax.swing.JPanel {
         jLabel17.setToolTipText("");
         jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, -1));
 
-        MaterialBOX.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel3.add(MaterialBOX, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, -1, -1));
-
         OKbTN.setBackground(new java.awt.Color(243, 255, 229));
-        OKbTN.setText("OK");
+        OKbTN.setText("Adicionar");
         OKbTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OKbTNActionPerformed(evt);
             }
         });
-        jPanel3.add(OKbTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 50, -1));
+        jPanel3.add(OKbTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 50, 100, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -164,6 +161,7 @@ public class RequisicaoExamesPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 990, 210));
+        jPanel3.add(MaterialBOX, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 70, -1));
 
         fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
         fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
@@ -489,7 +487,7 @@ public class RequisicaoExamesPanel extends javax.swing.JPanel {
     private javax.swing.JTextField ExmeFild;
     private javax.swing.JTextField HoraPreFild;
     private javax.swing.JTextField InfoExmeFild1;
-    private javax.swing.JComboBox<String> MaterialBOX;
+    private javax.swing.JTextField MaterialBOX;
     private javax.swing.JTextField NoexFild;
     private javax.swing.JButton OKbTN;
     private javax.swing.JButton ProxiBtn;
@@ -547,13 +545,13 @@ public class RequisicaoExamesPanel extends javax.swing.JPanel {
     private void preencherDadosExame(Exame exame) {
         ExmeFild.setText(exame.getAbreviacao());
         NoexFild.setText(exame.getNome());
-        MaterialBOX.setSelectedItem(exame.getTipoMaterial());
+        MaterialBOX.setText(exame.getTipoMaterial());
     }
 
     private void limparCampos() {
         ExmeFild.setText("");
         NoexFild.setText("");
-        MaterialBOX.setSelectedItem(null);
+        MaterialBOX.setText(null);
     }
 
 
