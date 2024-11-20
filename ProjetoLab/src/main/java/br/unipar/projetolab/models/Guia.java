@@ -47,6 +47,7 @@ public class Guia {
     @Column(name = "cartao_sus")
     private String cartaoSUS;
     
+
     public Guia() {
     }
 
@@ -158,5 +159,8 @@ public class Guia {
     public void setCartaoSUS(String cartaoSUS) {
         this.cartaoSUS = cartaoSUS;
     }
+
+
+    
 }
 

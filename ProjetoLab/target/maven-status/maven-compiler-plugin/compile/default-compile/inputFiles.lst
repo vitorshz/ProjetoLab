@@ -4,6 +4,7 @@ C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\PacienteDAOImp.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\Main.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\PacienteTableModel.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\GuiaTableModel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\PacienteFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoExamesPanel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\GuiaDAOImp.java
@@ -36,7 +37,9 @@ C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\OperadorDAOImp.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\RequisicaoModel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\Operador.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoPesquisaFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoCadPanel.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\interfaces\GuiaListener.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\Guia.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\OperadorPesquuisaFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\ConvenioDAOImp.java

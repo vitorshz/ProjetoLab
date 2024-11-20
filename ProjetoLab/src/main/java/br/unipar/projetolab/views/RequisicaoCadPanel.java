@@ -6,6 +6,7 @@ import br.unipar.projetolab.interfaces.ConvenioListener;
 import br.unipar.projetolab.interfaces.MedicoListener;
 import br.unipar.projetolab.interfaces.PacienteSelecionadoListener;
 import br.unipar.projetolab.models.Convenio;
+import br.unipar.projetolab.models.Exame;
 import br.unipar.projetolab.models.Guia;
 import br.unipar.projetolab.models.GuiaExame;
 import br.unipar.projetolab.models.Medico;
@@ -325,6 +326,11 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         jPanel3.add(pesquisaConveniobtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 30, -1));
 
         medicoCRM.setEditable(false);
+        medicoCRM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicoCRMActionPerformed(evt);
+            }
+        });
         jPanel3.add(medicoCRM, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 90, -1));
 
         medicoCodigo.setEditable(false);
@@ -429,7 +435,13 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-
+//        RequisicaoPesquisaFrame pesquisaFrame = new RequisicaoPesquisaFrame(guia -> {
+//            if (guia != null) {
+//                excluirGuia(guia); // Inativa a guia selecionada
+//            }
+//        });
+//        pesquisaFrame.setVisible(true);
+//        
     }//GEN-LAST:event_excluirBtnActionPerformed
 
     private void novoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBtnActionPerformed
@@ -439,7 +451,13 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_novoBtnActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-
+        // Abre o frame de pesquisa de requisições para edição
+        RequisicaoPesquisaFrame pesquisaFrame = new RequisicaoPesquisaFrame(guia -> {
+            if (guia != null) {
+                carregarGuia(guia); // Carrega os dados da guia selecionada no formulário
+            }
+        });
+        pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
@@ -507,24 +525,32 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_AnteriobtnActionPerformed
 
     private void ProxiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProxiBtnActionPerformed
+        // Validar os dados
+        if (!validarCampos()) {
+            return; // Interrompe se os campos obrigatórios não estiverem preenchidos
+        }
+
         try {
-            // Cria a guia com as informações preenchidas
-            Guia guia = new Guia();
-            guia.setPaciente(requisicaoModel.getPacienteSelecionado());
-            guia.setMedico(requisicaoModel.getMedicoSelecionado());
-            guia.setConvenio(requisicaoModel.getConvenioSelecionado());
-            guia.setCartaoSUS(requisicaoModel.getCartaoSUS());
-            guia.setParticular(requisicaoModel.getConvenioSelecionado() == null);
-            guia.setDataCadastro(LocalDateTime.now());
+            // Verificar se a guia está carregada no modelo
+            if (requisicaoModel.getGuiaselecionada() == null) {
+                // Criar uma nova guia caso não exista
+                Guia guia = new Guia();
+                guia.setPaciente(requisicaoModel.getPacienteSelecionado());
+                guia.setMedico(requisicaoModel.getMedicoSelecionado());
+                guia.setConvenio(requisicaoModel.getConvenioSelecionado());
+                guia.setCartaoSUS(requisicaoModel.getCartaoSUS());
+                guia.setParticular(requisicaoModel.getConvenioSelecionado() == null);
+                guia.setDataCadastro(LocalDateTime.now());
 
-            // Salva a guia no banco
-            GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
-            guiaDAO.save(guia);
+                // Salvar a guia no banco
+                GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+                guiaDAO.save(guia);
 
-            // Atualiza o ID da guia no RequisicaoModel para uso nas próximas telas
-            requisicaoModel.setGuiaselecionada(guia);
+                // Atualizar o modelo com a nova guia
+                requisicaoModel.setGuiaselecionada(guia);
+            }
 
-            // Avança para a próxima tela
+            // Avançar para a próxima tela
             RequisicaoExamesPanel requisicaoExamesPanel = new RequisicaoExamesPanel(telaPrincipal, requisicaoModel);
             telaPrincipal.removeAll();
             telaPrincipal.add(requisicaoExamesPanel, java.awt.BorderLayout.CENTER);
@@ -606,6 +632,10 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private void datafildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datafildActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_datafildActionPerformed
+
+    private void medicoCRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoCRMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medicoCRMActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -736,17 +766,17 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         boolean isValid = true;
         StringBuilder erros = new StringBuilder("Corrija os seguintes erros:\n");
 
-        if (pacienteSelecionado == null) {
+        if (requisicaoModel.getPacienteSelecionado() == null) {
             erros.append("- Selecione um paciente.\n");
             isValid = false;
         }
 
-        if (medicoSelecionado == null) {
+        if (requisicaoModel.getMedicoSelecionado() == null) {
             erros.append("- Selecione um médico.\n");
             isValid = false;
         }
 
-        if (convenioSelecionado == null) {
+        if (requisicaoModel.getConvenioSelecionado() == null) {
             erros.append("- Selecione um convênio.\n");
             isValid = false;
         }
@@ -778,4 +808,71 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         pesquisaConveniobtn1.setEnabled(true);
     }
 
+//    private void excluirGuia(Guia guia) {
+//        int confirm = JOptionPane.showConfirmDialog(this,
+//                "Tem certeza que deseja excluir? esta guia?",
+//                "Confirmar Inativação", JOptionPane.YES_NO_OPTION);
+//
+//        if (confirm == JOptionPane.YES_OPTION) {
+//            try {
+//                guia.setAtivo(false); // Marca a guia como inativa
+//
+//                GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+//                guiaDAO.update(guia); // Atualiza a guia no banco de dados
+//
+//                JOptionPane.showMessageDialog(this, "Guia inativada com sucesso!");
+//            } catch (Exception e) {
+//                JOptionPane.showMessageDialog(this, "Erro ao inativar a guia: " + e.getMessage());
+//            }
+//        }
+//    }
+
+    private void carregarGuia(Guia guia) {
+        if (guia != null) {
+            // Preenchendo os dados gerais da guia
+            guiafild.setText(guia.getId() != null ? guia.getId().toString() : ""); // Código da guia
+            PaciCodGFild.setText(guia.getPaciente().getId().toString()); // Código do paciente
+            PacinomeGFild.setText(guia.getPaciente().getNome()); // Nome do paciente
+            NasciFild.setText(guia.getPaciente().getDataNascimento().toString()); // Data de nascimento
+            idadeFild.setText(String.valueOf(guia.getPaciente().calcularIdade())); // Idade do paciente
+            Conveniofild.setText(guia.getConvenio().getNome()); // Nome do convênio
+            MatriFild.setText(guia.getConvenio().getNome()); // Matrícula do convênio
+            datafild.setText(guia.getDataCadastro().toString()); // Data de cadastro
+            
+            requisicaoModel.setPacienteSelecionado(guia.getPaciente());
+            requisicaoModel.setMedicoSelecionado(guia.getMedico());
+            requisicaoModel.setConvenioSelecionado(guia.getConvenio());
+            requisicaoModel.setGuiaselecionada(guia);
+            requisicaoModel.setExames(guia.getExames());
+
+            if (guia.getValorTotal() != null) {
+                faturafild.setText(String.format("%.2f", guia.getValorTotal())); // Valor total
+            }
+
+            if (guia.getMedico() != null) {
+                medicoCodigo.setText(guia.getMedico().getId().toString()); // ID do médico
+                medicoNomeField.setText(guia.getMedico().getNome()); // Nome do médico
+                medicoCRM.setText(guia.getMedico().getConselhoCrm()); // CRM do médico
+                requisicaoModel.setMedicoSelecionado(guia.getMedico());
+            }
+            
+            // Carregando exames associados à guia
+            List<GuiaExame> exames = guia.getExames();
+            if (exames != null && !exames.isEmpty()) {
+                // Armazena os exames no RequisicaoModel
+                requisicaoModel.setExames(new ArrayList<>(exames));
+
+
+
+            } else {
+                // Limpa a tabela de exames e o modelo
+                requisicaoModel.setExames(new ArrayList<>());
+
+            }
+
+            JOptionPane.showMessageDialog(this, "Guia carregada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Guia não encontrada ou inválida.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

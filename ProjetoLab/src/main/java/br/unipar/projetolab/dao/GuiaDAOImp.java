@@ -99,4 +99,12 @@ public class GuiaDAOImp implements GuiaDAO {
             throw new RuntimeException("Erro ao buscar guias pela data de cadastro: " + e.getMessage());
         }
     }
+    @Override
+    public List<Guia> findByNomePaciente(String nomePaciente) {
+        String jpql = "SELECT g FROM Guia g WHERE LOWER(g.paciente.nome) LIKE :nome";
+        return em.createQuery(jpql, Guia.class)
+                .setParameter("nome", "%" + nomePaciente.toLowerCase() + "%")
+                .getResultList();
+    }
+
 }

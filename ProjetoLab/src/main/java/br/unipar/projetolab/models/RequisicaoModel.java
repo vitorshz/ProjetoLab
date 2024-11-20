@@ -52,6 +52,10 @@ public class RequisicaoModel {
         return exames;
     }
 
+    public void setExames(List<GuiaExame> exames) {
+        this.exames = exames;
+    }
+
     public void addExame(GuiaExame exame) {
         exames.add(exame);
     }

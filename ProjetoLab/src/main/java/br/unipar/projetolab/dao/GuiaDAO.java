@@ -19,4 +19,7 @@ public interface GuiaDAO {
     List<Guia> findAllAtivos();
     
     List<Guia> findByDataCadastro(String dataCadastro);
+    
+    List<Guia> findByNomePaciente(String nomePaciente);
+
 }
