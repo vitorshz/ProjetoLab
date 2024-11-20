@@ -10,6 +10,7 @@ import br.unipar.projetolab.models.Guia;
 import br.unipar.projetolab.models.GuiaExame;
 import br.unipar.projetolab.models.Medico;
 import br.unipar.projetolab.models.Paciente;
+import br.unipar.projetolab.models.RequisicaoModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,13 +25,14 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private Paciente pacienteSelecionado; // Paciente selecionado
     private Medico medicoSelecionado; // Médico selecionado
     private Convenio convenioSelecionado; // Convênio selecionado
-
+    private javax.swing.JPanel telaPrincipal;
+    private RequisicaoModel requisicaoModel;
     
-    public RequisicaoCadPanel() {
+    public RequisicaoCadPanel(javax.swing.JPanel telaPrincipal, RequisicaoModel requisicaoModel) {
         initComponents();
-        examesDaGuia = new ArrayList<>();
-        this.setPreferredSize(new java.awt.Dimension(800, 600));
-        configurarCampos();
+        this.telaPrincipal = telaPrincipal;
+        this.requisicaoModel = requisicaoModel;
+        carregarDados();
     }
 
     
@@ -79,8 +81,8 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         SituFild1 = new javax.swing.JTextField();
         pesquisaConveniobtn1 = new javax.swing.JButton();
-        medicoCodigo1 = new javax.swing.JTextField();
-        medicoCodigo2 = new javax.swing.JTextField();
+        medicoCRM = new javax.swing.JTextField();
+        medicoCodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         fecharBtn = new javax.swing.JButton();
         Anteriobtn = new javax.swing.JButton();
@@ -305,11 +307,16 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         });
         jPanel3.add(pesquisaConveniobtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 30, -1));
 
-        medicoCodigo1.setEditable(false);
-        jPanel3.add(medicoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 90, -1));
+        medicoCRM.setEditable(false);
+        jPanel3.add(medicoCRM, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 90, -1));
 
-        medicoCodigo2.setEditable(false);
-        jPanel3.add(medicoCodigo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 90, -1));
+        medicoCodigo.setEditable(false);
+        medicoCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medicoCodigoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(medicoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 90, -1));
 
         jLabel5.setText("Médico:");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, -1));
@@ -470,7 +477,33 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_AnteriobtnActionPerformed
 
     private void ProxiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProxiBtnActionPerformed
+        try {
+            // Cria a guia com as informações preenchidas
+            Guia guia = new Guia();
+            guia.setPaciente(requisicaoModel.getPacienteSelecionado());
+            guia.setMedico(requisicaoModel.getMedicoSelecionado());
+            guia.setConvenio(requisicaoModel.getConvenioSelecionado());
+            guia.setCartaoSUS(requisicaoModel.getCartaoSUS());
+            guia.setParticular(requisicaoModel.getConvenioSelecionado() == null);
+            guia.setDataCadastro(LocalDateTime.now());
 
+            // Salva a guia no banco
+            GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+            guiaDAO.save(guia);
+
+            // Atualiza o ID da guia no RequisicaoModel para uso nas próximas telas
+            requisicaoModel.setGuiaselecionada(guia);
+
+            // Avança para a próxima tela
+            RequisicaoExamesPanel requisicaoExamesPanel = new RequisicaoExamesPanel(telaPrincipal, requisicaoModel);
+            telaPrincipal.removeAll();
+            telaPrincipal.add(requisicaoExamesPanel, java.awt.BorderLayout.CENTER);
+            telaPrincipal.revalidate();
+            telaPrincipal.repaint();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar a guia: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_ProxiBtnActionPerformed
 
     private void PacinomeGFildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PacinomeGFildActionPerformed
@@ -481,9 +514,12 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         MedicoPesquisaFrame pesquisaFrame = new MedicoPesquisaFrame(new MedicoListener() {
             @Override
             public void onMedicoSelecionado(Medico medico) {
+                
+                requisicaoModel.setMedicoSelecionado(medico);
                 medicoSelecionado = medico;
+                medicoCodigo.setText(String.valueOf(medico.getId()));
                 medicoNomeField.setText(medico.getNome());
-                medicoCodigo1.setText(String.valueOf(medico.getConselhoCrm()));
+                medicoCRM.setText(String.valueOf(medico.getConselhoCrm()));
             }
 
             @Override
@@ -496,29 +532,34 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_pesquisaMédicobtnActionPerformed
 
     private void pesquisaPacientebtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaPacientebtn1ActionPerformed
+
         PacientePesquisaFrame pesquisaFrame = new PacientePesquisaFrame(new PacienteSelecionadoListener() {
             @Override
             public void receberPaciente(Paciente paciente) {
+                requisicaoModel.setPacienteSelecionado(paciente); // Atualiza o modelo
                 pacienteSelecionado = paciente;
                 PacinomeGFild.setText(paciente.getNome());
                 PaciCodGFild.setText(String.valueOf(paciente.getId()));
                 NasciFild.setText(paciente.getDataNascimento().toString());
-                idadeFild.setText(String.valueOf(pacienteSelecionado.calcularIdade()));
+                idadeFild.setText(String.valueOf(paciente.calcularIdade()));
                 Sexofild.setText(paciente.getSexo());
             }
 
             @Override
-            public void receberPacienteParaInativar(Paciente paciente) {
-                // Não utilizado
+            public void receberPacienteParaInativar(Paciente pacienteSelecionado) {
+                //não é utilizado
             }
         });
         pesquisaFrame.setVisible(true);
+        
+        
     }//GEN-LAST:event_pesquisaPacientebtn1ActionPerformed
 
     private void pesquisaConveniobtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaConveniobtn1ActionPerformed
         ConvenioPesquisaFrame pesquisaFrame = new ConvenioPesquisaFrame(new ConvenioListener() {
             @Override
             public void onConvenioSelecionado(Convenio convenio) {
+                requisicaoModel.setConvenioSelecionado(convenio);
                 convenioSelecionado = convenio;
                 Conveniofild.setText(String.valueOf(convenio.getId()));
                 MatriFild.setText(convenio.getNome()); // Caso o convênio tenha uma matrícula específica
@@ -526,6 +567,10 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         }); 
         pesquisaFrame.setVisible(true);
     }//GEN-LAST:event_pesquisaConveniobtn1ActionPerformed
+
+    private void medicoCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicoCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_medicoCodigoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -568,8 +613,8 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField medicoCodigo1;
-    private javax.swing.JTextField medicoCodigo2;
+    private javax.swing.JTextField medicoCRM;
+    private javax.swing.JTextField medicoCodigo;
     private javax.swing.JTextField medicoNomeField;
     private javax.swing.JButton novoBtn;
     private javax.swing.JButton pesquisaConveniobtn1;
@@ -599,8 +644,8 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         SituFild1.setText("");
         guiafild.setText("");
         medicoNomeField.setText("");
-        medicoCodigo1.setText("");
-        medicoCodigo2.setText("");
+        medicoCRM.setText("");
+        medicoCodigo.setText("");
     }
 
     private void desabilitarCampos() {
@@ -618,8 +663,8 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         SituFild1.setEditable(false);
         guiafild.setEditable(false);
         medicoNomeField.setEditable(false);
-        medicoCodigo1.setEditable(false);
-        medicoCodigo2.setEditable(false);
+        medicoCRM.setEditable(false);
+        medicoCodigo.setEditable(false);
     }
 
     private void habilitarCampos() {
@@ -627,5 +672,35 @@ public class RequisicaoCadPanel extends javax.swing.JPanel {
         ProcedimenFild.setEditable(true);
         SituFild1.setEditable(true);
     }
+
+    private void carregarDados() {
+        if (requisicaoModel.getPacienteSelecionado() != null) {
+            PacinomeGFild.setText(requisicaoModel.getPacienteSelecionado().getNome());
+            PaciCodGFild.setText(String.valueOf(requisicaoModel.getPacienteSelecionado().getId()));
+            NasciFild.setText(requisicaoModel.getPacienteSelecionado().getDataNascimento().toString());
+            idadeFild.setText(String.valueOf(requisicaoModel.getPacienteSelecionado().calcularIdade()));
+            Sexofild.setText(requisicaoModel.getPacienteSelecionado().getSexo());
+            CarSusfild.setText(requisicaoModel.getCartaoSUS());
+        }
+
+        if (requisicaoModel.getMedicoSelecionado() != null) {
+            medicoNomeField.setText(requisicaoModel.getMedicoSelecionado().getNome());
+            medicoCodigo.setText(String.valueOf(requisicaoModel.getMedicoSelecionado().getId()));
+            medicoCRM.setText(requisicaoModel.getMedicoSelecionado().getConselhoCrm());
+        }
+
+        if (requisicaoModel.getConvenioSelecionado() != null) {
+            Conveniofild.setText(requisicaoModel.getConvenioSelecionado().getNome());
+            MatriFild.setText(String.valueOf(requisicaoModel.getConvenioSelecionado().getId()));
+        }
+
+        SituFild1.setText(requisicaoModel.getSituacao());
+        ProcedimenFild.setText(requisicaoModel.getProcedimento());
+        datafild.setText(requisicaoModel.getDataRequisicao());
+        faturafild.setText(requisicaoModel.getFaturamento());
+    }
+
+
+
 
 }

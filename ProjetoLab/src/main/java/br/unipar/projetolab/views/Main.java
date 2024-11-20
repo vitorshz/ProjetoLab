@@ -1,6 +1,7 @@
 
 package br.unipar.projetolab.views;
 
+import br.unipar.projetolab.models.RequisicaoModel;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -47,6 +48,8 @@ public class Main extends javax.swing.JFrame {
         });
         timer.setRepeats(false); // Executa apenas uma vez
         timer.start(); // Inicia o timer
+        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -321,7 +324,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(sideBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(telaSubtsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1136, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -384,20 +387,20 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnGuiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiaActionPerformed
-        // Instanciar o painel de requisição, se ainda não estiver criado
-        if (requisicaopanel == null) {
-            requisicaopanel = new RequisicaoCadPanel();
-        }
 
-        // Limpar o painel principal
-        telaSubtsPanel.removeAll();
+        // Inicializar o RequisicaoModel
+        RequisicaoModel requisicaoModel = new RequisicaoModel();
 
-        // Adicionar o painel requisicaoPanel ao centro do layout
-        telaSubtsPanel.add(requisicaopanel, java.awt.BorderLayout.CENTER);
+        // Inicializar o painel inicial
+        RequisicaoCadPanel requisicaoCadPanel = new RequisicaoCadPanel(telaSubtsPanel, requisicaoModel);
+
+        // Adicionar o painel inicial à tela principal
+        telaSubtsPanel.add(requisicaoCadPanel, java.awt.BorderLayout.CENTER);
 
         // Atualizar a interface
         telaSubtsPanel.revalidate();
         telaSubtsPanel.repaint();
+
     }//GEN-LAST:event_btnGuiaActionPerformed
 
     private void btnImpressaoExames1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpressaoExames1ActionPerformed

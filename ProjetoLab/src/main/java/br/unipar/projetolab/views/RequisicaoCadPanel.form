@@ -618,7 +618,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="medicoCodigo1">
+        <Component class="javax.swing.JTextField" name="medicoCRM">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
@@ -628,10 +628,13 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JTextField" name="medicoCodigo2">
+        <Component class="javax.swing.JTextField" name="medicoCodigo">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="medicoCodigoActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="530" y="110" width="90" height="-1"/>

@@ -4,6 +4,7 @@ import br.unipar.projetolab.models.Exame;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 
 
 public class ExameDAOImp implements ExameDAO{
@@ -88,5 +89,14 @@ public class ExameDAOImp implements ExameDAO{
         return entityManager.createQuery("SELECT e FROM exame e WHERE e.nome LIKE :nome AND e.ativo = true", Exame.class)
                 .setParameter("nome", "%" + nome + "%")
                 .getResultList();
+    }
+    public Exame findByAbreviacao(String abreviacao) {
+        try {
+            return entityManager.createQuery("SELECT e FROM Exame e WHERE e.abreviacao = :abreviacao", Exame.class)
+                    .setParameter("abreviacao", abreviacao)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

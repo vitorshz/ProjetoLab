@@ -77,7 +77,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="sideBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="telaSubtsPanel" max="32767" attributes="0"/>
+              <Component id="telaSubtsPanel" pref="1136" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
