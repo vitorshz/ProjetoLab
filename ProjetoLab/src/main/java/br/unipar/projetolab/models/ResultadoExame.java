@@ -22,6 +22,10 @@ public class ResultadoExame {
     @ManyToOne
     @JoinColumn(name = "exame_id", nullable = false)
     private Exame exame;
+    
+    @ManyToOne
+    @JoinColumn(name = "guia_id", nullable = false) // Relaciona ao guia
+    private Guia guia;
 
     @OneToMany(mappedBy = "resultadoExame", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CampoResultadoExame> camposResultado;
@@ -64,4 +68,13 @@ public class ResultadoExame {
         camposResultado.add(campoResultado);
         campoResultado.setResultadoExame(this);
     }
+
+    public Guia getGuia() {
+        return guia;
+    }
+
+    public void setGuia(Guia guia) {
+        this.guia = guia;
+    }
+    
 }

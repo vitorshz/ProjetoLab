@@ -3,7 +3,9 @@ package br.unipar.projetolab.tablemodels;
 import br.unipar.projetolab.models.EstruturaExame;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class EstruturaExameTableModel extends AbstractTableModel {
 
@@ -86,40 +88,65 @@ public class EstruturaExameTableModel extends AbstractTableModel {
             case 8:
                 linha.setObrigatorio((Boolean) value);
                 break;
-            case 9:
+            case 9: // Valor Padrão
+                if ("Lista de Opções".equals(linha.getTipo()) && linha.getTexto() != null) {
+                    String[] opcoes = linha.getTexto().split(",");
+                    if (!Arrays.asList(opcoes).contains(value)) {
+                        JOptionPane.showMessageDialog(null, "O valor padrão deve ser uma das opções listadas.");
+                        return;
+                    }
+                }
                 linha.setValorPadrao((String) value);
                 break;
+            default:
+                super.setValueAt(value, rowIndex, columnIndex);
         }
         fireTableCellUpdated(rowIndex, columnIndex);
     }
 
     public void configurarColunasPorTipo(EstruturaExame linha) {
         String tipo = linha.getTipo();
+        if (tipo == null || tipo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O tipo do campo não pode ser vazio.");
+            return;
+        }
+
         switch (tipo) {
             case "Texto":
             case "Observações":
                 linha.setCalculo(null);
                 linha.setReferencias(null);
+                linha.setTexto("Digite o texto aqui");
                 break;
 
             case "Editável":
                 linha.setTexto(null);
+                linha.setReferencias(null);
                 break;
 
             case "Número":
-                linha.setCalculo("0");
+                linha.setCalculo(null);
+                linha.setTexto(null);
+                linha.setReferencias("Exemplo: 0-100");
                 break;
 
             case "Fórmula":
                 linha.setCalculo("Exemplo: A+B");
+                linha.setTexto(null);
+                linha.setReferencias(null);
                 break;
 
             case "Lista de Opções":
-                linha.setTexto("Opção 1, Opção 2");
+                linha.setTexto("Opção 1, Opção 2"); // Texto inicial para opções
                 linha.setCalculo(null);
+                linha.setReferencias(null);
                 break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "Tipo inválido: " + tipo);
         }
     }
+
 
     public void adicionarLinha() {
         EstruturaExame novaLinha = new EstruturaExame();
@@ -129,9 +156,19 @@ public class EstruturaExameTableModel extends AbstractTableModel {
     }
 
     public void removerLinha(int rowIndex) {
-        linhas.remove(rowIndex);
-        fireTableRowsDeleted(rowIndex, rowIndex);
+        int confirmacao = JOptionPane.showConfirmDialog(
+                null,
+                "Tem certeza de que deseja excluir esta linha?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            linhas.remove(rowIndex);
+            fireTableRowsDeleted(rowIndex, rowIndex);
+        }
     }
+
 
     public String[] getTipos() {
         return tipos;

@@ -564,7 +564,18 @@ public class EstruturaExameFrame extends javax.swing.JFrame implements ExameSele
                 JOptionPane.showMessageDialog(this, "A ordem não pode ser nula em uma das linhas.");
                 return false;
             }
-            // Add other validations as needed
+            if (estrutura.getTipo() == null || estrutura.getTipo().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo 'Tipo' não pode estar vazio.");
+                return false;
+            }
+            if (estrutura.getTexto() == null || estrutura.getTexto().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo 'Texto' não pode estar vazio.");
+                return false;
+            }
+            if ("Lista de Opções".equals(estrutura.getTipo()) && (estrutura.getTexto() == null || !estrutura.getTexto().contains(","))) {
+                JOptionPane.showMessageDialog(null, "O campo 'Texto' deve conter pelo menos duas opções separadas por vírgula para listas.");
+                return false;
+            }
         }
         return true;
     }

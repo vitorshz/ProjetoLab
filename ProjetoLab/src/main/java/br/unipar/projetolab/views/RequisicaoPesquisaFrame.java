@@ -22,7 +22,8 @@ public class RequisicaoPesquisaFrame extends javax.swing.JFrame {
         initComponents();
         this.guiaListener = guiaListener;
         tableModel = new GuiaTableModel(new ArrayList<>());
-        jTable1.setModel(tableModel); // Configura a tabela com o modelo
+        jTable1.setModel(tableModel); // Configura a tabela com o modelo\
+        carregarGuias();
     }
 
 
@@ -239,4 +240,12 @@ public class RequisicaoPesquisaFrame extends javax.swing.JFrame {
     private javax.swing.JButton pesquisaBtn;
     private javax.swing.JButton selecionarBtn;
     // End of variables declaration//GEN-END:variables
+
+
+    private void carregarGuias() {
+        GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+        List<Guia> guias = guiaDAO.findAll();
+        tableModel = new GuiaTableModel(guias);
+        jTable1.setModel(tableModel);
+    }
 }

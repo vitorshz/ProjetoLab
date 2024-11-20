@@ -189,6 +189,11 @@ public MedicoFrame() throws ParseException {
         jPanel3.add(dataNascField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 120, -1));
 
         cpfField.setEditable(false);
+        cpfField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfFieldActionPerformed(evt);
+            }
+        });
         jPanel3.add(cpfField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 120, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -423,12 +428,14 @@ public MedicoFrame() throws ParseException {
                 String nome = nomeField.getText().trim();
                 String crm = CRMField.getText().trim();
                 String telefone = telefoneField.getText().trim();
-
+                String cpf = cpfField.getText().trim();
+                
                 Medico medico = medicoAtual != null ? medicoAtual : new Medico();
                 medico.setNome(nome);
                 medico.setConselhoCrm(crm);
                 medico.setCelular(telefone);
-
+                medico.setCpf(cpf);
+                
                 // Outros campos opcionais
                 medico.setEspecialidade(especialiddeField.getText().trim());
                 medico.setTipo((String) tipoBox.getSelectedItem());
@@ -456,6 +463,10 @@ public MedicoFrame() throws ParseException {
             }
         }
     }//GEN-LAST:event_salvarBtnActionPerformed
+
+    private void cpfFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpfFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,6 +534,7 @@ public MedicoFrame() throws ParseException {
           enderecoField.setText("");
           OBSField.setText("");
           dataNascField.setText("");
+
           resetarBordas();
 }
 
@@ -537,7 +549,7 @@ private void desabilitarCampos() {
     tipoBox.setEnabled(false);
     codigoField.setEditable(false); 
     OBSField.setEditable(false);
-
+    telefoneField.setEditable(false);
 }
 
     private void carregarMedico(Medico medico) {
@@ -579,6 +591,8 @@ private void habilitarCampos() {
     tipoBox.setEnabled(true);
     codigoField.setEditable(false);
     OBSField.setEditable(true);
+    telefoneField.setEditable(true);
+    
 }
 
 
@@ -590,6 +604,8 @@ private void habilitarCamposParaEdicao() {
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
     OBSField.setEditable(true);
+    telefoneField.setEditable(true);
+
 
    
     cpfField.setEditable(false);
@@ -663,13 +679,6 @@ public void receberMedicoParaInativar(Medico medico) {
             CRMField.setBorder(defaultBorder);
         }
 
-        // Valida o campo Telefone
-        if (telefoneField.getText().trim().isEmpty()) {
-            telefoneField.setBorder(errorBorder);
-            isValid = false;
-        } else {
-            telefoneField.setBorder(defaultBorder);
-        }
 
         // Exibe mensagem se houver erro
         if (!isValid) {
