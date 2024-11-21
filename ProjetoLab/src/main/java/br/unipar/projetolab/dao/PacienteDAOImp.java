@@ -1,22 +1,21 @@
 package br.unipar.projetolab.dao;
 
+
 import br.unipar.projetolab.models.Paciente;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import java.util.List;
 
-public class PacienteDAOImp implements PacienteDAO{
-    
-    //talvez precise fazer dto
-    
+public class PacienteDAOImp implements PacienteDAO {
+
     private EntityManager entityManager;
 
     public PacienteDAOImp(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    
-    
+
     @Override
     public Paciente save(Paciente paciente) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -61,7 +60,7 @@ public class PacienteDAOImp implements PacienteDAO{
             transaction.begin();
             Paciente pacienteToDelete = entityManager.find(Paciente.class, paciente.getId());
             if (pacienteToDelete != null) {
-                entityManager.remove(pacienteToDelete); 
+                entityManager.remove(pacienteToDelete);
                 transaction.commit();
                 System.out.println("Paciente removido com sucesso!");
                 return true;
@@ -82,19 +81,43 @@ public class PacienteDAOImp implements PacienteDAO{
 
     @Override
     public List<Paciente> findAll() {
-        return entityManager.createQuery("SELECT p FROM Paciente p",
-                Paciente.class).getResultList();    }
-    
-    
+        return entityManager.createQuery("SELECT p FROM Paciente p", Paciente.class).getResultList();
+    }
+
     public List<Paciente> findAllAtivos() {
         return entityManager.createQuery("SELECT p FROM Paciente p WHERE p.ativo = true", Paciente.class)
                 .getResultList();
     }
-    
+
     public List<Paciente> findByName(String nome) {
         return entityManager.createQuery("SELECT p FROM Paciente p WHERE p.nome LIKE :nome AND p.ativo = true", Paciente.class)
                 .setParameter("nome", "%" + nome + "%")
                 .getResultList();
     }
 
+    // Novo método: busca paciente pelo login
+    public Paciente findByLogin(String login) {
+        try {
+            return entityManager.createQuery("SELECT p FROM Paciente p WHERE p.login = :login", Paciente.class)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Paciente não encontrado com login: " + login);
+            return null; // Retorna null caso não encontre
+        }
+    }
+
+    // Novo método: verifica login e senha
+    public Paciente autenticar(String login, String senha) {
+        try {
+            Paciente paciente = entityManager.createQuery("SELECT p FROM Paciente p WHERE p.login = :login AND p.senha = :senha", Paciente.class)
+                    .setParameter("login", login)
+                    .setParameter("senha", senha)
+                    .getSingleResult();
+            return paciente;
+        } catch (Exception e) {
+            System.out.println("Falha na autenticação para o login: " + login);
+            return null; // Retorna null caso a autenticação falhe
+        }
+    }
 }
