@@ -1,6 +1,9 @@
 package br.unipar.projetolab.dao;
 
 import br.unipar.projetolab.models.CampoResultadoExame;
+import br.unipar.projetolab.models.Exame;
+import br.unipar.projetolab.models.Guia;
+import br.unipar.projetolab.models.ResultadoExame;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 
 import javax.persistence.EntityManager;
@@ -119,6 +122,77 @@ public class CampoResultadoDAOImp implements CampoResultadoDAO {
                     .getSingleResult();
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @Override
+    public void salvar(CampoResultadoExame campoResultadoExame) {
+        try {
+            em.getTransaction().begin();
+            if (campoResultadoExame.getId() == null) {
+                em.persist(campoResultadoExame);
+            } else {
+                em.merge(campoResultadoExame);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw new RuntimeException("Erro ao salvar o campo do resultado do exame", e);
+        }
+    }
+
+    @Override
+    public CampoResultadoExame buscarPorEstruturaEResultado(Long estruturaId, Long resultadoId) {
+        try {
+            return em.createQuery(
+                    "SELECT c FROM CampoResultadoExame c WHERE c.estruturaExame.id = :estruturaId AND c.resultadoExame.id = :resultadoId",
+                    CampoResultadoExame.class)
+                    .setParameter("estruturaId", estruturaId)
+                    .setParameter("resultadoId", resultadoId)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar campo de resultado por estrutura e resultado", e);
+        }
+    }
+
+    @Override
+    public List<CampoResultadoExame> buscarPorResultadoExame(Long resultadoExameId) {
+        try {
+            return em.createQuery(
+                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.id = :resultadoId",
+                    CampoResultadoExame.class)
+                    .setParameter("resultadoId", resultadoExameId)
+                    .getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar campos de resultado por resultado de exame", e);
+        }
+    }
+
+    @Override
+    public ResultadoExame criarOuBuscarResultadoExame(Long exameId, Long guiaId) {
+        try {
+            ResultadoExame resultadoExame = em.createQuery(
+                    "SELECT r FROM ResultadoExame r WHERE r.exame.id = :exameId AND r.guia.id = :guiaId",
+                    ResultadoExame.class)
+                    .setParameter("exameId", exameId)
+                    .setParameter("guiaId", guiaId)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+
+            if (resultadoExame == null) {
+                resultadoExame = new ResultadoExame();
+                resultadoExame.setExame(new Exame()); // Aqui você deve buscar o exame pelo ID ou passar um objeto completo
+                resultadoExame.setGuia(new Guia()); // Aqui você deve buscar a guia pelo ID ou passar um objeto completo
+                em.getTransaction().begin();
+                em.persist(resultadoExame);
+                em.getTransaction().commit();
+            }
+            return resultadoExame;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao criar ou buscar resultado de exame", e);
         }
     }
 
