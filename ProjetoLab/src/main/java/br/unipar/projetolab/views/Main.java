@@ -404,8 +404,15 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuiaActionPerformed
 
     private void btnImpressaoExames1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpressaoExames1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnImpressaoExames1ActionPerformed
+        // Inicializar o painel inicial
+        ImpresaoReqPanel requisicaoCadPanel = new ImpresaoReqPanel(telaSubtsPanel);
+
+        // Adicionar o painel inicial à tela principal
+        telaSubtsPanel.add(requisicaoCadPanel, java.awt.BorderLayout.CENTER);
+
+        // Atualizar a interface
+        telaSubtsPanel.revalidate();
+        telaSubtsPanel.repaint();    }//GEN-LAST:event_btnImpressaoExames1ActionPerformed
 
     private void btnResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultadosActionPerformed
         toggleResultadoDropdown();
