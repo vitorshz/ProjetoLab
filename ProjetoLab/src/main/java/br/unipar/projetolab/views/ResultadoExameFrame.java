@@ -1,5 +1,6 @@
 package br.unipar.projetolab.views;
 
+import br.unipar.projetolab.cellrenderer.ExameListCellRenderer;
 import br.unipar.projetolab.dao.CampoResultadoDAO;
 import br.unipar.projetolab.dao.CampoResultadoDAOImp;
 import br.unipar.projetolab.models.CampoResultadoExame;
@@ -71,10 +72,7 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         exameNomeField1 = new javax.swing.JTextField();
         panelExame = new javax.swing.JPanel();
-        salvarBtn = new javax.swing.JButton();
-        editBtn = new javax.swing.JButton();
         fecharBtn = new javax.swing.JButton();
-        excluirBtn = new javax.swing.JButton();
         panelBtnSelecionarExames = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         examesList = new javax.swing.JList<>();
@@ -91,6 +89,12 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(228, 228, 228));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Exame", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        codigoField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codigoFieldKeyPressed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Requisição*:");
@@ -246,60 +250,32 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(medicoCodigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(medicoNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(exameNomeField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel6)
+                        .addComponent(exameNomeField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(medicoNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(convenioCodigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(convenioNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(convenioNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15))
                 .addGap(6, 6, 6)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(exameCodigoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(exameNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(exameNomeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelExame.setLayout(new java.awt.BorderLayout());
 
-        salvarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disquete.png"))); // NOI18N
-        salvarBtn.setText("Salvar");
-        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarBtnActionPerformed(evt);
-            }
-        });
-
-        editBtn.setBackground(new java.awt.Color(243, 255, 229));
-        editBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
-        editBtn.setText("Editar");
-        editBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBtnActionPerformed(evt);
-            }
-        });
-
         fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
         fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
-        fecharBtn.setText("Cancelar");
+        fecharBtn.setText("Fechar");
         fecharBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fecharBtnActionPerformed(evt);
-            }
-        });
-
-        excluirBtn.setBackground(new java.awt.Color(243, 255, 229));
-        excluirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir 1.png"))); // NOI18N
-        excluirBtn.setText("Remover Resultado");
-        excluirBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirBtnActionPerformed(evt);
             }
         });
 
@@ -333,17 +309,12 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(fecharBtn))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(panelBtnSelecionarExames, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelExame, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(fecharBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(excluirBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(salvarBtn)))
+                                .addComponent(panelExame, javax.swing.GroupLayout.PREFERRED_SIZE, 982, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)))
                 .addContainerGap())
         );
@@ -360,13 +331,9 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelBtnSelecionarExames, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                     .addComponent(panelExame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvarBtn)
-                    .addComponent(editBtn)
-                    .addComponent(excluirBtn)
-                    .addComponent(fecharBtn))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fecharBtn)
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -385,21 +352,9 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
-
-    }//GEN-LAST:event_excluirBtnActionPerformed
-
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-
+        resetarTela();
     }//GEN-LAST:event_fecharBtnActionPerformed
-
-    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-
-    }//GEN-LAST:event_editBtnActionPerformed
-
-    private void salvarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarBtnActionPerformed
-
-    }//GEN-LAST:event_salvarBtnActionPerformed
 
     private void exameNomeField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exameNomeField1ActionPerformed
         // TODO add your handling code here:
@@ -422,6 +377,7 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_medicoNomeFieldActionPerformed
 
     private void selecionarGuiabtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarGuiabtnActionPerformed
+        resetarTela();
         // Abre o frame de pesquisa de requisições para edição
         RequisicaoPesquisaFrame pesquisaFrame = new RequisicaoPesquisaFrame(guia -> {
             if (guia != null) {
@@ -434,6 +390,10 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
     private void nomeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeFieldActionPerformed
+
+    private void codigoFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoFieldKeyPressed
+        
+    }//GEN-LAST:event_codigoFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -474,12 +434,10 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
     private javax.swing.JTextField codigoField;
     private javax.swing.JTextField convenioCodigoField;
     private javax.swing.JTextField convenioNomeField;
-    private javax.swing.JButton editBtn;
     private javax.swing.JTextField exameCodigoField;
     private javax.swing.JTextField exameNomeField;
     private javax.swing.JTextField exameNomeField1;
     private javax.swing.JList<String> examesList;
-    private javax.swing.JButton excluirBtn;
     private javax.swing.JButton fecharBtn;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -499,12 +457,14 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
     private javax.swing.JTextField nomeField;
     private javax.swing.JPanel panelBtnSelecionarExames;
     private javax.swing.JPanel panelExame;
-    private javax.swing.JButton salvarBtn;
     private javax.swing.JButton selecionarGuiabtn;
     // End of variables declaration//GEN-END:variables
 
     private void carregarGuia(Guia guia) {
-        // Preenche os campos do cabeçalho com informações da guia
+        // Limpar campos existentes
+        resetarTela();
+
+        // Preencher campos do cabeçalho com informações da nova guia
         codigoField.setText(String.valueOf(guia.getId()));
         nomeField.setText(guia.getPaciente().getNome());
         nascField.setText(guia.getPaciente().getDataNascimento().toString());
@@ -513,9 +473,12 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         convenioCodigoField.setText(guia.getConvenio() != null ? String.valueOf(guia.getConvenio().getId()) : "Particular");
         convenioNomeField.setText(guia.getConvenio() != null ? guia.getConvenio().getNome() : "Particular");
 
-        // Exibe os exames relacionados à guia
+        // Exibir os exames associados à nova guia
         mostrarExames(guia.getExames());
     }
+
+
+
 
     private void mostrarExames(List<GuiaExame> exames) {
         if (exames.isEmpty()) {
@@ -526,13 +489,15 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         // Cria um modelo para a JList
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
 
-        // Preenche o modelo com os nomes dos exames
+        // Preenche o modelo com os nomes dos exames e seus status
         for (GuiaExame guiaExame : exames) {
-            modeloLista.addElement(guiaExame.getExame().getNome());
+            String status = guiaExame.getStatus().equals("Incluído") ? "Incluído" : "Sem resultado";
+            modeloLista.addElement("<html><b>" + guiaExame.getExame().getNome() + "</b><br><i>Status: " + status + "</i></html>");
         }
 
         // Configura a lista de exames
         examesList.setModel(modeloLista);
+        examesList.setCellRenderer(new ExameListCellRenderer());
         examesList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedIndex = examesList.getSelectedIndex();
@@ -550,6 +515,7 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
     private void mostrarDetalhesExame(GuiaExame guiaExame) {
         panelExame.removeAll(); // Limpa o painel antes de adicionar novos detalhes
 
+        // Garantir que estamos lidando com a guia correta
         Exame exame = guiaExame.getExame();
 
         // Painel com informações detalhadas do exame
@@ -560,6 +526,30 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
 
         panelExame.revalidate();
         panelExame.repaint();
+    }
+
+    private void resetarTela() {
+        // Limpar campos de texto
+        codigoField.setText("");
+        nomeField.setText("");
+        nascField.setText("");
+        medicoCodigoField.setText("");
+        medicoNomeField.setText("");
+        convenioCodigoField.setText("");
+        convenioNomeField.setText("");
+
+        // Limpar lista de exames
+        examesList.setModel(new DefaultListModel<>());
+
+        // Limpar painel de exames
+        panelExame.removeAll();
+
+        // Revalidar e repintar os componentes para garantir que a interface seja atualizada
+        panelExame.revalidate();
+        panelExame.repaint();
+
+        panelBtnSelecionarExames.revalidate();
+        panelBtnSelecionarExames.repaint();
     }
 
     private JPanel criarPainelExame(Exame exame, GuiaExame guiaExame) {
@@ -604,14 +594,15 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         camposResultadoPanel.setBackground(new Color(245, 245, 220));
         panel.add(camposResultadoPanel);
 
-        // Carregar resultados salvos
+        // Recarregar resultados salvos
         EntityManager em = EntityManagerUtil.getManager();
         List<CampoResultadoExame> resultadosSalvos = new ArrayList<>();
         try {
             resultadosSalvos = em.createQuery(
-                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.exame.id = :exameId",
+                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.exame.id = :exameId AND c.resultadoExame.guia.id = :guiaId",
                     CampoResultadoExame.class)
                     .setParameter("exameId", exame.getId())
+                    .setParameter("guiaId", guiaExame.getGuia().getId())
                     .getResultList();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -703,26 +694,59 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
         panel.setPreferredSize(new Dimension(700, yOffset + 60));
         return panel;
     }
+
+    
+    private List<CampoResultadoExame> consultarResultados(Long exameId, Long guiaId) {
+        EntityManager em = EntityManagerUtil.getManager();
+        List<CampoResultadoExame> resultadosSalvos = new ArrayList<>();
+        try {
+            resultadosSalvos = em.createQuery(
+                    "SELECT c FROM CampoResultadoExame c WHERE c.resultadoExame.exame.id = :exameId AND c.resultadoExame.guia.id = :guiaId",
+                    CampoResultadoExame.class)
+                    .setParameter("exameId", exameId)
+                    .setParameter("guiaId", guiaId)
+                    .getResultList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return resultadosSalvos;
+    }
+
+
     private void editarResultados(JPanel camposResultadoPanel) {
         for (Component comp : camposResultadoPanel.getComponents()) {
             if (comp instanceof JLabel) {
                 JLabel label = (JLabel) comp;
                 EstruturaExame estrutura = (EstruturaExame) label.getClientProperty("estrutura");
+
                 if (estrutura != null) {
+                    String texto = label.getText();
+                    String valor = "";
+
+                    // Verifica se o texto contém ": " e extrai o valor após ele
+                    if (texto.contains(": ")) {
+                        valor = texto.split(": ", 2)[1]; // Divide no máximo em 2 partes
+                    } else {
+                        System.err.println("Texto da JLabel não está no formato esperado: " + texto);
+                    }
+
                     // Substituir JLabel pelo componente correspondente
-                    String texto = label.getText().split(": ")[1];
                     switch (estrutura.getTipo()) {
                         case "Texto": {
-                            JTextField textField = new JTextField(texto);
+                            JTextField textField = new JTextField(valor);
                             textField.setBounds(label.getBounds());
                             textField.putClientProperty("estrutura", estrutura);
                             camposResultadoPanel.add(textField);
                             break;
                         }
                         case "Número": {
-                            JTextField numeroField = new JTextField(texto);
+                            JTextField numeroField = new JTextField(valor);
                             numeroField.setBounds(label.getBounds());
                             numeroField.putClientProperty("estrutura", estrutura);
+
+                            // Adiciona validador para aceitar apenas números
                             numeroField.addKeyListener(new KeyAdapter() {
                                 @Override
                                 public void keyTyped(KeyEvent e) {
@@ -732,153 +756,108 @@ public class ResultadoExameFrame extends javax.swing.JFrame {
                                     }
                                 }
                             });
+
                             camposResultadoPanel.add(numeroField);
                             break;
                         }
                         case "Lista de Opções": {
-                            String[] opcoes = estrutura.getTexto().split(",");
+                            String[] opcoes = estrutura.getTexto() != null ? estrutura.getTexto().split(",") : new String[]{};
                             JComboBox<String> comboBox = new JComboBox<>(opcoes);
                             comboBox.setBounds(label.getBounds());
                             comboBox.putClientProperty("estrutura", estrutura);
-                            comboBox.setSelectedItem(texto);
+
+                            // Seleciona o valor atual, se existir
+                            if (!valor.isEmpty()) {
+                                comboBox.setSelectedItem(valor);
+                            }
+
                             camposResultadoPanel.add(comboBox);
                             break;
                         }
                         default: {
-                            JTextField textField = new JTextField(texto);
+                            JTextField textField = new JTextField(valor);
                             textField.setBounds(label.getBounds());
                             textField.putClientProperty("estrutura", estrutura);
                             camposResultadoPanel.add(textField);
                             break;
                         }
                     }
+
+                    // Remove o JLabel após substituir
                     camposResultadoPanel.remove(label);
                 }
             }
         }
+
+        // Atualiza o painel após modificar os componentes
         camposResultadoPanel.revalidate();
         camposResultadoPanel.repaint();
     }
+
     
     private void salvarResultadosExame(GuiaExame guiaExame, JPanel camposResultadoPanel) {
-        EntityManager em = EntityManagerUtil.getManager();
-
+        CampoResultadoDAO campoResultadoDAO = new CampoResultadoDAOImp(EntityManagerUtil.getManager());
         try {
-            em.getTransaction().begin();
+            // Busca ou cria o ResultadoExame
+            ResultadoExame resultadoExame = campoResultadoDAO.criarOuBuscarResultadoExame(
+                    guiaExame.getExame().getId(),
+                    guiaExame.getGuia().getId()
+            );
 
-            // Verifica ou cria ResultadoExame por exame e guia
-            ResultadoExame resultadoExame = em.createQuery(
-                    "SELECT r FROM ResultadoExame r WHERE r.exame.id = :exameId AND r.guia.id = :guiaId",
-                    ResultadoExame.class)
-                    .setParameter("exameId", guiaExame.getExame().getId())
-                    .setParameter("guiaId", guiaExame.getGuia().getId())
-                    .getResultStream()
-                    .findFirst()
-                    .orElse(new ResultadoExame());
-
-            if (resultadoExame.getId() == null) {
-                resultadoExame.setExame(guiaExame.getExame());
-                resultadoExame.setGuia(guiaExame.getGuia()); // Relaciona ao guia
-                em.persist(resultadoExame);
-            }
-
-            // Salvar os campos de resultado
+            // Itera pelos componentes do painel para salvar os resultados
             for (Component comp : camposResultadoPanel.getComponents()) {
-                if (comp instanceof JTextField) {
-                    JTextField textField = (JTextField) comp;
-                    String valor = textField.getText();
+                if (comp instanceof JComponent) {
+                    JComponent inputField = (JComponent) comp;
+                    String valor = null;
+                    EstruturaExame estrutura = (EstruturaExame) inputField.getClientProperty("estrutura");
 
-                    if (valor.isEmpty()) {
+                    if (estrutura == null) {
+                        continue;
+                    }
+
+                    // Captura o valor baseado no tipo do componente
+                    if (inputField instanceof JTextField) {
+                        valor = ((JTextField) inputField).getText();
+                    } else if (inputField instanceof JComboBox) {
+                        valor = ((JComboBox<?>) inputField).getSelectedItem() != null
+                                ? ((JComboBox<?>) inputField).getSelectedItem().toString()
+                                : "";
+                    }
+
+                    if (valor == null || valor.trim().isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Preencha todos os campos antes de salvar.");
-                        em.getTransaction().rollback();
                         return;
                     }
 
-                    EstruturaExame estrutura = (EstruturaExame) textField.getClientProperty("estrutura");
-                    if (estrutura == null) {
-                        throw new IllegalStateException("EstruturaExame não vinculada ao campo de entrada.");
+                    // Busca ou cria o CampoResultadoExame
+                    CampoResultadoExame campoResultado = campoResultadoDAO.buscarPorEstruturaEResultado(
+                            estrutura.getId(), resultadoExame.getId()
+                    );
+
+                    if (campoResultado == null) {
+                        campoResultado = new CampoResultadoExame();
+                        campoResultado.setEstruturaExame(estrutura);
+                        campoResultado.setResultadoExame(resultadoExame);
                     }
-
-                    CampoResultadoExame campoResultado = em.createQuery(
-                            "SELECT c FROM CampoResultadoExame c WHERE c.estruturaExame.id = :estruturaId AND c.resultadoExame.id = :resultadoId",
-                            CampoResultadoExame.class)
-                            .setParameter("estruturaId", estrutura.getId())
-                            .setParameter("resultadoId", resultadoExame.getId())
-                            .getResultStream()
-                            .findFirst()
-                            .orElse(new CampoResultadoExame());
-
-                    campoResultado.setEstruturaExame(estrutura);
-                    campoResultado.setResultadoExame(resultadoExame);
                     campoResultado.setValor(valor);
 
-                    if (campoResultado.getId() == null) {
-                        em.persist(campoResultado);
-                    } else {
-                        em.merge(campoResultado);
-                    }
+                    // Salva o resultado
+                    campoResultadoDAO.salvar(campoResultado);
                 }
             }
 
-            em.getTransaction().commit();
+            // Atualiza o status do exame para "Incluído"
+            guiaExame.setStatus("Incluído");
             JOptionPane.showMessageDialog(this, "Resultados salvos com sucesso!");
-        } catch (Exception ex) {
-            em.getTransaction().rollback();
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao salvar resultados: " + ex.getMessage());
-        } finally {
-            em.close();
-        }
-    }
 
-    
-// Método auxiliar para buscar o valor já salvo para um campo
-    private String buscarValorSalvo(Exame exame, EstruturaExame estrutura) {
-        // Aqui você acessa o banco de dados ou cache para buscar o valor salvo do resultado
-        // Exemplo: "SELECT valor FROM CampoResultadoExame WHERE estrutura_id = ? AND exame_id = ?"
-        return null; // Substituir com a lógica real
-    }
-
-    private void salvarValorResultado(EstruturaExame estrutura, String valor) {
-        EntityManager em = EntityManagerUtil.getManager();
-        EntityTransaction transaction = em.getTransaction();
-        try {
-            transaction.begin();
-
-            // Procura um resultado existente
-            CampoResultadoExame resultado = em.createQuery(
-                    "SELECT c FROM CampoResultadoExame c WHERE c.estruturaExame.id = :estruturaId",
-                    CampoResultadoExame.class)
-                    .setParameter("estruturaId", estrutura.getId())
-                    .getResultStream()
-                    .findFirst()
-                    .orElse(new CampoResultadoExame());
-
-            // Configura os valores
-            resultado.setEstruturaExame(estrutura);
-            resultado.setValor(valor);
-
-            // Salva ou atualiza
-            if (resultado.getId() == null) {
-                em.persist(resultado);
-            } else {
-                em.merge(resultado);
-            }
-
-            transaction.commit();
         } catch (Exception e) {
-            transaction.rollback();
-            throw e;
-        } finally {
-            em.close();
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao salvar resultados: " + e.getMessage());
         }
     }
 
-    private String calcularFormula(EstruturaExame estrutura, JPanel camposResultadoPanel) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    
+
 
 
 
