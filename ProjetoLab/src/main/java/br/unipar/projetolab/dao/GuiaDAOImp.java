@@ -2,6 +2,8 @@ package br.unipar.projetolab.dao;
 
 import br.unipar.projetolab.models.Guia;
 import br.unipar.projetolab.utils.EntityManagerUtil;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -106,5 +108,25 @@ public class GuiaDAOImp implements GuiaDAO {
                 .setParameter("nome", "%" + nomePaciente.toLowerCase() + "%")
                 .getResultList();
     }
+    
+    public List<Guia> buscarPorPeriodoESituacao(LocalDateTime dataInicial, LocalDateTime dataFinal, String situacao) {
+        String queryStr = "SELECT g FROM Guia g WHERE g.dataCadastro BETWEEN :dataInicial AND :dataFinal";
+        if (!situacao.equalsIgnoreCase("todas")) {
+            queryStr += " AND g.status = :situacao";
+        }
+
+        TypedQuery<Guia> query = em.createQuery(queryStr, Guia.class);
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
+
+        if (!situacao.equalsIgnoreCase("todas")) {
+            query.setParameter("situacao", situacao);
+        }
+
+        return query.getResultList();
+    }
+
+
+
 
 }
