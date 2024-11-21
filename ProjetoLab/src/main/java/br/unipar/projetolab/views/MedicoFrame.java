@@ -86,6 +86,7 @@ public MedicoFrame() throws ParseException {
         novoBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         salvarBtn = new javax.swing.JButton();
+        fecharBtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -306,6 +307,10 @@ public MedicoFrame() throws ParseException {
             }
         });
 
+        fecharBtn1.setBackground(new java.awt.Color(243, 255, 229));
+        fecharBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
+        fecharBtn1.setText("Fechar");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -326,6 +331,11 @@ public MedicoFrame() throws ParseException {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salvarBtn)
                 .addGap(17, 17, 17))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(fecharBtn1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,6 +352,11 @@ public MedicoFrame() throws ParseException {
                     .addComponent(excluirBtn)
                     .addComponent(fecharBtn))
                 .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(fecharBtn1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,6 +515,7 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JComboBox<String> estadoBox;
     private javax.swing.JButton excluirBtn;
     private javax.swing.JButton fecharBtn;
+    private javax.swing.JButton fecharBtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
