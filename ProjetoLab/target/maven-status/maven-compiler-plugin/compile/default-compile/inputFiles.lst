@@ -1,14 +1,16 @@
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\ImpresaoReqPanel.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\ResultadoExameDAOImp.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\EstruturaExameLinha.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\ConvenioTableModel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\OperadorFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\PacienteDAOImp.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\Main.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\PacienteTableModel.java
-C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\CampoResultadoExameDAO.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\GuiaTableModel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\PacienteFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoExamesPanel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\GuiaDAOImp.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\ResultadoExameDAO.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\ConvenioDAO.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\MedicoDAO.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\ExameTableModel.java
@@ -44,6 +46,7 @@ C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\Operador.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoPesquisaFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoCadPanel.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RelatorioRquisicaoPanel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\interfaces\GuiaListener.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\Guia.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\OperadorPesquuisaFrame.java
