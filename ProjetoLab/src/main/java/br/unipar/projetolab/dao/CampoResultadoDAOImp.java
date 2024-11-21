@@ -9,6 +9,7 @@ import br.unipar.projetolab.utils.EntityManagerUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 
 public class CampoResultadoDAOImp implements CampoResultadoDAO {
 
@@ -172,8 +173,15 @@ public class CampoResultadoDAOImp implements CampoResultadoDAO {
 
     @Override
     public ResultadoExame criarOuBuscarResultadoExame(Long exameId, Long guiaId) {
+        EntityManager em = EntityManagerUtil.getManager();
+        EntityTransaction transaction = em.getTransaction();
+        ResultadoExame resultadoExame;
+
         try {
-            ResultadoExame resultadoExame = em.createQuery(
+            transaction.begin();
+
+            // Verifica se já existe um ResultadoExame para este exame e guia
+            resultadoExame = em.createQuery(
                     "SELECT r FROM ResultadoExame r WHERE r.exame.id = :exameId AND r.guia.id = :guiaId",
                     ResultadoExame.class)
                     .setParameter("exameId", exameId)
@@ -183,17 +191,38 @@ public class CampoResultadoDAOImp implements CampoResultadoDAO {
                     .orElse(null);
 
             if (resultadoExame == null) {
+                // Carrega a entidade Guia
+                Guia guia = em.find(Guia.class, guiaId);
+                if (guia == null) {
+                    throw new IllegalStateException("Guia não encontrada com o ID: " + guiaId);
+                }
+
+                // Carrega a entidade Exame
+                Exame exame = em.find(Exame.class, exameId);
+                if (exame == null) {
+                    throw new IllegalStateException("Exame não encontrado com o ID: " + exameId);
+                }
+
+                // Cria o ResultadoExame
                 resultadoExame = new ResultadoExame();
-                resultadoExame.setExame(new Exame()); // Aqui você deve buscar o exame pelo ID ou passar um objeto completo
-                resultadoExame.setGuia(new Guia()); // Aqui você deve buscar a guia pelo ID ou passar um objeto completo
-                em.getTransaction().begin();
+                resultadoExame.setGuia(guia);
+                resultadoExame.setExame(exame);
+
+                // Persiste o ResultadoExame
                 em.persist(resultadoExame);
-                em.getTransaction().commit();
             }
-            return resultadoExame;
+
+            transaction.commit();
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao criar ou buscar resultado de exame", e);
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException("Erro ao criar ou buscar ResultadoExame", e);
         }
+
+        return resultadoExame;
     }
+
+
 
 }

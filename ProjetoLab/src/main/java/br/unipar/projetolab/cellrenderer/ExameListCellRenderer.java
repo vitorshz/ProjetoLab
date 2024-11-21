@@ -1,5 +1,6 @@
 package br.unipar.projetolab.cellrenderer;
 
+import br.unipar.projetolab.models.GuiaExame;
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,9 +10,15 @@ public class ExameListCellRenderer extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-        // Configuração do texto
-        String nomeExame = value.toString(); // O valor aqui será o nome do exame
-        label.setText("<html><b>" + nomeExame + "</b><br><i>Material: Sangue</i><br>Sem resultado</html>");
+        if (value instanceof GuiaExame) {
+            GuiaExame guiaExame = (GuiaExame) value;
+            String nomeExame = guiaExame.getExame().getNome();
+            String tipoMaterial = guiaExame.getExame().getTipoMaterial();
+            String status = guiaExame.getStatus();
+
+            // Configuração do texto com informações do exame
+            label.setText("<html><b>" + nomeExame + "</b><br><i>Material: " + tipoMaterial + "</i><br>Status: " + status + "</html>");
+        }
 
         // Configurações visuais
         label.setOpaque(true);
@@ -22,5 +29,8 @@ public class ExameListCellRenderer extends DefaultListCellRenderer {
 
         return label;
     }
+
+
+
 }
 

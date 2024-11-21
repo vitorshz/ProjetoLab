@@ -44,6 +44,7 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
    
     public ImpresaoReqPanel(JPanel telaSubtsPanel) {
         initComponents();
+        adicionarListenerTabelaPacientes();
     }
 
 
@@ -273,70 +274,136 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
             }
         });
         pesquisaFrame.setVisible(true);
+        pesquisaGuiaField.setText("");
     }//GEN-LAST:event_PesquisarbtnActionPerformed
 
     private void baixarpdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixarpdfBtnActionPerformed
-        // Obter a guia selecionada
-        int selectedRow = tablePaciente.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(this, "Nenhuma guia selecionada.");
-            return;
+        List<Guia> guiasSelecionadas = new ArrayList<>();
+        List<Integer> linhasParaRemover = new ArrayList<>();
+        int[] selectedRows = tablePaciente.getSelectedRows();
+
+        if (selectedRows.length == 0) {
+            // Adiciona todas as guias da tabela
+            DefaultTableModel pacienteModel = (DefaultTableModel) tablePaciente.getModel();
+            for (int i = 0; i < pacienteModel.getRowCount(); i++) {
+                try {
+                    guiasSelecionadas.add(obterGuiaSelecionada(i));
+                    linhasParaRemover.add(i); // Adiciona todas as linhas para remoção
+                } catch (RuntimeException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao carregar guia: " + e.getMessage());
+                }
+            }
+        } else {
+            for (int selectedRow : selectedRows) {
+                try {
+                    guiasSelecionadas.add(obterGuiaSelecionada(selectedRow));
+                    linhasParaRemover.add(selectedRow); // Adiciona as linhas selecionadas para remoção
+                } catch (RuntimeException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao carregar guia: " + e.getMessage());
+                }
+            }
         }
 
-        Guia guia = obterGuiaSelecionada(selectedRow);
-
-        // Obter resultados associados à guia
-        List<ResultadoExame> resultadosExame = obterResultadosExame(guia);
-        if (resultadosExame.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum resultado de exame encontrado para esta guia.");
+        if (guiasSelecionadas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhuma guia válida para gerar PDF.");
             return;
         }
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Salvar PDF");
-        fileChooser.setSelectedFile(new File("Relatorio_Exames.pdf"));
-
+        fileChooser.setDialogTitle("Selecione a Pasta para Salvar PDFs");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Apenas diretórios
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            String caminhoArquivo = fileChooser.getSelectedFile().getAbsolutePath();
-            gerarPDF(caminhoArquivo, guia, resultadosExame);
+            String caminhoPasta = fileChooser.getSelectedFile().getAbsolutePath();
 
-            // Exibir no explorador de arquivos
-            try {
-                File arquivo = new File(caminhoArquivo);
-                if (arquivo.exists()) {
-                    Desktop.getDesktop().open(arquivo.getParentFile());
-                } else {
-                    JOptionPane.showMessageDialog(this, "Arquivo PDF não encontrado para exibição.");
+            for (Guia guia : guiasSelecionadas) {
+                List<ResultadoExame> resultadosExame = obterResultadosExame(guia);
+                if (resultadosExame.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Nenhum resultado de exame encontrado para a guia " + guia.getId() + ".");
+                    continue;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Erro ao abrir o local do arquivo: " + e.getMessage());
-            }
-        }
 
+                // Formata o nome do arquivo
+                String nomePaciente = guia.getPaciente().getNome().replaceAll(" ", "_");
+                String dataAtual = java.time.LocalDate.now().toString();
+                String caminhoArquivo = caminhoPasta + File.separator + "Exames_" + nomePaciente + "_" + dataAtual + ".pdf";
+
+                gerarPDF(caminhoArquivo, guia, resultadosExame);
+            }
+
+            JOptionPane.showMessageDialog(this, "PDFs gerados com sucesso na pasta selecionada.");
+
+            // Remove as linhas da tabela de pacientes e limpa os exames
+            linhasParaRemover.sort((a, b) -> b - a); // Ordena em ordem decrescente
+            for (int rowIndex : linhasParaRemover) {
+                removerLinhaPaciente(rowIndex);
+            }
+
+            limparExamesDaTabela(); // Limpa todos os exames da tabela
+        }
             }//GEN-LAST:event_baixarpdfBtnActionPerformed
 
     private void ImprmiBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprmiBtn1ActionPerformed
-        // Obter a guia selecionada
-        int selectedRow = tablePaciente.getSelectedRow();
-        if (selectedRow < 0) {
-            JOptionPane.showMessageDialog(this, "Nenhuma guia selecionada.");
+        List<Guia> guiasSelecionadas = new ArrayList<>();
+        List<Integer> linhasParaRemover = new ArrayList<>();
+        int[] selectedRows = tablePaciente.getSelectedRows();
+
+        if (selectedRows.length == 0) {
+            // Adiciona todas as guias da tabela
+            DefaultTableModel pacienteModel = (DefaultTableModel) tablePaciente.getModel();
+            for (int i = 0; i < pacienteModel.getRowCount(); i++) {
+                try {
+                    guiasSelecionadas.add(obterGuiaSelecionada(i));
+                    linhasParaRemover.add(i); // Adiciona todas as linhas para remoção
+                } catch (RuntimeException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao carregar guia: " + e.getMessage());
+                }
+            }
+        } else {
+            for (int selectedRow : selectedRows) {
+                try {
+                    guiasSelecionadas.add(obterGuiaSelecionada(selectedRow));
+                    linhasParaRemover.add(selectedRow); // Adiciona as linhas selecionadas para remoção
+                } catch (RuntimeException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao carregar guia: " + e.getMessage());
+                }
+            }
+        }
+
+        if (guiasSelecionadas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhuma guia válida para impressão.");
             return;
         }
 
-        Guia guia = obterGuiaSelecionada(selectedRow);
+        for (Guia guia : guiasSelecionadas) {
+            List<ResultadoExame> resultadosExame = obterResultadosExame(guia);
+            if (resultadosExame.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nenhum resultado de exame encontrado para a guia " + guia.getId() + ".");
+                continue;
+            }
 
-        // Obter resultados associados à guia
-        List<ResultadoExame> resultadosExame = obterResultadosExame(guia);
-        if (resultadosExame.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nenhum resultado de exame encontrado para esta guia.");
-            return;
+            // Formata o nome do arquivo temporário para impressão
+            String nomePaciente = guia.getPaciente().getNome().replaceAll(" ", "_");
+            String dataAtual = java.time.LocalDate.now().toString();
+            String caminhoArquivo = "Exames_" + nomePaciente + "_" + dataAtual + "_Temp.pdf";
+
+            gerarPDF(caminhoArquivo, guia, resultadosExame);
+
+            // Atualiza o status para "Impresso"
+            atualizarStatusGuiaExame(guia);
+
+            // Imprime o arquivo
+            imprimirPDF(caminhoArquivo);
         }
 
-        // Salvar PDF temporário e imprimir
-        String caminhoArquivo = "Relatorio_Exames_Temp.pdf";
-        gerarPDF(caminhoArquivo, guia, resultadosExame);
-        imprimirPDF(caminhoArquivo);
+        JOptionPane.showMessageDialog(this, "Documentos enviados para impressão com sucesso.");
+
+        // Remove as linhas da tabela de pacientes e limpa os exames
+        linhasParaRemover.sort((a, b) -> b - a); // Ordena em ordem decrescente
+        for (int rowIndex : linhasParaRemover) {
+            removerLinhaPaciente(rowIndex);
+        }
+
+        limparExamesDaTabela(); // Limpa todos os exames da tabela
     }//GEN-LAST:event_ImprmiBtn1ActionPerformed
 
     private void pesquisaGuiaFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pesquisaGuiaFieldKeyPressed
@@ -348,6 +415,8 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
 
                 if (guia != null) {
                     carregarGuia(guia); // Carrega os dados da guia
+                    pesquisaGuiaField.setText("");
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Guia não encontrada para o ID: " + guiaId, "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -425,8 +494,9 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
             // Corpo (Exames e Resultados)
             for (GuiaExame guiaExame : guia.getExames()) {
                 // Filtrar exames com status "Incluído"
-                if (!"Incluído".equalsIgnoreCase(guiaExame.getStatus())) {
-                    continue; // Ignora exames que não têm o status "Incluído"
+                if(!"Incluído".equalsIgnoreCase(guiaExame.getStatus())
+                        && !"Impresso".equalsIgnoreCase(guiaExame.getStatus())) {
+                    continue;
                 }
 
                 Exame exame = guiaExame.getExame();
@@ -491,19 +561,20 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
         }
     }
 
-
-
-
-
     private void imprimirPDF(String caminhoArquivo) {
         try {
             File arquivo = new File(caminhoArquivo);
+
+            // Verificar se o arquivo foi gerado corretamente
             if (!arquivo.exists()) {
                 JOptionPane.showMessageDialog(this, "Arquivo PDF não encontrado para impressão.");
                 return;
             }
 
-            Desktop.getDesktop().print(arquivo);
+            // Enviar o arquivo para a impressão
+//            Desktop.getDesktop().print(arquivo); n funciona se n tver um leitor de pdf tipo o adobe
+            Desktop.getDesktop().open(arquivo);
+
             JOptionPane.showMessageDialog(this, "Documento enviado para impressão.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -511,59 +582,36 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
         }
     }
 
-    private List<GuiaExame> obterExamesSelecionados() {
-        List<GuiaExame> exames = new ArrayList<>();
-        int selectedRow = tablePaciente.getSelectedRow();
-        if (selectedRow >= 0) {
-            // Obter o ID da guia a partir da tabela
-            Long guiaId = (Long) tablePaciente.getValueAt(selectedRow, 0);
-
-            // Buscar a guia completa pelo ID (use seu DAO ou repositório aqui)
-            GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
-            Guia guia = guiaDAO.findById(guiaId);
-
-            if (guia != null) {
-                exames = guia.getExames(); // Obtém os exames associados à guia
-            } else {
-                JOptionPane.showMessageDialog(this, "Guia não encontrada para o ID: " + guiaId);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Nenhuma guia selecionada.");
-        }
-        return exames;
-    }
-
-
-
     private void carregarGuia(Guia guia) {
         if (guia == null) {
             JOptionPane.showMessageDialog(this, "Nenhuma guia selecionada.");
             return;
         }
 
-        // Preenche a tabela de pacientes
+        // Verifica se a guia já foi adicionada
         DefaultTableModel pacienteModel = (DefaultTableModel) tablePaciente.getModel();
-        pacienteModel.setRowCount(0); // Limpa a tabela
-        pacienteModel.addRow(new Object[]{
-            guia.getId(),
-            guia.getPaciente().getNome(),
-            guia.getDataCadastro() // Exemplo de data
-        });
+        boolean guiaJaAdicionada = false;
+        for (int i = 0; i < pacienteModel.getRowCount(); i++) {
+            if (guia.getId().equals(pacienteModel.getValueAt(i, 0))) {
+                guiaJaAdicionada = true;
+                break;
+            }
+        }
 
-        // Preenche a tabela de exames
-        DefaultTableModel exameModel = (DefaultTableModel) tableExames.getModel();
-        exameModel.setRowCount(0); // Limpa a tabela
-        for (GuiaExame guiaExame : guia.getExames()) {
-            exameModel.addRow(new Object[]{
-                guiaExame.getExame().getId(),
-                guiaExame.getExame().getNome(),
-                guiaExame.getExame().getTipoMaterial(),
-                guiaExame.getStatus()
+        // Adiciona a guia na tabela de pacientes se ainda não foi adicionada
+        if (!guiaJaAdicionada) {
+            pacienteModel.addRow(new Object[]{
+                guia.getId(),
+                guia.getPaciente().getNome(),
+                guia.getDataCadastro()
             });
         }
 
-        
+        // Atualiza a tabela de exames com os exames da última guia adicionada
+        atualizarExamesDaUltimaGuia();
     }
+
+
 
     private Guia obterGuiaSelecionada(int selectedRow) {
         Long guiaId = (Long) tablePaciente.getValueAt(selectedRow, 0);
@@ -573,7 +621,101 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
 
     private List<ResultadoExame> obterResultadosExame(Guia guia) {
         ResultadoExameDAO resultadoExameDAO = new ResultadoExameDAOImp(EntityManagerUtil.getManager());
-        return resultadoExameDAO.buscarPorGuia(guia.getId());
+        List<ResultadoExame> resultados = resultadoExameDAO.buscarPorGuia(guia.getId());
+
+        // Log para verificar os resultados
+        System.out.println("Resultados obtidos para a Guia ID " + guia.getId() + ":");
+        for (ResultadoExame resultado : resultados) {
+            System.out.println("Exame: " + resultado.getExame().getNome());
+            for (CampoResultadoExame campo : resultado.getCamposResultado()) {
+                System.out.println("Campo: " + campo.getEstruturaExame().getTexto() + " - Valor: " + campo.getValor());
+            }
+        }
+
+        return resultados;
+    }
+
+
+    private void atualizarStatusGuiaExame(Guia guia) {
+        try {
+            GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+            EntityManagerUtil.getManager().getTransaction().begin();
+
+            for (GuiaExame guiaExame : guia.getExames()) {
+                // Apenas exames com status "Incluído" podem ser atualizados para "Impresso"
+                if ("Incluído".equalsIgnoreCase(guiaExame.getStatus())) {
+                    guiaExame.setStatus("Impresso");
+                }
+            }
+
+            guiaDAO.update(guia); // Salva as alterações no banco de dados
+            EntityManagerUtil.getManager().getTransaction().commit();
+
+            JOptionPane.showMessageDialog(this, "Exames com status 'Incluído' foram atualizados para 'Impresso'.");
+        } catch (Exception e) {
+            EntityManagerUtil.getManager().getTransaction().rollback();
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar status: " + e.getMessage());
+        }
+    }
+    
+    private void removerLinhaPaciente(int rowIndex) {
+        DefaultTableModel pacienteModel = (DefaultTableModel) tablePaciente.getModel();
+        if (rowIndex >= 0 && rowIndex < pacienteModel.getRowCount()) {
+            pacienteModel.removeRow(rowIndex);
+        }
+    }
+
+    private void limparExamesDaTabela() {
+        DefaultTableModel exameModel = (DefaultTableModel) tableExames.getModel();
+        exameModel.setRowCount(0); // Limpa todas as linhas da tabela de exames
+    }
+    private void adicionarListenerTabelaPacientes() {
+        tablePaciente.getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting()) {
+                int selectedRow = tablePaciente.getSelectedRow();
+                if (selectedRow >= 0) {
+                    Long guiaId = (Long) tablePaciente.getValueAt(selectedRow, 0);
+                    GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+                    Guia guia = guiaDAO.findById(guiaId);
+
+                    if (guia != null) {
+                        // Atualiza a tabela de exames com os exames da guia selecionada
+                        limparExamesDaTabela();
+                        for (GuiaExame guiaExame : guia.getExames()) {
+                            ((DefaultTableModel) tableExames.getModel()).addRow(new Object[]{
+                                guiaExame.getExame().getId(),
+                                guiaExame.getExame().getNome(),
+                                guiaExame.getExame().getTipoMaterial(),
+                                guiaExame.getStatus()
+                            });
+                        }
+                    }
+                }
+            }
+        });
+    }
+    private void atualizarExamesDaUltimaGuia() {
+        DefaultTableModel pacienteModel = (DefaultTableModel) tablePaciente.getModel();
+        int ultimaLinha = pacienteModel.getRowCount() - 1;
+
+        if (ultimaLinha >= 0) {
+            Long guiaId = (Long) pacienteModel.getValueAt(ultimaLinha, 0);
+            GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
+            Guia guia = guiaDAO.findById(guiaId);
+
+            if (guia != null) {
+                // Limpa os exames e carrega os exames da guia selecionada
+                limparExamesDaTabela();
+                for (GuiaExame guiaExame : guia.getExames()) {
+                    ((DefaultTableModel) tableExames.getModel()).addRow(new Object[]{
+                        guiaExame.getExame().getId(),
+                        guiaExame.getExame().getNome(),
+                        guiaExame.getExame().getTipoMaterial(),
+                        guiaExame.getStatus()
+                    });
+                }
+            }
+        }
     }
 
 
