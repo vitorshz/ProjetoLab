@@ -556,6 +556,7 @@ public class Main extends javax.swing.JFrame {
             public void run() {
                 //mudar de main() para login() depois
                 new Main().setVisible(true);
+                
             }
         });
     }
