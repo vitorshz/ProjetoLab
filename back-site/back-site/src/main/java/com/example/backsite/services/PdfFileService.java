@@ -28,5 +28,14 @@ public class PdfFileService {
     public Optional<PdfFile> getPdfById(Long id) {
         return pdfFileRepository.findById(id);
     }
+    public PdfFile save(PdfFile pdfFile) {
+        return pdfFileRepository.save(pdfFile);
+    }
+
+    // Método para buscar o conteúdo do PDF pelo nome do arquivo
+    public Optional<PdfFile> getPdfByFileName(String fileName) {
+        return pdfFileRepository.findByFileName(fileName);
+    }
+
 }
 

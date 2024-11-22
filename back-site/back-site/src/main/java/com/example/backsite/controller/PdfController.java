@@ -51,7 +51,6 @@ public class PdfController {
             if (!pacienteOptional.isPresent()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente não encontrado.");
             }
-
             Paciente paciente = pacienteOptional.get();
 
             // Salvar o arquivo no servidor
@@ -59,17 +58,21 @@ public class PdfController {
             if (!uploadFolder.exists()) {
                 uploadFolder.mkdirs();
             }
-
             File dest = new File(uploadFolder, file.getOriginalFilename());
             file.transferTo(dest);
 
-            // Criar entrada no banco
+            // Salvar metadados no banco (tabela `pdfs`)
             Pdf pdf = new Pdf();
-            pdf.setFileName(file.getOriginalFilename()); // Nome do arquivo
-            pdf.setFilePath(dest.getAbsolutePath());     // Caminho completo do arquivo
+            pdf.setFileName(file.getOriginalFilename());
+            pdf.setFilePath(dest.getAbsolutePath());
             pdf.setPaciente(paciente);
-
             pdfRepository.save(pdf);
+
+            // Salvar conteúdo binário no banco (tabela `pdf_file`)
+            PdfFile pdfFile = new PdfFile();
+            pdfFile.setFileName(file.getOriginalFilename());
+            pdfFile.setFileContent(file.getBytes());
+            pdfFileService.save(pdfFile); // Salvando na tabela `pdf_file`
 
             return ResponseEntity.ok("Arquivo enviado com sucesso para o paciente: " + paciente.getNome());
         } catch (Exception e) {
@@ -77,27 +80,42 @@ public class PdfController {
         }
     }
 
-
-    @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+    @GetMapping("/view/{id}")
+    public ResponseEntity<byte[]> viewPdf(@PathVariable Long id) {
         Optional<PdfFile> pdfFile = pdfFileService.getPdfById(id);
         if (pdfFile.isPresent()) {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.get().getFileName() + "\"")
+                    .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
                     .body(pdfFile.get().getFileContent());
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/paciente/{pacienteId}")
-    public ResponseEntity<List<Pdf>> listarPdfsPorPaciente(@PathVariable Long pacienteId) {
-        try {
-            // Buscar PDFs relacionados ao paciente
-            List<Pdf> pdfs = pdfRepository.findByPacienteId(pacienteId);
-            return ResponseEntity.ok(pdfs);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        Optional<Pdf> pdfOptional = pdfRepository.findById(id);
+        if (pdfOptional.isPresent()) {
+            Pdf pdf = pdfOptional.get();
+            Optional<PdfFile> pdfFileOptional = pdfFileService.getPdfByFileName(pdf.getFileName());
+            if (pdfFileOptional.isPresent()) {
+                PdfFile pdfFile = pdfFileOptional.get();
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getFileName() + "\"")
+                        .body(pdfFile.getFileContent());
+            }
         }
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/paciente/{pacienteId}/pdfs")
+    public ResponseEntity<List<Pdf>> listarPdfsPorPaciente(@PathVariable Long pacienteId) {
+        List<Pdf> pdfs = pdfRepository.findByPacienteId(pacienteId);
+        if (pdfs.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(pdfs);
     }
 }
 
