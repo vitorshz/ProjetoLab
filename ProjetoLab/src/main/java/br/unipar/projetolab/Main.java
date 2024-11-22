@@ -757,7 +757,7 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 //mudar de main() para login() depois
-                new Main().setVisible(true);
+                new LoginFrame().setVisible(true);
             }
         });
     }
