@@ -18,6 +18,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -60,13 +61,7 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
         situacaobox = new javax.swing.JComboBox<>();
-        fitroExbtn = new javax.swing.JButton();
-        fiktroUnibtn2 = new javax.swing.JButton();
-        filtroUserbtn = new javax.swing.JButton();
         jDateChooserDataInicial = new com.toedter.calendar.JDateChooser();
         jDateChooserDataFinal = new com.toedter.calendar.JDateChooser();
         imprimeBtn = new javax.swing.JButton();
@@ -97,18 +92,21 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(12, 12, 12))
+                .addContainerGap(740, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel15)))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(228, 228, 228));
@@ -132,59 +130,8 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
         jLabel17.setToolTipText("");
         jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        jCheckBox1.setText("Exame");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
-
-        jCheckBox2.setText("Unidade");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
-
-        jCheckBox3.setText("Usuario");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
-
         situacaobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "todas", " " }));
         jPanel3.add(situacaobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 100, -1));
-
-        fitroExbtn.setBackground(new java.awt.Color(243, 255, 229));
-        fitroExbtn.setText("Filtro");
-        fitroExbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fitroExbtnActionPerformed(evt);
-            }
-        });
-        jPanel3.add(fitroExbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 60, 20));
-
-        fiktroUnibtn2.setBackground(new java.awt.Color(243, 255, 229));
-        fiktroUnibtn2.setText("Filtro");
-        fiktroUnibtn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fiktroUnibtn2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(fiktroUnibtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 60, 20));
-
-        filtroUserbtn.setBackground(new java.awt.Color(243, 255, 229));
-        filtroUserbtn.setText("Filtro");
-        filtroUserbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtroUserbtnActionPerformed(evt);
-            }
-        });
-        jPanel3.add(filtroUserbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 60, 20));
 
         jDateChooserDataInicial.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooserDataInicial.setDateFormatString("dd-MM-yyyy");
@@ -202,7 +149,7 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
                 imprimeBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(imprimeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 130, -1));
+        jPanel3.add(imprimeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 130, -1));
 
         filtrarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lupa.png"))); // NOI18N
         filtrarBtn.setText("Filtrar");
@@ -212,7 +159,7 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
                 filtrarBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(filtrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 80, 40));
+        jPanel3.add(filtrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 80, 40));
 
         fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
         fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
@@ -231,68 +178,51 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
         );
         panelRelatorioLayout.setVerticalGroup(
             panelRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(fecharBtn))
-                    .addComponent(panelRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecharBtn)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fecharBtn))
+                        .addGap(35, 35, 35))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(fecharBtn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-
+        Container parent = this.getParent();
+        if (parent != null) {
+            parent.remove(this); // Remove o JPanel do container pai
+            parent.revalidate(); // Atualiza o layout
+            parent.repaint();    // Repaint para refletir as mudanças
+        }
     }//GEN-LAST:event_fecharBtnActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void fitroExbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fitroExbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fitroExbtnActionPerformed
-
-    private void fiktroUnibtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiktroUnibtn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fiktroUnibtn2ActionPerformed
-
-    private void filtroUserbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroUserbtnActionPerformed
-       
-    }//GEN-LAST:event_filtroUserbtnActionPerformed
 
     private void imprimeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimeBtnActionPerformed
         try {
@@ -368,14 +298,8 @@ public class RelatorioRquisicaoPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton fecharBtn;
-    private javax.swing.JButton fiktroUnibtn2;
     private javax.swing.JButton filtrarBtn;
-    private javax.swing.JButton filtroUserbtn;
-    private javax.swing.JButton fitroExbtn;
     private javax.swing.JButton imprimeBtn;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooserDataFinal;
     private com.toedter.calendar.JDateChooser jDateChooserDataInicial;

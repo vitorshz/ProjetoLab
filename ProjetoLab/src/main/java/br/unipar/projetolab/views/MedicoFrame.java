@@ -22,15 +22,13 @@ import br.unipar.projetolab.utils.EntityManagerUtil;
 import br.unipar.projetolab.views.MedicoPesquisaFrame;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Container;
 
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 
-/**
- *
- * @author vinid
- */
 public class MedicoFrame extends javax.swing.JPanel  implements MedicoListener{
 
  private MaskFormatter mfdata,mfcpf,mfcelular,mfCRM;
@@ -38,7 +36,7 @@ public class MedicoFrame extends javax.swing.JPanel  implements MedicoListener{
     
 private Medico medicoAtual; 
 
-public MedicoFrame() throws ParseException {
+public MedicoFrame(JPanel telaSubtsPanel) throws ParseException {
     try {
        
         mfdata = new MaskFormatter("##/##/####");
@@ -85,20 +83,15 @@ public MedicoFrame() throws ParseException {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         enderecoField = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        EmailField = new javax.swing.JFormattedTextField(mfcelular);
         OBSField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         telefoneField = new javax.swing.JFormattedTextField(mfcelular);
-        jLabel18 = new javax.swing.JLabel();
-        telefoneField2 = new javax.swing.JFormattedTextField(mfcelular);
-        telefoneField3 = new javax.swing.JFormattedTextField(mfcelular);
-        fecharBtn = new javax.swing.JButton();
-        excluirBtn = new javax.swing.JButton();
-        novoBtn = new javax.swing.JButton();
-        editBtn = new javax.swing.JButton();
         salvarBtn = new javax.swing.JButton();
+        editBtn = new javax.swing.JButton();
+        novoBtn = new javax.swing.JButton();
+        excluirBtn = new javax.swing.JButton();
+        fecharBtn = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -117,7 +110,7 @@ public MedicoFrame() throws ParseException {
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,13 +188,6 @@ public MedicoFrame() throws ParseException {
 
         enderecoField.setEditable(false);
         jPanel3.add(enderecoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 510, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Email:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
-
-        EmailField.setEditable(false);
-        jPanel3.add(EmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 180, -1));
         jPanel3.add(OBSField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 530, 60));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -215,40 +201,12 @@ public MedicoFrame() throws ParseException {
         telefoneField.setEditable(false);
         jPanel3.add(telefoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 120, -1));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel18.setText("Celular:");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
-
-        telefoneField2.setEditable(false);
-        jPanel3.add(telefoneField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
-
-        telefoneField3.setEditable(false);
-        jPanel3.add(telefoneField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 120, -1));
-
-        fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
-        fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
-        fecharBtn.setText("Fechar");
-        fecharBtn.addActionListener(new java.awt.event.ActionListener() {
+        salvarBtn.setBackground(new java.awt.Color(243, 255, 229));
+        salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disquete.png"))); // NOI18N
+        salvarBtn.setText("Salvar");
+        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecharBtnActionPerformed(evt);
-            }
-        });
-
-        excluirBtn.setBackground(new java.awt.Color(243, 255, 229));
-        excluirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir 1.png"))); // NOI18N
-        excluirBtn.setText("Excluir");
-        excluirBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirBtnActionPerformed(evt);
-            }
-        });
-
-        novoBtn.setBackground(new java.awt.Color(243, 255, 229));
-        novoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-documento.png"))); // NOI18N
-        novoBtn.setText("Novo");
-        novoBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoBtnActionPerformed(evt);
+                salvarBtnActionPerformed(evt);
             }
         });
 
@@ -261,12 +219,30 @@ public MedicoFrame() throws ParseException {
             }
         });
 
-        salvarBtn.setBackground(new java.awt.Color(243, 255, 229));
-        salvarBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/disquete.png"))); // NOI18N
-        salvarBtn.setText("Salvar");
-        salvarBtn.addActionListener(new java.awt.event.ActionListener() {
+        novoBtn.setBackground(new java.awt.Color(243, 255, 229));
+        novoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo-documento.png"))); // NOI18N
+        novoBtn.setText("Novo");
+        novoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salvarBtnActionPerformed(evt);
+                novoBtnActionPerformed(evt);
+            }
+        });
+
+        excluirBtn.setBackground(new java.awt.Color(243, 255, 229));
+        excluirBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excluir 1.png"))); // NOI18N
+        excluirBtn.setText("Excluir");
+        excluirBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirBtnActionPerformed(evt);
+            }
+        });
+
+        fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
+        fecharBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/botao-excluir 1.png"))); // NOI18N
+        fecharBtn.setText("Fechar");
+        fecharBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecharBtnActionPerformed(evt);
             }
         });
 
@@ -277,21 +253,20 @@ public MedicoFrame() throws ParseException {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1133, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fecharBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fecharBtn)
+                .addGap(16, 16, 16)
                 .addComponent(excluirBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(16, 16, 16)
                 .addComponent(novoBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
+                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addComponent(salvarBtn)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,20 +274,25 @@ public MedicoFrame() throws ParseException {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvarBtn)
-                    .addComponent(editBtn)
-                    .addComponent(novoBtn)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fecharBtn)
                     .addComponent(excluirBtn)
-                    .addComponent(fecharBtn))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(novoBtn)
+                    .addComponent(editBtn)
+                    .addComponent(salvarBtn))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-      
+        Container parent = this.getParent();
+        if (parent != null) {
+            parent.remove(this); // Remove o JPanel do container pai
+            parent.revalidate(); // Atualiza o layout
+            parent.repaint();    // Repaint para refletir as mudanças
+        }
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed
@@ -382,7 +362,6 @@ public MedicoFrame() throws ParseException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CRMField;
-    private javax.swing.JFormattedTextField EmailField;
     private javax.swing.JTextField OBSField;
     private javax.swing.JTextField codigoField;
     private javax.swing.JFormattedTextField cpfField;
@@ -394,7 +373,6 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JButton excluirBtn;
     private javax.swing.JButton fecharBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -402,7 +380,6 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -413,8 +390,6 @@ public MedicoFrame() throws ParseException {
     private javax.swing.JButton novoBtn;
     private javax.swing.JButton salvarBtn;
     private javax.swing.JFormattedTextField telefoneField;
-    private javax.swing.JFormattedTextField telefoneField2;
-    private javax.swing.JFormattedTextField telefoneField3;
     private javax.swing.JComboBox<String> tipoBox;
     // End of variables declaration//GEN-END:variables
  private void limparCampos() {
@@ -435,7 +410,6 @@ private void desabilitarCampos() {
     cpfField.setEditable(false);
     dataNascField.setEditable(false);
     enderecoField.setEditable(false);
-    EmailField.setEditable(false);
     CRMField.setEditable(false);
     especialiddeField.setEditable(false);
     tipoBox.setEnabled(false);
@@ -457,7 +431,6 @@ private void desabilitarCampos() {
         }
 
         enderecoField.setText(medico.getEndereco());
-        EmailField.setText(medico.getCelular());
         CRMField.setText(medico.getConselhoCrm());
         especialiddeField.setText(medico.getEspecialidade());
         tipoBox.setSelectedItem(medico.getTipo());
@@ -477,7 +450,6 @@ private void habilitarCampos() {
     cpfField.setEditable(true);
     dataNascField.setEditable(true);
     enderecoField.setEditable(true);
-    EmailField.setEditable(true);
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);
@@ -491,7 +463,6 @@ private void habilitarCampos() {
 private void habilitarCamposParaEdicao() {
     nomeField.setEditable(true);
     enderecoField.setEditable(true);
-    EmailField.setEditable(true);
     CRMField.setEditable(true);
     especialiddeField.setEditable(true);
     tipoBox.setEnabled(true);

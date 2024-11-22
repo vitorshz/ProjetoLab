@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package br.unipar.projetolab.views;
 
 import javax.swing.text.MaskFormatter;
@@ -19,20 +15,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.text.MaskFormatter;
 
-/**
- *
- * @author vinid
- */
+
 public class ConvenioFrame extends javax.swing.JPanel implements ConvenioListener {
 
      private MaskFormatter mfcei, mfcnpj, mfcelular,mfcep;
     private Convenio convenioAtual;
     
-    public ConvenioFrame() {
+    public ConvenioFrame(JPanel telaSubtsPanel) {
         
         try {
             mfcei = new MaskFormatter(" ##.#######.##-##");
@@ -333,7 +327,7 @@ public class ConvenioFrame extends javax.swing.JPanel implements ConvenioListene
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(observacoesField)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(267, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,7 +382,7 @@ public class ConvenioFrame extends javax.swing.JPanel implements ConvenioListene
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(631, Short.MAX_VALUE)
                     .addComponent(fecharBtn)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(excluirBtn)
@@ -407,10 +401,10 @@ public class ConvenioFrame extends javax.swing.JPanel implements ConvenioListene
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(524, Short.MAX_VALUE)
+                    .addContainerGap(674, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(salvarBtn)
                         .addComponent(editBtn)
@@ -513,12 +507,12 @@ public class ConvenioFrame extends javax.swing.JPanel implements ConvenioListene
     }//GEN-LAST:event_excluirBtnActionPerformed
 
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-    Container parent = this.getParent();
-    if (parent != null) {
-        parent.remove(this); // Remove o JPanel do container pai
-        parent.revalidate(); // Atualiza o layout
-        parent.repaint();    // Repaint para refletir as mudanças
-    }
+        Container parent = this.getParent();
+        if (parent != null) {
+            parent.remove(this); // Remove o JPanel do container pai
+            parent.revalidate(); // Atualiza o layout
+            parent.repaint();    // Repaint para refletir as mudanças
+        }
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void cepfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cepfieldActionPerformed
