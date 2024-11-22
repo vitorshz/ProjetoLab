@@ -23,17 +23,47 @@ document.getElementById("login-form").addEventListener("submit", async (event) =
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
+    if (username !== password) {
+        alert("Os campos 'Usuário' e 'Senha' devem conter o mesmo CPF!");
+        return;
+    }
+
     try {
-        const response = await axios.post("/api/auth/login", {
-            username,
-            password,
-        });
+        const response = await axios.post("/api/auth/login", { cpf: username });
 
         if (response.status === 200) {
-            alert("Login bem-sucedido!");
-            window.location.href = "/"; // Redireciona para a página principal
+            // Redirecionar para a página do paciente
+            window.location.href = response.data;
         }
     } catch (error) {
-        alert("Falha no login: " + error.response.data);
+        if (error.response) {
+            alert("Falha no login: " + error.response.data);
+        } else {
+            alert("Erro inesperado. Por favor, tente novamente.");
+        }
     }
 });
+
+
+
+function formatarCpf(cpf) {
+    // Remove caracteres não numéricos
+    cpf = cpf.replace(/\D/g, "");
+
+    // Aplica a máscara ###.###.###-##
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+    return cpf;
+}
+
+document.getElementById("username").addEventListener("input", (event) => {
+    event.target.value = formatarCpf(event.target.value);
+});
+
+document.getElementById("password").addEventListener("input", (event) => {
+    event.target.value = formatarCpf(event.target.value);
+});
+
+

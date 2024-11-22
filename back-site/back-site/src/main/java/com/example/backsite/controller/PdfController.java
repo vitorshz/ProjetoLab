@@ -6,6 +6,10 @@ import com.example.backsite.models.PdfFile;
 import com.example.backsite.repository.PacienteRepository;
 import com.example.backsite.repository.PdfRepository;
 import com.example.backsite.services.PdfFileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,9 +39,12 @@ public class PdfController {
     private final String UPLOAD_DIR = "C:\\Users\\vitor\\OneDrive\\Documentos\\GitHub\\ProjetoLab\\back-site\\back-site\\uploads\\";
 
 
-    /**
-     * Upload de PDF: Salva metadados em `pdfs` e conteúdo binário em `pdf_file`
-     */
+    @Operation(summary = "Upload de PDF", description = "Faz o upload de um PDF vinculado a um paciente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Upload realizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Paciente não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+    })
     @PostMapping("/upload")
     public ResponseEntity<String> uploadPdf(
             @RequestParam("file") MultipartFile file,
@@ -78,86 +85,64 @@ public class PdfController {
         }
     }
 
-    /**
-     * Visualizar PDF diretamente no navegador
-     */
+    @Operation(summary = "Visualizar PDF", description = "Permite visualizar o conteúdo do PDF no navegador.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PDF visualizado com sucesso", content = @Content(mediaType = "application/pdf")),
+            @ApiResponse(responseCode = "404", description = "PDF não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+    })
     @GetMapping("/view/{id}")
     public ResponseEntity<byte[]> viewPdf(@PathVariable Long id) {
-        Optional<PdfFile> pdfFileOptional = pdfFileService.getPdfById(id);
-        if (pdfFileOptional.isPresent()) {
-            PdfFile pdfFile = pdfFileOptional.get();
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
-                    .body(pdfFile.getFileContent());
+        try {
+            // Buscar PDF no banco
+            Optional<Pdf> optionalPdf = pdfRepository.findById(id);
+            if (optionalPdf.isPresent()) {
+                Pdf pdf = optionalPdf.get();
+
+                // Ler conteúdo do arquivo
+                File file = new File(pdf.getFilePath());
+                if (file.exists()) {
+                    byte[] content = Files.readAllBytes(file.toPath());
+                    return ResponseEntity.ok()
+                            .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
+                            .body(content);
+                }
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.notFound().build();
     }
 
-    /**
-     * Baixar PDF
-     */
+    @Operation(summary = "Baixar PDF", description = "Permite baixar um PDF vinculado a um paciente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "PDF baixado com sucesso", content = @Content(mediaType = "application/pdf")),
+            @ApiResponse(responseCode = "404", description = "PDF não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
+    })
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
-        Optional<Pdf> pdfOptional = pdfRepository.findById(id);
-        if (pdfOptional.isPresent()) {
-            Pdf pdf = pdfOptional.get();
-            Optional<PdfFile> pdfFileOptional = pdfFileService.getPdfByFileName(pdf.getFileName());
-            if (pdfFileOptional.isPresent()) {
-                PdfFile pdfFile = pdfFileOptional.get();
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getFileName() + "\"")
-                        .body(pdfFile.getFileContent());
-            }
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    /**
-     * Listar PDFs por paciente
-     */
-    @GetMapping("/paciente/{pacienteId}/pdfs")
-    public ResponseEntity<List<Pdf>> listarPdfsPorPaciente(@PathVariable Long pacienteId) {
-        List<Pdf> pdfs = pdfRepository.findByPacienteId(pacienteId);
-        if (pdfs.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(pdfs);
-    }
-
-    /**
-     * Transformar PDFs existentes no sistema em PdfFile (caso conteúdo binário esteja ausente)
-     */
-    @PostMapping("/convert-to-pdf-file")
-    public ResponseEntity<String> convertExistingPdfsToPdfFile() {
         try {
-            // Buscar PDFs na tabela `pdfs`
-            List<Pdf> pdfs = pdfRepository.findAll();
-            for (Pdf pdf : pdfs) {
-                // Verificar se já existe um registro em `pdf_file`
-                Optional<PdfFile> existingPdfFile = pdfFileService.getPdfByFileName(pdf.getFileName());
-                if (existingPdfFile.isPresent()) {
-                    continue; // Já convertido, ignorar
-                }
+            // Buscar PDF no banco
+            Optional<Pdf> optionalPdf = pdfRepository.findById(id);
+            if (optionalPdf.isPresent()) {
+                Pdf pdf = optionalPdf.get();
 
-                // Ler o conteúdo do arquivo físico
+                // Ler conteúdo do arquivo
                 File file = new File(pdf.getFilePath());
-                if (!file.exists()) {
-                    continue; // Arquivo não existe, ignorar
+                if (file.exists()) {
+                    byte[] content = Files.readAllBytes(file.toPath());
+                    return ResponseEntity.ok()
+                            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
+                            .body(content);
                 }
-
-                byte[] content = Files.readAllBytes(file.toPath());
-
-                // Salvar como `PdfFile`
-                PdfFile pdfFile = new PdfFile();
-                pdfFile.setFileName(pdf.getFileName());
-                pdfFile.setFileContent(content);
-                pdfFileService.save(pdfFile);
             }
-
-            return ResponseEntity.ok("Todos os PDFs existentes foram convertidos para PdfFile.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao converter PDFs: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
 }
 

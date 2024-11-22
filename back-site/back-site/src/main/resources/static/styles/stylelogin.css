@@ -5,6 +5,7 @@ body {
 }
 
 .background-image {
+    background-image: url('static/images/a.jfif');
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -104,4 +105,3 @@ h2 {
 .forgot-password:hover {
     text-decoration: underline;
 }
-

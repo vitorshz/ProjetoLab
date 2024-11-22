@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     color: #333;
 }
 
@@ -15,50 +15,34 @@ body {
 header {
     background-color: #516EFF;
     color: white;
-    padding: 10px 20px;
+    padding: 15px 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header .logo img {
-    height: 40px;
+    height: 50px;
 }
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-header nav ul li a:hover {
-    text-decoration: underline;
-}
-
-header .user-info span {
-    background-color: white;
-    color: #516EFF;
-    padding: 5px 10px;
-    border-radius: 5px;
+header h1 {
+    font-size: 1.5rem;
 }
 
 /* Estilo do conteúdo principal */
 main {
-    margin: 20px;
-    background: white;
+    margin: 30px auto;
     padding: 20px;
+    max-width: 800px;
+    background: white;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.patient-info {
+h2 {
     margin-bottom: 20px;
+    color: #516EFF;
 }
 
 /* Tabela */
@@ -80,51 +64,65 @@ table th {
     color: white;
 }
 
-table .liberado {
-    background-color: #d4f8d4;
-}
-
-table .aguardando {
-    background-color: #f8d4d4;
-}
-
-/* Botões */
-.btn-download {
-    background-color: #34a853;
-    color: white;
-    border: none;
+table .btn-visualizar, table .btn-download {
+    text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
-    cursor: pointer;
+    font-size: 0.9rem;
+    display: inline-block;
 }
 
-.btn-download:hover {
+table .btn-visualizar {
+    background-color: #34a853;
+    color: white;
+}
+
+table .btn-download {
+    background-color: #fbbc05;
+    color: white;
+}
+
+table .btn-visualizar:hover {
     background-color: #2c8a44;
 }
 
+table .btn-download:hover {
+    background-color: #e89c00;
+}
+
+/* Nenhum resultado */
+.no-results {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Botão de logout */
+.logout-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
 .btn-logout {
-    background-color: #516EFF;
+    background-color: #d93025;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.btn-logout:hover {
+    background-color: #b0271c;
 }
 
 /* Rodapé */
 footer {
     background-color: #f4f4f4;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
+    color: #555;
     border-top: 1px solid #ddd;
-}
-
-footer .footer-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-footer .footer-content ul li a {
-    text-decoration: none;
-    color: #516EFF;
 }
