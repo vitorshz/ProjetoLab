@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload PDF</title>
+</head>
+<body>
+<form action="http://localhost:8080/api/pdfs/upload" method="post" enctype="multipart/form-data">
+    <label for="file">Escolha o arquivo:</label>
+    <input type="file" name="file" id="file" required><br><br>
+    <label for="pacienteId">ID do Paciente:</label>
+    <input type="number" name="pacienteId" id="pacienteId" required><br><br>
+    <button type="submit">Enviar</button>
+</form>
+</body>
+</html>

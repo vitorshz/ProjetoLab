@@ -1,0 +1,251 @@
+/* Configurações globais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+/* Header */
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 70px; 
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Alinha os itens do menu verticalmente */
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Alinha o texto e o ícone verticalmente */
+}
+
+nav a.active {
+    color: #516EFF;
+}
+
+.button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+}
+
+.button i {
+    margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 100px 0;
+    background-color: #F8FAFC; 
+}
+
+.hero-background {
+    background-color: #F8FAFC; 
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+    border-top: 2px solid #000000; 
+    border-bottom: 2px solid #000000; 
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-text {
+    flex: 1;
+    color: #000000; 
+}
+
+.hero-text h1, .hero-text h2 {
+    margin: 0;
+}
+
+.blue-text {
+    color: #516EFF;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    max-width: 1000px; 
+    height: auto;
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* Seção de Qualidade */
+.quality {
+    padding: 50px 0;
+    background-color: #fff;
+}
+
+.quality h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.underline {
+    height: 4px;
+    background-color: #516EFF;
+    margin: 10px auto;
+    width: 80%;
+}
+
+.quality p {
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Seção de Logos */
+.logos-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logos {
+    display: flex; /* Alinha os logos lado a lado */
+    justify-content: space-around; /* Espaçamento entre os logos */
+    align-items: center; /* Alinha os logos verticalmente */
+    background-color: #C0DCF7; 
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #C0DCF7; 
+}
+
+.logos img {
+    height: 100px; /* Define um tamanho consistente para os logos */
+    width: auto;
+}
+
+/* Footer */
+footer {
+    background-color: #C4DEF8;
+    color: #000;
+    padding: 50px 0;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+}
+
+.footer-logo img {
+    height: 80px; 
+}
+
+.footer-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px; 
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact, .address {
+    text-transform: uppercase;
+}
+
+.contact p, .address p {
+    margin: 0;
+    color: #000; 
+}
+
+.contact {
+    margin-right: 20px;
+}
+
+.address {
+    margin-left: 20px;
+}
+
+.footer-content h3 {
+    color: #000; 
+    margin-bottom: 10px;
+}
+
+.footer-content p, .footer-content a {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #000; 
+    text-decoration: none;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.footer-links {
+    text-align: center;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #000; 
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.footer-note {
+    text-align: center;
+    color: #000; 
+    font-size: 14px;
+}

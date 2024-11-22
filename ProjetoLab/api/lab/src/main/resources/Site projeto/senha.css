@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('img/a.jfif');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.form-box {
+    background-color: #FFFFFC;
+    border: 1px solid #0080FF;
+    border-radius: 50px;
+    padding: 50px;
+    width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.title-box {
+    position: absolute;
+    top: -30px; /* Alinhamento do título com a parte superior do card */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #F7F7F7;
+    padding: 15px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+    margin: 0;
+    color: #000;
+    font-weight: normal;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 50px; /* Para criar espaço para o título */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+label {
+    font-size: 20px;
+    color: #333;
+    white-space: nowrap; /* Evita que o texto seja cortado */
+}
+
+input[type="email"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: center;
+}
+
+button:hover {
+    background-color: #333;
+}

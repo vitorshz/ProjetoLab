@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+        <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Resultados - Lab Manager</title>
+    <link rel="stylesheet" href="../static/styles/style.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="../static/images/LabManager-26-08-2024%20(3).png" alt="Lab Manager Logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="/" class="button">Voltar para Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="resultados">
+    <div class="container">
+        <h1>Resultados Disponíveis</h1>
+        <ul>
+            <li th:each="arquivo : ${arquivos}">
+                <a th:href="@{'/api/pdfs/download/' + ${arquivo.fileName}}" th:text="${arquivo.fileName}">Arquivo PDF</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Lab Manager - Todos os direitos reservados.</p>
+    </div>
+</footer>
+</body>
+</html>
+
