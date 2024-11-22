@@ -5,7 +5,6 @@ body {
 }
 
 .background-image {
-    background-image: url('C:/Users/vinid/Desktop/Site projeto/img/a.jfif');
     background-size: cover;
     background-position: center;
     position: absolute;
@@ -105,3 +104,4 @@ h2 {
 .forgot-password:hover {
     text-decoration: underline;
 }
+
