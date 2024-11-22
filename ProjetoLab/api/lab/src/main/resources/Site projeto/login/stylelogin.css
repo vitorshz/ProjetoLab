@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.background-image {
+    background-image: url('C:/Users/vinid/Desktop/Site projeto/img/a.jfif');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-card {
+    background-color: #FFFFFC; /* Cor de fundo */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #516EFF; /* Borda azul mais fina */
+}
+
+.logo img {
+    width: 120px; /* Tamanho da logo */
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #516EFF; /* Cor azul */
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Centralizado verticalmente */
+    transform: translateY(-50%); /* Ajusta o posicionamento vertical */
+    cursor: pointer;
+}
+
+.login-button {
+    background-color: #516EFF; /* Cor azul */
+    color: white;
+    padding: 10px 40px; /* Aumenta a largura e ajusta a altura */
+    border: none;
+    border-radius: 50px; /* Cantos arredondados */
+    cursor: pointer;
+    font-size: 14px; /* Aumenta o tamanho da fonte para melhor legibilidade */
+    font-weight: bold; /* Texto em negrito */
+    margin-top: 10px;
+    display: inline-block; /* Ajusta o botão para o tamanho do conteúdo */
+    text-align: center; /* Centraliza o texto no botão */
+}
+
+.login-button:hover {
+    background-color: #3e4a9f; /* Cor mais escura para hover */
+}
+
+
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    color: #516EFF; /* Cor azul */
+    font-size: 14px;
+    text-decoration: none;
+    /* Removida a borda e padding do link */
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

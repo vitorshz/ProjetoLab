@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fa12ed34-dbda-48a4-b2e8-fa576af8e9bd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<image>
+				<reportElement x="102" y="4" width="397" height="102" uuid="9107c4f7-435d-4851-ba61-d163b18fae8b"/>
+				<imageExpression><![CDATA["C:\\Users\\vinid\\Desktop\\Site projeto\\img\\LabManager-26-08-2024 (3).png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<rectangle>
+				<reportElement x="22" y="21" width="520" height="60" uuid="d330986b-b8be-46a7-9288-0c7825a82dd8"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="224" y="1" width="131" height="20" uuid="16364afb-c67f-4195-b561-af9d8a99b287"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Analises Clinicas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="21" width="52" height="20" uuid="5c3a3e77-cb13-49d1-8e18-e985ddd705f8"/>
+				<text><![CDATA[Paciente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="41" width="52" height="20" uuid="84263095-bfc7-4997-918c-aa9ecb322eb7"/>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="61" width="52" height="20" uuid="45dae58b-9e1f-483a-a7e1-d8862cc3e261"/>
+				<text><![CDATA[Convênio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="41" width="52" height="20" uuid="5f23ce43-8119-4107-a3c9-2dc24a941657"/>
+				<text><![CDATA[Endereço:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="61" width="52" height="20" uuid="e5f10c4b-70f9-4792-8fcf-93c29c282341"/>
+				<text><![CDATA[Medico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="21" width="52" height="20" uuid="f7997df6-5bad-4b8b-a04e-302eee94d8c3"/>
+				<text><![CDATA[RG:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="21" width="52" height="20" uuid="b1c61c08-0499-43da-b64e-17aa9a73be37"/>
+				<text><![CDATA[Idade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="41" width="70" height="20" uuid="67fd7198-7c29-4f70-8d73-9a8ba7547e6e"/>
+				<text><![CDATA[Data Req..:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="61" width="70" height="20" uuid="f50d7cb0-d8f2-4a22-bb17-60693fd5cf53"/>
+				<text><![CDATA[Data Emiss..:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="75" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="119" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="95" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="127" splitType="Stretch">
+			<image>
+				<reportElement x="367" y="7" width="154" height="120" uuid="43c9c075-9d45-4012-96fe-e26c4bafdf89"/>
+				<imageExpression><![CDATA["C:\\Users\\vinid\\Desktop\\Site projeto\\img\\5.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</summary>
+</jasperReport>
