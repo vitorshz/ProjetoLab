@@ -440,21 +440,56 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_pesquisaGuiaFieldKeyPressed
 
     private void btnEnviarparaSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarparaSiteActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Selecione o PDF para Enviar");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int selectedRow = tablePaciente.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Nenhuma guia selecionada.");
+            return;
+        }
 
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File pdfSelecionado = fileChooser.getSelectedFile();
+        try {
+            // Obter a guia selecionada
+            Guia guia = obterGuiaSelecionada(selectedRow);
 
-            if (pdfSelecionado != null && pdfSelecionado.exists()) {
-                String urlServidor = "http://localhost:8080/api/pdfs/upload";
-                String resposta = HttpClientUtil.enviarArquivo(urlServidor, pdfSelecionado);
-
-                JOptionPane.showMessageDialog(this, resposta);
-            } else {
-                JOptionPane.showMessageDialog(this, "Nenhum arquivo válido selecionado.");
+            if (guia == null) {
+                JOptionPane.showMessageDialog(this, "Guia não encontrada.");
+                return;
             }
+
+            // Pega o ID do paciente diretamente da guia
+            Long pacienteId = guia.getPaciente().getId();
+
+            // Criar o arquivo PDF na pasta temporária
+            String nomePaciente = guia.getPaciente().getNome().replaceAll(" ", "_");
+            String dataAtual = LocalDate.now().toString();
+            String diretorioTemp = System.getProperty("java.io.tmpdir"); // Diretório temporário do sistema
+            String caminhoArquivo = diretorioTemp + File.separator + "Exames_" + nomePaciente + "_" + dataAtual + ".pdf";
+
+            // Gerar o PDF no caminho especificado
+            gerarPDF(caminhoArquivo, guia, obterResultadosExame(guia));
+
+            // Verificar se o arquivo foi gerado corretamente
+            File arquivoPDF = new File(caminhoArquivo);
+            if (!arquivoPDF.exists()) {
+                JOptionPane.showMessageDialog(this, "Erro ao gerar o PDF da guia selecionada.");
+                return;
+            }
+
+            // Enviar o PDF para o servidor
+            String urlServidor = "http://localhost:8080/api/pdfs/upload";
+            System.out.println("paciente id::" +pacienteId);
+            String resposta = HttpClientUtil.enviarArquivoComPaciente(urlServidor, arquivoPDF, pacienteId);
+
+            // Exibir mensagem de sucesso ou erro
+            JOptionPane.showMessageDialog(this, resposta);
+
+            // Opcional: Deletar o arquivo local após envio
+            if (arquivoPDF.exists()) {
+                arquivoPDF.delete();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao enviar a guia: " + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnEnviarparaSiteActionPerformed
 

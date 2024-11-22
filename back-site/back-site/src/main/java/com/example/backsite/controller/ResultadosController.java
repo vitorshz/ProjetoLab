@@ -39,36 +39,5 @@ public class ResultadosController {
         return "resultados";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> downloadResultado(@PathVariable Long id) {
-        ResultadosExame resultado = resultadosExameRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Resultado não encontrado"));
-
-        return ResponseEntity.ok()
-                .header("Content-Type", "application/pdf")
-                .header("Content-Disposition", "inline; filename=resultado.pdf")
-                .body(resultado.getPdfResultado());
-    }
-
-
-    @PostMapping
-    public ResponseEntity<ResultadosExame> salvarResultado(@RequestBody ResultadosExame resultadoExame) {
-        return ResponseEntity.ok(resultadosExameService.salvar(resultadoExame));
-    }
-
-    @GetMapping("/guia/{guiaId}")
-    public ResponseEntity<List<ResultadosExame>> buscarPorGuia(@PathVariable Long guiaId) {
-        return ResponseEntity.ok(resultadosExameService.buscarPorGuiaId(guiaId));
-    }
-
-    @GetMapping("/exame/{exameId}")
-    public ResponseEntity<List<ResultadosExame>> buscarPorExame(@PathVariable Long exameId) {
-        return ResponseEntity.ok(resultadosExameService.buscarPorExameId(exameId));
-    }
-
-    @GetMapping("/guia/{guiaId}/exame/{exameId}")
-    public ResponseEntity<List<ResultadosExame>> buscarPorGuiaEExame(@PathVariable Long guiaId, @PathVariable Long exameId) {
-        return ResponseEntity.ok(resultadosExameService.buscarPorGuiaEExame(guiaId, exameId));
-    }
 }
 

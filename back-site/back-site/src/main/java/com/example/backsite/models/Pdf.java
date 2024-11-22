@@ -12,6 +12,7 @@ public class Pdf {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false)
     private String fileName;
 
@@ -53,4 +54,6 @@ public class Pdf {
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
+
+
 }
