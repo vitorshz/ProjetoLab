@@ -8,6 +8,7 @@ import br.unipar.projetolab.models.GuiaExame;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -297,9 +298,9 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelBtnSelecionarExames, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                    .addComponent(panelExame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, 48))
+                    .addComponent(panelExame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBtnSelecionarExames, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         fecharBtn.setBackground(new java.awt.Color(243, 255, 229));
@@ -338,7 +339,7 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
     private void codigoField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoField2KeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) { // Verifica se a tecla pressionada foi ENTER
             try {
-                Long guiaId = Long.parseLong(codigoField.getText()); // Obtém o ID digitado
+                Long guiaId = Long.parseLong(codigoField2.getText()); // Obtém o ID digitado
                 GuiaDAO guiaDAO = new GuiaDAOImp(EntityManagerUtil.getManager());
                 Guia guia = guiaDAO.findById(guiaId);
 
@@ -399,25 +400,15 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField codigoField;
     private javax.swing.JTextField codigoField2;
-    private javax.swing.JTextField convenioCodigoField;
     private javax.swing.JTextField convenioCodigoField2;
-    private javax.swing.JTextField convenioNomeField;
     private javax.swing.JTextField convenioNomeField2;
-    private javax.swing.JTextField exameCodigoField;
     private javax.swing.JTextField exameCodigoField2;
-    private javax.swing.JTextField exameNomeField;
-    private javax.swing.JTextField exameNomeField1;
     private javax.swing.JTextField exameNomeField4;
     private javax.swing.JTextField exameNomeField5;
     private javax.swing.JList<String> examesList;
     private javax.swing.JButton fecharBtn;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -426,30 +417,20 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField medicoCodigoField;
     private javax.swing.JTextField medicoCodigoField2;
-    private javax.swing.JTextField medicoNomeField;
     private javax.swing.JTextField medicoNomeField2;
-    private javax.swing.JTextField nascField;
     private javax.swing.JTextField nascField2;
-    private javax.swing.JTextField nomeField;
     private javax.swing.JTextField nomeField2;
     private javax.swing.JPanel panelBtnSelecionarExames;
     private javax.swing.JPanel panelExame;
-    private javax.swing.JButton selecionarGuiabtn;
     private javax.swing.JButton selecionarGuiabtn2;
     // End of variables declaration//GEN-END:variables
 
+    
+    
     private void carregarGuia(Guia guia) {
         resetarTela();
 
@@ -509,20 +490,21 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
         panelBtnSelecionarExames.revalidate();
         panelBtnSelecionarExames.repaint();
     }
+    
     private void mostrarDetalhesExame(GuiaExame guiaExame) {
         panelExame.removeAll(); // Limpa o painel antes de adicionar novos detalhes
 
         if (guiaExame == null || guiaExame.getExame() == null) {
-            JOptionPane.showMessageDialog(this, "Exame inválido ou não selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Exame inválido ou não selecionado.");
             return;
         }
 
-        // Adiciona o painel de detalhes
         try {
             ExameCarregaPanel detalhesPanel = new ExameCarregaPanel(guiaExame.getExame(), guiaExame.getGuia(), guiaExame);
             panelExame.add(detalhesPanel, BorderLayout.CENTER);
+            System.out.println("Painel de detalhes do exame adicionado.");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar os detalhes do exame: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar os detalhes do exame: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -530,29 +512,33 @@ public class ResultadoExamePanel extends javax.swing.JPanel {
         panelExame.repaint();
     }
 
+
     private void resetarTela() {
-    codigoField2.setText(""); // Usar sempre codigoField2 (inicializado no initComponents)
-    nomeField2.setText("");
-    nascField2.setText("");
-    medicoCodigoField2.setText("");
-    medicoNomeField2.setText("");
-    convenioCodigoField2.setText("");
-    convenioNomeField2.setText("");
-    exameCodigoField2.setText("");
-    exameNomeField4.setText("");
-    exameNomeField5.setText("");
+        codigoField2.setText("");
+        nomeField2.setText("");
+        nascField2.setText("");
+        medicoCodigoField2.setText("");
+        medicoNomeField2.setText("");
+        convenioCodigoField2.setText("");
+        convenioNomeField2.setText("");
+        exameCodigoField2.setText("");
+        exameNomeField4.setText("");
+        exameNomeField5.setText("");
 
-    // Limpar lista de exames
-    examesList.setModel(new DefaultListModel<>());
+        // Limpar lista de exames
+        examesList.setModel(new DefaultListModel<>());
 
-    // Limpar painel de detalhes
-    panelExame.removeAll();
-    panelExame.revalidate();
-    panelExame.repaint();
+        // Limpar painel de detalhes
+        panelExame.removeAll();
+        panelExame.setLayout(new BorderLayout());
+        panelExame.revalidate();
+        panelExame.repaint();
 
-    panelBtnSelecionarExames.revalidate();
-    panelBtnSelecionarExames.repaint();
-}
+        panelBtnSelecionarExames.revalidate();
+        panelBtnSelecionarExames.repaint();
+        System.out.println("Tela resetada.");
+    }
+
 
 
 

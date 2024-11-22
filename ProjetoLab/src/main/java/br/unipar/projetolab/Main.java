@@ -19,6 +19,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,11 @@ public class Main extends javax.swing.JFrame {
     private Timer resultadoTimer;
     private int cadastroHeight = 0;
     private int resultadoHeight = 0;
+    
+    // Adicionando as variáveis de controle para o dropdown de Exames
+    private boolean isExamesExpanded = false;
+    private Timer examesTimer;
+    private int examesHeight = 0;
     
     public Main() {
 
@@ -318,9 +324,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(btnCadastros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultadoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(sideBarLayout.createSequentialGroup()
-                .addComponent(panelExames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(panelExames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRelatorios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnExames, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -531,20 +535,17 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResultadosActionPerformed
 
     private void btnInclusaoExames1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInclusaoExames1ActionPerformed
-         // Inicializar o painel inicial
+        ResultadoExamePanel resultadoExamePanel = new ResultadoExamePanel(telaSubtsPanel);
         telaSubtsPanel.removeAll();
-        ResultadoExamePanel requisicaoCadPanel = new ResultadoExamePanel(telaSubtsPanel);
-
-        // Adicionar o painel inicial à tela principal
-        telaSubtsPanel.add(requisicaoCadPanel, java.awt.BorderLayout.CENTER);
-
-        // Atualizar a interface
+        telaSubtsPanel.add(resultadoExamePanel, BorderLayout.CENTER);
         telaSubtsPanel.revalidate();
         telaSubtsPanel.repaint();
+
+
     }//GEN-LAST:event_btnInclusaoExames1ActionPerformed
 
     private void btnExamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExamesActionPerformed
-                // TODO add your handling code here:
+        toggleExamesDropdown(); 
     }//GEN-LAST:event_btnExamesActionPerformed
 
     private void btnEstruturaExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstruturaExameActionPerformed
@@ -573,17 +574,17 @@ public class Main extends javax.swing.JFrame {
         telaSubtsPanel.repaint();
     }//GEN-LAST:event_cadastroExameActionPerformed
     
-    // Configuração inicial dos dropdowns
+    // Atualização do setup inicial para incluir Exames
     private void setupDropdowns() {
-        // Inicialmente esconder os painéis que contêm os botões de cada seção
         cadastroPanel.setVisible(false);
         resultadoPanel.setVisible(false);
+        panelExames.setVisible(false);
 
-        // Configura as setas iniciais para os botões de "Cadastros" e "Resultados"
-        updateArrowIcons();
+        updateArrowIcons(); // Atualiza as setas iniciais
     }
 
-    // Atualiza as setas de cada botão conforme o estado expandido ou recolhido
+    // Modificação para atualizar os ícones do dropdown
+
     private void updateArrowIcons() {
         if (isCadastroExpanded) {
             btnCadastros.setText("Cadastros    ↓");
@@ -596,7 +597,61 @@ public class Main extends javax.swing.JFrame {
         } else {
             btnResultados.setText("Resultados    →");
         }
+
+        if (isExamesExpanded) {
+            btnExames.setText("Exames    ↓");
+        } else {
+            btnExames.setText("Exames    →");
+        }
     }
+    // Métodos para alternar o estado do dropdown de Exames
+
+    private void toggleExamesDropdown() {
+        if (isExamesExpanded) {
+            collapseExamesDropdown();
+        } else {
+            expandExamesDropdown();
+        }
+        updateArrowIcons(); // Atualiza a seta após a mudança
+    }
+
+    private void expandExamesDropdown() {
+        isExamesExpanded = true;
+        panelExames.setVisible(true); // Mostrar o painel dos botões
+        examesHeight = 0;
+        examesTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                examesHeight += 5;
+                panelExames.setPreferredSize(new Dimension(221, examesHeight));
+                panelExames.revalidate();
+                panelExames.repaint();
+                if (examesHeight >= 80) { // Ajuste conforme a quantidade de botões
+                    examesTimer.stop();
+                }
+            }
+        });
+        examesTimer.start();
+    }
+
+    private void collapseExamesDropdown() {
+        isExamesExpanded = false;
+        examesTimer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                examesHeight -= 5;
+                panelExames.setPreferredSize(new Dimension(221, examesHeight));
+                panelExames.revalidate();
+                panelExames.repaint();
+                if (examesHeight <= 0) {
+                    panelExames.setVisible(false); // Esconder o painel ao recolher
+                    examesTimer.stop();
+                }
+            }
+        });
+        examesTimer.start();
+    }
+
 
     // Alternar dropdown de "Cadastros"
     private void toggleCadastroDropdown() {
