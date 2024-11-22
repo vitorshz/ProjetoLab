@@ -35,6 +35,9 @@ public class Exame {
     @Column(name = "tipomaterial", nullable = false, length = 50)
     private String tipomaterial;
 
+    public Exame(Long exameId) {
+    }
+
     public Long getId() {
         return id;
     }

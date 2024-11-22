@@ -4,6 +4,7 @@
  */
 package br.unipar.projetolab.views; 
 
+import br.unipar.projetolab.Main;
 import br.unipar.projetolab.models.Operador;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import javax.persistence.EntityManager;

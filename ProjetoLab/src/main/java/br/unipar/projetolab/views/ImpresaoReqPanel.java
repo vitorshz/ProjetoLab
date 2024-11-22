@@ -11,6 +11,7 @@ import br.unipar.projetolab.models.Guia;
 import br.unipar.projetolab.models.GuiaExame;
 import br.unipar.projetolab.models.ResultadoExame;
 import br.unipar.projetolab.utils.EntityManagerUtil;
+import br.unipar.projetolab.utils.HttpClientUtil;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -61,6 +62,7 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
         tablePaciente = new javax.swing.JTable();
         baixarpdfBtn = new javax.swing.JButton();
         ImprmiBtn1 = new javax.swing.JButton();
+        btnEnviarparaSite = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         pesquisaGuiaField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -137,7 +139,7 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
                 baixarpdfBtnActionPerformed(evt);
             }
         });
-        jPanel3.add(baixarpdfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 350, -1, -1));
+        jPanel3.add(baixarpdfBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
 
         ImprmiBtn1.setBackground(new java.awt.Color(243, 255, 229));
         ImprmiBtn1.setText("Imprimir");
@@ -146,7 +148,16 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
                 ImprmiBtn1ActionPerformed(evt);
             }
         });
-        jPanel3.add(ImprmiBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, -1, -1));
+        jPanel3.add(ImprmiBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, -1, -1));
+
+        btnEnviarparaSite.setBackground(new java.awt.Color(243, 255, 229));
+        btnEnviarparaSite.setText("Enviar p Site");
+        btnEnviarparaSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarparaSiteActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnEnviarparaSite, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 100, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Requisição*:");
@@ -228,15 +239,16 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Pesquisarbtn)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fecharBtn)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(fecharBtn)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,11 +263,12 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
                         .addComponent(pesquisaGuiaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fecharBtn)
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fecharBtn)
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -426,11 +439,31 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pesquisaGuiaFieldKeyPressed
 
+    private void btnEnviarparaSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarparaSiteActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Selecione o PDF para Enviar");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File pdfSelecionado = fileChooser.getSelectedFile();
+
+            if (pdfSelecionado != null && pdfSelecionado.exists()) {
+                String urlServidor = "http://localhost:8080/api/pdfs/upload";
+                String resposta = HttpClientUtil.enviarArquivo(urlServidor, pdfSelecionado);
+
+                JOptionPane.showMessageDialog(this, resposta);
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum arquivo válido selecionado.");
+            }
+        }
+    }//GEN-LAST:event_btnEnviarparaSiteActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ImprmiBtn1;
     private javax.swing.JButton Pesquisarbtn;
     private javax.swing.JButton baixarpdfBtn;
+    private javax.swing.JButton btnEnviarparaSite;
     private javax.swing.JButton fecharBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;

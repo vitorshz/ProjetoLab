@@ -19,6 +19,10 @@ public class ResultadosExame {
     @JoinColumn(name = "guia_id", nullable = false)
     private Guia guia;
 
+    @Lob
+    @Column(name = "pdf_resultado")
+    private byte[] pdfResultado;
+
     public Long getId() {
         return id;
     }
@@ -43,4 +47,11 @@ public class ResultadosExame {
         this.guia = guia;
     }
 
+    public byte[] getPdfResultado() {
+        return pdfResultado;
+    }
+
+    public void setPdfResultado(byte[] pdfResultado) {
+        this.pdfResultado = pdfResultado;
+    }
 }

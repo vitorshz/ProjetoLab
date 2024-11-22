@@ -4,47 +4,38 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "guia")
 public class Guia {
     @Id
-    @ColumnDefault("nextval('guia_id_seq'::regclass)")
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "cartao_sus")
     private String cartaoSus;
-
-    @Column(name = "datacadastro", nullable = false)
     private Instant datacadastro;
-
-    @Column(name = "dataconclusao")
     private Instant dataconclusao;
 
-    @Column(name = "particular", nullable = false)
-    private Boolean particular = false;
-
-    @Column(name = "valordevido")
+    private Boolean particular;
     private Double valordevido;
-
-    @Column(name = "valorpago")
     private Double valorpago;
-
-    @Column(name = "valortotal")
     private Double valortotal;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "convenio_id")
     private Convenio convenio;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
+
+    @OneToMany(mappedBy = "guia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ResultadosExame> resultadosExames;
+
+    public Guia(Long guiaId) {
+    }
 
     public Long getId() {
         return id;
@@ -134,4 +125,11 @@ public class Guia {
         this.paciente = paciente;
     }
 
+    public List<ResultadosExame> getResultadosExames() {
+        return resultadosExames;
+    }
+
+    public void setResultadosExames(List<ResultadosExame> resultadosExames) {
+        this.resultadosExames = resultadosExames;
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.backsite.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
@@ -12,50 +9,48 @@ import java.time.Instant;
 @Table(name = "pdfs")
 public class Pdf {
     @Id
-    @ColumnDefault("nextval('pdfs_id_seq'::regclass)")
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "nome", nullable = false)
-    private String nome;
+    @Column(nullable = false)
+    private String fileName;
 
-    @Column(name = "caminho", nullable = false)
-    private String caminho;
+    @Column(nullable = false)
+    private String filePath;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "data_envio")
-    private Instant dataEnvio;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "paciente_id", nullable = false)
+    private Paciente paciente;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public String getCaminho() {
-        return caminho;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public Instant getDataEnvio() {
-        return dataEnvio;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setDataEnvio(Instant dataEnvio) {
-        this.dataEnvio = dataEnvio;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
-
 }
