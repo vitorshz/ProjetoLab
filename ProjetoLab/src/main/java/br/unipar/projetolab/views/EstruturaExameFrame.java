@@ -15,6 +15,7 @@ import br.unipar.projetolab.models.Exame;
 import br.unipar.projetolab.tablemodels.EstruturaExameTableModel;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import br.unipar.projetolab.views.ExamePesquisaFrame;
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,18 +23,15 @@ import javax.persistence.EntityTransaction;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
-/**
- *
- * @author vinid
- */
 public class EstruturaExameFrame extends javax.swing.JPanel implements ExameSelecionadoListener {
 
     private EstruturaExame estruturaExameAtual;
     private Exame exameAtual;
     
-    public EstruturaExameFrame() {
+    public EstruturaExameFrame(JPanel telaSubtsPanel) {
         initComponents();
         
         configurarTabela();
@@ -163,20 +161,21 @@ public class EstruturaExameFrame extends javax.swing.JPanel implements ExameSele
                                 .addGap(41, 41, 41)
                                 .addComponent(metodoField))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
-                                .addComponent(tipoMaterialField))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(selecionaExamebtn))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nomeField, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tipoMaterialField))))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(codigoField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selecionaExamebtn)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(470, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -454,7 +453,12 @@ public class EstruturaExameFrame extends javax.swing.JPanel implements ExameSele
     }//GEN-LAST:event_excluirBtnActionPerformed
 
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-        
+        Container parent = this.getParent();
+        if (parent != null) {
+            parent.remove(this); // Remove o JPanel do container pai
+            parent.revalidate(); // Atualiza o layout
+            parent.repaint();    // Repaint para refletir as mudanças
+        }
     }//GEN-LAST:event_fecharBtnActionPerformed
 
 

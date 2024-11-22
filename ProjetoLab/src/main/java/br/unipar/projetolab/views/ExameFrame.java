@@ -12,7 +12,9 @@ import br.unipar.projetolab.interfaces.ExameSelecionadoListener;
 import br.unipar.projetolab.models.Exame;
 import br.unipar.projetolab.utils.EntityManagerUtil;
 import br.unipar.projetolab.views.ExamePesquisaFrame;
+import java.awt.Container;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,7 +24,7 @@ public class ExameFrame extends javax.swing.JPanel implements ExameSelecionadoLi
 
     private Exame exameAtual;
     
-    public ExameFrame() {
+    public ExameFrame(JPanel telaSubtsPanel) {
         initComponents();
         
     }
@@ -258,7 +260,12 @@ public class ExameFrame extends javax.swing.JPanel implements ExameSelecionadoLi
     }//GEN-LAST:event_precoFieldActionPerformed
 
     private void fecharBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharBtnActionPerformed
-       
+        Container parent = this.getParent();
+        if (parent != null) {
+            parent.remove(this); // Remove o JPanel do container pai
+            parent.revalidate(); // Atualiza o layout
+            parent.repaint();    // Repaint para refletir as mudanças
+        }
     }//GEN-LAST:event_fecharBtnActionPerformed
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirBtnActionPerformed

@@ -5,6 +5,7 @@ C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\OperadorFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\PacienteDAOImp.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\PacienteTableModel.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\ResultadoExamePanel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\tablemodels\GuiaTableModel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\PacienteFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\RequisicaoExamesPanel.java
@@ -57,6 +58,7 @@ C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\ConvenioPesquisaFrame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\DTO\PacienteDTO.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\CampoResultadoExame.java
+C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\OperadorFrame_1.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\models\ResultadoExame.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\views\ExameCarregaPanel.java
 C:\Users\vitor\OneDrive\Documentos\GitHub\ProjetoLab\ProjetoLab\src\main\java\br\unipar\projetolab\dao\PacienteDAO.java
