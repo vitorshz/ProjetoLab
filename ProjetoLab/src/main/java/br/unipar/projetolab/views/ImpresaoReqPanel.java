@@ -463,7 +463,7 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
             String dataAtual = LocalDate.now().toString();
             String diretorioTemp = System.getProperty("java.io.tmpdir"); // Diretório temporário do sistema
             String caminhoArquivo = diretorioTemp + File.separator + "Exames_" + nomePaciente + "_" + dataAtual + ".pdf";
-
+            
             // Gerar o PDF no caminho especificado
             gerarPDF(caminhoArquivo, guia, obterResultadosExame(guia));
 
@@ -487,6 +487,8 @@ public class ImpresaoReqPanel extends javax.swing.JPanel {
                 arquivoPDF.delete();
             }
 
+            removerLinhaPaciente(selectedRow);
+            limparExamesDaTabela(); // Limpa todos os exames da tabela
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao enviar a guia: " + e.getMessage());
             e.printStackTrace();

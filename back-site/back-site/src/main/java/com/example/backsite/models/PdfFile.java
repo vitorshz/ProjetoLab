@@ -3,6 +3,7 @@ package com.example.backsite.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "pdf_file")
 public class PdfFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
