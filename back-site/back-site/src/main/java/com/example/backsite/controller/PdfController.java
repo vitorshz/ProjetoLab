@@ -77,39 +77,56 @@ public class PdfController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao enviar arquivo: " + e.getMessage());
         }
     }
-
     /**
      * Visualizar PDF diretamente no navegador
      */
     @GetMapping("/view/{id}")
     public ResponseEntity<byte[]> viewPdf(@PathVariable Long id) {
-        Optional<PdfFile> pdfFileOptional = pdfFileService.getPdfById(id);
-        if (pdfFileOptional.isPresent()) {
-            PdfFile pdfFile = pdfFileOptional.get();
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
-                    .body(pdfFile.getFileContent());
+        try {
+            // Buscar PDF no banco
+            Optional<Pdf> optionalPdf = pdfRepository.findById(id);
+            if (optionalPdf.isPresent()) {
+                Pdf pdf = optionalPdf.get();
+
+                // Ler conteúdo do arquivo
+                File file = new File(pdf.getFilePath());
+                if (file.exists()) {
+                    byte[] content = Files.readAllBytes(file.toPath());
+                    return ResponseEntity.ok()
+                            .header(HttpHeaders.CONTENT_TYPE, "application/pdf")
+                            .body(content);
+                }
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     /**
-     * Baixar PDF
+     * Baixar PDF como arquivo
      */
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
-        Optional<Pdf> pdfOptional = pdfRepository.findById(id);
-        if (pdfOptional.isPresent()) {
-            Pdf pdf = pdfOptional.get();
-            Optional<PdfFile> pdfFileOptional = pdfFileService.getPdfByFileName(pdf.getFileName());
-            if (pdfFileOptional.isPresent()) {
-                PdfFile pdfFile = pdfFileOptional.get();
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdfFile.getFileName() + "\"")
-                        .body(pdfFile.getFileContent());
+        try {
+            // Buscar PDF no banco
+            Optional<Pdf> optionalPdf = pdfRepository.findById(id);
+            if (optionalPdf.isPresent()) {
+                Pdf pdf = optionalPdf.get();
+
+                // Ler conteúdo do arquivo
+                File file = new File(pdf.getFilePath());
+                if (file.exists()) {
+                    byte[] content = Files.readAllBytes(file.toPath());
+                    return ResponseEntity.ok()
+                            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
+                            .body(content);
+                }
             }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     /**
@@ -124,40 +141,5 @@ public class PdfController {
         return ResponseEntity.ok(pdfs);
     }
 
-    /**
-     * Transformar PDFs existentes no sistema em PdfFile (caso conteúdo binário esteja ausente)
-     */
-    @PostMapping("/convert-to-pdf-file")
-    public ResponseEntity<String> convertExistingPdfsToPdfFile() {
-        try {
-            // Buscar PDFs na tabela `pdfs`
-            List<Pdf> pdfs = pdfRepository.findAll();
-            for (Pdf pdf : pdfs) {
-                // Verificar se já existe um registro em `pdf_file`
-                Optional<PdfFile> existingPdfFile = pdfFileService.getPdfByFileName(pdf.getFileName());
-                if (existingPdfFile.isPresent()) {
-                    continue; // Já convertido, ignorar
-                }
-
-                // Ler o conteúdo do arquivo físico
-                File file = new File(pdf.getFilePath());
-                if (!file.exists()) {
-                    continue; // Arquivo não existe, ignorar
-                }
-
-                byte[] content = Files.readAllBytes(file.toPath());
-
-                // Salvar como `PdfFile`
-                PdfFile pdfFile = new PdfFile();
-                pdfFile.setFileName(pdf.getFileName());
-                pdfFile.setFileContent(content);
-                pdfFileService.save(pdfFile);
-            }
-
-            return ResponseEntity.ok("Todos os PDFs existentes foram convertidos para PdfFile.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao converter PDFs: " + e.getMessage());
-        }
-    }
 }
 

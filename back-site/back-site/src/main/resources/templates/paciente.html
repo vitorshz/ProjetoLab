@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados do Paciente</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img th:src="@{/images/logo.png}" alt="Lab Logo">
+    </div>
+    <h1 th:text="'Bem-vindo, ' + ${paciente.nome}">Bem-vindo, Paciente</h1>
+</header>
+<main>
+    <section>
+        <h2>Seus Resultados</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome do Exame</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pdf : ${pdfs}">
+                <td th:text="${pdf.fileName}">Nome do PDF</td>
+                <td>
+                    <a th:href="@{/api/pdfs/view/{id}(id=${pdf.id})}" target="_blank">Visualizar</a>
+                    <a th:href="@{/api/pdfs/download/{id}(id=${pdf.id})}">Baixar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${#lists.isEmpty(pdfs)}" style="text-align: center; margin-top: 20px;">
+            <p>Nenhum resultado disponível no momento. Por favor, volte mais tarde.</p>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Lab Manager</p>
+</footer>
+</body>
+</html>

@@ -43,6 +43,8 @@ public class Paciente {
     @Column(name = "tiposangue", length = 2)
     private String tiposangue;
 
+
+
     public Long getId() {
         return id;
     }

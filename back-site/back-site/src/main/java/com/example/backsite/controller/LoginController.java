@@ -14,15 +14,4 @@ public class LoginController {
         return "login";
     }
 
-
-    @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, Model model) {
-        // Lógica de autenticação aqui
-        if (username.equals("admin") && password.equals("1234")) {
-            return "redirect:/dashboard";
-        } else {
-            model.addAttribute("error", "Usuário ou senha inválidos");
-            return "login";
-        }
-    }
 }
