@@ -23,6 +23,13 @@ document.getElementById("login-form").addEventListener("submit", async (event) =
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
+    // Verifica se os campos estão vazios
+    if (!username || !password) {
+        alert("Os campos 'Usuário' e 'Senha' não podem estar vazios.");
+        return;
+    }
+
+    // Valida se o CPF nos dois campos é igual
     if (username !== password) {
         alert("Os campos 'Usuário' e 'Senha' devem conter o mesmo CPF!");
         return;
@@ -43,8 +50,6 @@ document.getElementById("login-form").addEventListener("submit", async (event) =
         }
     }
 });
-
-
 
 function formatarCpf(cpf) {
     // Remove caracteres não numéricos

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Convênios - Lab Manager</title>
-    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="stylesheet" th:href="@{/styles/styleconvenios.css}">
     <!-- Adicione o link para o Font Awesome para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -19,7 +19,7 @@
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{/certificados}">Certificados</a></li>
                 <li><a th:href="@{/convenios}" class="active">Convênios</a></li>
-                <li><a th:href="@{/parceiros}">Parceiros</a></li>
+
                 <li><a th:href="@{/duvidas}">Dúvidas</a></li>
                 <li><a th:href="@{/login}" class="button"><i class="fas fa-vial"></i> Resultados Online</a></li>
             </ul>
@@ -29,7 +29,13 @@
 
 <main>
     <div class="container">
-        <!-- Conteúdo principal da página de Convênios pode ser adicionado aqui -->
+        <section class="convenios">
+            <h1>Convênios</h1>
+            <div class="convenio-image">
+                <img src="images/image1.png" alt="Imagem de Convênio">
+            </div>
+            <p class="convenio-description">Aqui você pode encontrar informações detalhadas sobre nossos convênios com parceiros estratégicos. Estamos sempre buscando oferecer os melhores serviços aos nossos clientes.</p>
+        </section>
     </div>
 </main>
 
@@ -52,13 +58,12 @@
         <div class="footer-links">
             <ul>
                 <li><a>Careers</a> |</li>
-                <li><a>PrivacyPolicy</a> |</li>
-                <li><a>TermsConditions</a></li>
+                <li><a>Privacy Policy</a> |</li>
+                <li><a>Terms & Conditions</a></li>
             </ul>
             <p class="footer-note">&copy; 2024 Class Technologies Inc.</p>
         </div>
     </div>
 </footer>
-
 </body>
 </html>

@@ -1,47 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificados - Lab Manager</title>
-    <link rel="stylesheet" th:href="@{/styles/style.css}">
-    <!-- Adicione o link para o Font Awesome para os ícones -->
+    <link rel="stylesheet" href="styles/stylecertficados.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 <header>
     <div class="container">
-        <a th:href="@{/}" class="logo">
-            <img th:src="@{/images/LabManager-26-08-2024(3).png}" alt="Lab Manager Logo">
+        <a href="/" class="logo">
+            <img src="images/LabManager-26-08-2024(3).png" alt="Lab Manager Logo">
         </a>
         <nav>
             <ul>
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/certificados}" class="active">Certificados</a></li>
-                <li><a th:href="@{/convenios}">Convênios</a></li>
-                <li><a th:href="@{/parceiros}">Parceiros</a></li>
-                <li><a th:href="@{/duvidas}">Dúvidas</a></li>
-                <li><a th:href="@{/login}" class="button"><i class="fas fa-vial"></i> Resultados Online</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/certificados" class="active">Certificados</a></li>
+                <li><a href="/convenios">Convênios</a></li>
+
+                <li><a href="/duvidas">Dúvidas</a></li>
+                <li><a href="/login" class="button"><i class="fas fa-vial"></i> Resultados Online</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
 <main>
-    <div class="container">
-        <!-- Conteúdo principal da página de Certificados pode ser adicionado aqui -->
-    </div>
+    <h1>Certificados</h1>
+    <section class="certificados">
+        <div class="container">
+
+            <div class="certificado-item">
+                <img src="images/1.png" alt="PNCQ">
+                <div>
+                    <h2>Programa Nacional de Controle de Qualidade</h2>
+                    <p>Desde 1998, o Laboratório Toledo participa do programa de qualidade, fornecendo excelência em análises clínicas.</p>
+                </div>
+            </div>
+            <div class="certificado-item">
+                <img src="images/2.jpg" alt="Alvará">
+                <div>
+                    <h2>Alvará</h2>
+                    <p>Documentos que garantem a atuação legítima da nossa empresa em Toledo-PR.</p>
+                </div>
+            </div>
+            <div class="certificado-item">
+                <img src="images/2.jpg" alt="Empresa Licenciada">
+                <div>
+                    <h2>Uma Empresa Licenciada</h2>
+                    <p>Licenciada conforme exigências estaduais no Paraná.</p>
+                </div>
+            </div>
+            <div class="certificado-item">
+                <img src="images/3.jpg" alt="Prêmio Destaque Empresarial">
+                <div>
+                    <h2>Prêmio Toledo Destaque Empresarial</h2>
+                    <p>Premiação recebida pela excelência empresarial na cidade de Toledo-PR.</p>
+                </div>
+            </div>
+            <div class="certificado-item">
+                <img src="images/4.jpg" alt="Pesquisa Nacional de Saúde">
+                <div>
+                    <h2>Pesquisa Nacional de Saúde</h2>
+                    <p>Participação nos programas nacionais focados em melhoria da saúde pública.</p>
+                </div>
+            </div>
+            <div class="certificado-item">
+                <img src="images/5.jpeg" alt="Sistema de Gestão de Qualidade">
+                <div>
+                    <h2>Acreditação do Sistema de Gestão de Qualidade</h2>
+                    <p>Garantia de qualidade em análises e atendimento ao público.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <footer>
     <div class="container footer-content">
         <div class="footer-logo">
-            <img th:src="@{/images/LabManager-26-08-2024(2).png}" alt="Lab Manager Logo">
+            <img src="images/LabManager-26-08-2024(2).png" alt="Lab Manager Logo">
         </div>
         <div class="footer-info">
             <div class="contact">
                 <h3>ENTRE EM CONTATO</h3>
-                <p><a th:href="|tel:+554580200009|">(45) 8826-0969</a></p>
+                <p><a href="tel:+554588260969">(45) 8826-0969</a></p>
                 <p><span class="bold">SEGUNDA À SEXTA:</span> MANHÃ: 06:30 ÀS 12:00 | TARDE: 13:10 ÀS 17:30</p>
             </div>
             <div class="address">
@@ -55,10 +99,9 @@
                 <li><a>Privacy Policy</a> |</li>
                 <li><a>Terms & Conditions</a></li>
             </ul>
-            <p class="footer-note">&copy; 2024 Class Technologies Inc.</p>
+            <p class="footer-note">&copy;        2024 Class Technologies Inc.</p>
         </div>
     </div>
 </footer>
-
 </body>
 </html>

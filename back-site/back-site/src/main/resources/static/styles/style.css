@@ -23,7 +23,7 @@ header {
 }
 
 .logo img {
-    height: 70px; 
+    height: 70px;
 }
 
 nav ul {
@@ -68,17 +68,17 @@ nav a.active {
 .hero {
     position: relative;
     padding: 100px 0;
-    background-color: #F8FAFC; 
+    background-color: #F8FAFC;
 }
 
 .hero-background {
-    background-color: #F8FAFC; 
+    background-color: #F8FAFC;
     padding: 30px;
     border-radius: 10px;
     max-width: 100%;
     margin: 0 auto;
-    border-top: 2px solid #000000; 
-    border-bottom: 2px solid #000000; 
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
 }
 
 .hero-content {
@@ -91,7 +91,7 @@ nav a.active {
 
 .hero-text {
     flex: 1;
-    color: #000000; 
+    color: #000000;
 }
 
 .hero-text h1, .hero-text h2 {
@@ -111,7 +111,7 @@ nav a.active {
 }
 
 .hero-image img {
-    max-width: 1000px; 
+    max-width: 1000px;
     height: auto;
     width: 100%;
     border-radius: 15px;
@@ -151,10 +151,10 @@ nav a.active {
     display: flex; /* Alinha os logos lado a lado */
     justify-content: space-around; /* Espaçamento entre os logos */
     align-items: center; /* Alinha os logos verticalmente */
-    background-color: #C0DCF7; 
+    background-color: #C0DCF7;
     padding: 20px;
     border-radius: 10px;
-    border: 2px solid #C0DCF7; 
+    border: 2px solid #C0DCF7;
 }
 
 .logos img {
@@ -180,13 +180,13 @@ footer {
 }
 
 .footer-logo img {
-    height: 80px; 
+    height: 80px;
 }
 
 .footer-info {
     display: flex;
     justify-content: center;
-    gap: 40px; 
+    gap: 40px;
     flex-wrap: wrap;
     text-align: center;
     margin-bottom: 20px;
@@ -198,7 +198,7 @@ footer {
 
 .contact p, .address p {
     margin: 0;
-    color: #000; 
+    color: #000;
 }
 
 .contact {
@@ -210,14 +210,14 @@ footer {
 }
 
 .footer-content h3 {
-    color: #000; 
+    color: #000;
     margin-bottom: 10px;
 }
 
 .footer-content p, .footer-content a {
     line-height: 1.6;
     margin-bottom: 10px;
-    color: #000; 
+    color: #000;
     text-decoration: none;
 }
 
@@ -239,13 +239,13 @@ footer {
 }
 
 .footer-links a {
-    color: #000; 
+    color: #000;
     text-decoration: none;
     text-transform: uppercase;
 }
 
 .footer-note {
     text-align: center;
-    color: #000; 
+    color: #000;
     font-size: 14px;
 }
