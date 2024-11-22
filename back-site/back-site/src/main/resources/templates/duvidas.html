@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dúvidas - Lab Manager</title>
     <link rel="stylesheet" th:href="@{/styles/style.css}">
+
     <!-- Adicione o link para o Font Awesome para os ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -19,7 +20,6 @@
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{/certificados}">Certificados</a></li>
                 <li><a th:href="@{/convenios}">Convênios</a></li>
-                <li><a th:href="@{/parceiros}">Parceiros</a></li>
                 <li><a th:href="@{/duvidas}" class="active">Dúvidas</a></li>
                 <li><a th:href="@{/login}" class="button"><i class="fas fa-vial"></i> Resultados Online</a></li>
             </ul>
@@ -29,7 +29,29 @@
 
 <main>
     <div class="container">
-        <!-- Conteúdo principal da página de Dúvidas pode ser adicionado aqui -->
+        <section class="faq">
+            <h2>Dúvidas Frequentes</h2>
+            <div class="faq-item">
+                <h3 class="faq-question">1. Como devo me preparar para a coleta de sangue?</h3>
+                <p class="faq-answer">Para a coleta de sangue, é importante estar em jejum por pelo menos 8 horas. Evite atividades físicas intensas antes da coleta.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">2. Posso beber água antes da coleta de sangue?</h3>
+                <p class="faq-answer">Sim, você pode beber água normalmente antes da coleta. Isso ajuda a manter o corpo hidratado e facilita o procedimento.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">3. É necessário interromper o uso de medicamentos antes da coleta?</h3>
+                <p class="faq-answer">Em geral, não é necessário interromper o uso de medicamentos. No entanto, é importante consultar seu médico antes da coleta, caso esteja tomando medicamentos específicos.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">4. Quanto tempo leva para sair o resultado dos exames?</h3>
+                <p class="faq-answer">Os resultados geralmente ficam prontos dentro de 3 a 7 dias úteis, dependendo do tipo de exame solicitado.</p>
+            </div>
+            <div class="faq-item">
+                <h3 class="faq-question">5. O que devo fazer se me sentir mal após a coleta?</h3>
+                <p class="faq-answer">Se você se sentir tonto ou mal após a coleta, informe imediatamente ao profissional responsável. Recomenda-se descansar por alguns minutos e, se necessário, tomar água ou um lanche leve.</p>
+            </div>
+        </section>
     </div>
 </main>
 
