@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class PacienteTableModel extends AbstractTableModel {
 
     private List<Paciente> pacientes;
-    private final String[] colunas = {"Código", "Nome", "Data Nasc.", "Endereço"};
+    private final String[] colunas = {"Código", "Nome", "Data Nasc.", "Endereço", "Login"}; // Adicionei "Login"
 
     public PacienteTableModel(List<Paciente> pacientes) {
         this.pacientes = pacientes;
@@ -35,6 +35,8 @@ public class PacienteTableModel extends AbstractTableModel {
                 return paciente.getDataNascimento();
             case 3:
                 return paciente.getEndereco();
+            case 4:
+                return paciente.getLogin(); // Exibe o login
             default:
                 return null;
         }
@@ -49,5 +51,8 @@ public class PacienteTableModel extends AbstractTableModel {
         return pacientes.get(rowIndex);
     }
 
-
+    public void setPacientes(List<Paciente> pacientes) {
+        this.pacientes = pacientes;
+        fireTableDataChanged(); // Atualiza a tabela sempre que a lista de pacientes mudar
+    }
 }

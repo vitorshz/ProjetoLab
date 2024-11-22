@@ -23,9 +23,9 @@ public class Paciente {
     private String endereco;
 
     private String telefone;
-    
+
     @Column(nullable = false)
-    private boolean ativo = true;  // Novo campo, por padrão todos pacientes são ativos
+    private boolean ativo = true;  // Por padrão todos pacientes são ativos
 
     @Column(length = 10)
     private String sexo;  // Masculino ou Feminino
@@ -33,12 +33,20 @@ public class Paciente {
     @Column(length = 2)
     private String tipoSangue;  // A, B, AB, O
 
-    private String fatorRh; 
-    
+    private String fatorRh;
+
+    // Novas variáveis
+    @Column(unique = true, nullable = false, length = 50)
+    private String login; // Login único do paciente
+
+    @Column(nullable = false, length = 100)
+    private String senha; // Senha do paciente (armazenar hash em produção)
+
     public Paciente() {
     }
 
-    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone, String sexo, String tipoSangue, String fatorRh) {
+    public Paciente(Long id, String nome, LocalDate dataNascimento, String cpf, String endereco, String telefone,
+                    String sexo, String tipoSangue, String fatorRh, String login, String senha) {
         this.id = id;
         this.nome = nome;
         this.dataNascimento = dataNascimento;
@@ -48,6 +56,8 @@ public class Paciente {
         this.sexo = sexo;
         this.tipoSangue = tipoSangue;
         this.fatorRh = fatorRh;
+        this.login = login;
+        this.senha = senha;
     }
 
     public Long getId() {
@@ -81,7 +91,7 @@ public class Paciente {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
     public String getCpf() {
         return cpf;
     }
@@ -129,13 +139,27 @@ public class Paciente {
     public void setFatorRh(String fatorRh) {
         this.fatorRh = fatorRh;
     }
-    
-    
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public int calcularIdade() {
         if (dataNascimento == null) {
             return -1; // Retorna -1 para indicar que a data de nascimento não está definida
         }
         return Period.between(dataNascimento, LocalDate.now()).getYears();
     }
-    
 }
