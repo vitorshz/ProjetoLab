@@ -3,6 +3,9 @@ package com.example.backsite.controller;
 import com.example.backsite.models.LoginRequest;
 import com.example.backsite.models.Paciente;
 import com.example.backsite.repository.PacienteRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,12 @@ public class AuthController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Operation(summary = "Autenticar Paciente", description = "Autentica um paciente pelo CPF.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Autenticação bem-sucedida, retorna o ID do paciente."),
+            @ApiResponse(responseCode = "401", description = "CPF inválido."),
+            @ApiResponse(responseCode = "404", description = "Paciente não encontrado.")
+    })
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         // Buscar paciente pelo CPF

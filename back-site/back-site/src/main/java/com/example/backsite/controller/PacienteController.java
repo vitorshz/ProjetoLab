@@ -1,5 +1,8 @@
 package com.example.backsite.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.ui.Model;
 import com.example.backsite.models.Paciente;
 import com.example.backsite.models.Pdf;
@@ -23,6 +26,11 @@ public class PacienteController {
     @Autowired
     private PdfRepository pdfRepository;
 
+    @Operation(summary = "Mostrar Resultados", description = "Exibe os resultados (PDFs) de um paciente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resultados exibidos com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Paciente não encontrado")
+    })
     @GetMapping("/{pacienteId}")
     public String mostrarResultados(@PathVariable Long pacienteId, Model model) {
         // Buscar informações do paciente

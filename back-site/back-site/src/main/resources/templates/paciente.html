@@ -27,17 +27,21 @@
             <tr th:each="pdf : ${pdfs}">
                 <td th:text="${pdf.fileName}">Nome do PDF</td>
                 <td>
-                    <a th:href="@{/api/pdfs/view/{id}(id=${pdf.id})}" target="_blank">Visualizar</a>
-                    <a th:href="@{/api/pdfs/download/{id}(id=${pdf.id})}">Baixar</a>
+                    <a class="btn-visualizar" th:href="@{/api/pdfs/view/{id}(id=${pdf.id})}" target="_blank">Visualizar</a>
+                    <a class="btn-download" th:href="@{/api/pdfs/download/{id}(id=${pdf.id})}">Baixar</a>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div th:if="${#lists.isEmpty(pdfs)}" style="text-align: center; margin-top: 20px;">
+        <div th:if="${#lists.isEmpty(pdfs)}" class="no-results">
             <p>Nenhum resultado disponível no momento. Por favor, volte mais tarde.</p>
         </div>
     </section>
 </main>
+<div class="logout-container">
+    <a href="/logout" class="btn-logout">Sair</a>
+</div>
+
 <footer>
     <p>&copy; 2024 Lab Manager</p>
 </footer>
