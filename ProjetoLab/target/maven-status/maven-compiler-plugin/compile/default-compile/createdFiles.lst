@@ -13,7 +13,6 @@ br\unipar\projetolab\views\ImpresaoReqPanel$6.class
 br\unipar\projetolab\views\LoginFrame$4.class
 br\unipar\projetolab\views\RelatorioRquisicaoPanel$5.class
 br\unipar\projetolab\views\ConvenioFrame$14.class
-br\unipar\projetolab\views\MedicoFrame$13.class
 br\unipar\projetolab\views\EstruturaExameFrame$2.class
 br\unipar\projetolab\views\PacienteFrame$4.class
 br\unipar\projetolab\views\Main$14.class
@@ -140,12 +139,10 @@ br\unipar\projetolab\views\PacienteFrame$1.class
 br\unipar\projetolab\views\ImpresaoReqPanel$3.class
 br\unipar\projetolab\views\OperadorPesquuisaFrame$1.class
 br\unipar\projetolab\views\ConvenioPesquisaFrame$4.class
-br\unipar\projetolab\views\MedicoFrame$7.class
 br\unipar\projetolab\views\MedicoFrame$1.class
 br\unipar\projetolab\dao\ExameDAO.class
 br\unipar\projetolab\views\ConvenioFrame$11.class
 br\unipar\projetolab\views\OperadorFrame$10.class
-br\unipar\projetolab\views\MedicoFrame$10.class
 br\unipar\projetolab\views\CadastroExamesPanel$4.class
 br\unipar\projetolab\views\OperadorPesquuisaFrame$7.class
 br\unipar\projetolab\views\PacienteFrame$7.class
@@ -173,14 +170,12 @@ br\unipar\projetolab\views\PacienteFrame$6.class
 br\unipar\projetolab\dao\CampoResultadoDAOImp.class
 br\unipar\projetolab\views\ConvenioPesquisaFrame$5.class
 br\unipar\projetolab\tablemodels\GuiaTableModel.class
-br\unipar\projetolab\views\MedicoFrame$15.class
-br\unipar\projetolab\views\MedicoFrame$6.class
 br\unipar\projetolab\views\Main$20.class
 br\unipar\projetolab\models\Paciente.class
-br\unipar\projetolab\views\ConvenioFrame$16.class
 br\unipar\projetolab\dao\ConvenioDAOImp.class
 br\unipar\projetolab\views\CadastroExamesPanel.class
 br\unipar\projetolab\views\Main$13.class
+br\unipar\projetolab\views\PacienteFrame$16.class
 br\unipar\projetolab\views\ConvenioFrame$15.class
 br\unipar\projetolab\views\PacientePesquisaFrame$5.class
 br\unipar\projetolab\dao\OperadorDAOImp.class
@@ -189,10 +184,8 @@ br\unipar\projetolab\views\PacienteFrame$8.class
 br\unipar\projetolab\views\ExamePesquisaFrame$4.class
 br\unipar\projetolab\views\MedicoFrame.class
 br\unipar\projetolab\views\OperadorFrame$3.class
-br\unipar\projetolab\views\MedicoFrame$8.class
 br\unipar\projetolab\views\ConvenioFrame$12.class
 br\unipar\projetolab\views\RequisicaoExamesPanel$11.class
-br\unipar\projetolab\views\MedicoFrame$14.class
 br\unipar\projetolab\models\Medico_.class
 br\unipar\projetolab\views\EstruturaExameFrame$10.class
 br\unipar\projetolab\views\EstruturaExameFrame$9.class
@@ -208,7 +201,6 @@ br\unipar\projetolab\views\ExameCarregaPanel$1.class
 br\unipar\projetolab\views\RequisicaoPesquisaFrame$6.class
 br\unipar\projetolab\views\OperadorFrame$5.class
 br\unipar\projetolab\views\ConvenioFrame$13.class
-br\unipar\projetolab\views\MedicoFrame$12.class
 br\unipar\projetolab\models\EstruturaExameLinha.class
 br\unipar\projetolab\tablemodels\PacienteTableModel.class
 br\unipar\projetolab\views\EstruturaExameFrame.class
@@ -221,7 +213,7 @@ br\unipar\projetolab\views\Main$11.class
 br\unipar\projetolab\views\PacientePesquisaFrame.class
 br\unipar\projetolab\views\ConvenioPesquisaFrame.class
 br\unipar\projetolab\views\Main$12.class
-br\unipar\projetolab\views\MedicoFrame$11.class
+br\unipar\projetolab\views\PacienteFrame$15.class
 br\unipar\projetolab\views\PacienteFrame$9.class
 br\unipar\projetolab\tablemodels\MedicoTableModel.class
 br\unipar\projetolab\views\ConvenioFrame$2.class
@@ -229,4 +221,3 @@ br\unipar\projetolab\views\ExamePesquisaFrame$3.class
 br\unipar\projetolab\views\MedicoPesquisaFrame$6.class
 br\unipar\projetolab\views\OperadorFrame$4.class
 br\unipar\projetolab\views\RelatorioRquisicaoPanel$1.class
-br\unipar\projetolab\views\MedicoFrame$9.class

@@ -1,6 +1,8 @@
 
 package br.unipar.projetolab.views;
 
+
+
 import br.unipar.projetolab.models.RequisicaoModel;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -382,7 +384,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPacienteActionPerformed
 
     private void btnConvenioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvenioActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnConvenioActionPerformed
 
     private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
